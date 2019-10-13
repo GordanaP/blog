@@ -11,13 +11,20 @@ class="text-gray-900 antialiased leading-tight">
 
             @include('partials.app._navbar')
 
-            <main class="py-4 container">
+            <div class="blog-header">
+                <div class="container w-4/5">
+                    <h1 class="blog-title">The Bootstrap Blog</h1>
+                    <p class="lead blog-description">An example blog template built with Bootstrap.</p>
+                </div>
+            </div>
+
+            <main class="py-4 container w-4/5">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-8 blog-main">
                         @yield('content')
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-sm-3 offset-sm-1 blog-sidebar">
                         @include('partials.app._side')
                     </div>
                 </div>
