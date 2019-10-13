@@ -6,16 +6,16 @@ class="text-gray-900 antialiased leading-tight">
         @include('partials.app._head')
     </head>
 
-    <body class="min-h-screen bg-white font-sans">
+    <body class="min-h-screen bg-gray-100 font-sans">
         <div id="app">
 
             @include('partials.app._navbar')
 
-            <main class="py-4 container w-4/5">
+            <div class="py-4 container w-3/5 mt-4">
 
                 @yield('content')
 
-            </main>
+            </div>
         </div>
 
         @include('partials.app._scripts')

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-indigo-600 shadow-sm">
+<nav class="navbar navbar-expand-md navbar-light bg-blue-700 shadow-sm">
     <div class="container">
         <a class="navbar-brand text-white no-underline" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -10,7 +10,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item uppercase">
+                    <a class="nav-link text-white"
+                    href="{{ route('articles.index') }}">
+                        All articles
+                    </a>
+                </li>
+                <li class="nav-item uppercase">
+                    <a class="nav-link text-white"
+                    href="{{ route('users.articles.create', Auth::user() ?? '') }}">
+                        New article
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -18,7 +29,7 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link text-white no-underline" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
