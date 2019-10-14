@@ -53,6 +53,23 @@
             @formError(['field' => 'category_id'])@endformError
         </div>
 
+        <!-- Tag -->
+        <div class="form-group mb-3">
+            <p class="mb-1">Tag @asterisks @endasterisks</p>
+            @foreach (\App\Tag::all() as $tag)
+                <input type="checkbox" name="tag_id[]" id="tag_{{ $tag->id }}" value="{{ $tag->id }}"
+                    @if ($ids = old('tag_id', isset($article) ? $article->tags->pluck('id') : null)))
+                        @foreach ($ids as $tag_id)
+                            {{ getChecked($tag->id, $tag_id) }}
+                        @endforeach
+                    @endif
+                />
+                <span class="mr-3">{{ $tag->name }}</span>
+            @endforeach
+
+            @formError(['field' => 'tag_id'])@endformError
+        </div>
+
         <!-- Publish At -->
         <div class="form-group">
             <label for="publish_at">Publishing Date</label>

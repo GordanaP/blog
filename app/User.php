@@ -46,6 +46,10 @@ class User extends Authenticatable
     {
         $article = (new Article)->fill($data);
 
-        return $this->articles()->save($article);
+        $this->articles()->save($article);
+
+        $article->addTags($data['tag_id']);
+
+        return $article;
     }
 }

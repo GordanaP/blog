@@ -16,7 +16,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user', 'category')->published()->latest()->paginate(5);
+        $articles = Article::with('user', 'category', 'tags')
+            ->published()
+            ->latest()
+            ->paginate(5);
 
         return view('welcome', compact('articles'));
     }
@@ -53,6 +56,8 @@ class ArticleController extends Controller
     public function update(ArticleRequest $request, Article $article)
     {
         $article->update($request->validated());
+
+        $article->addTags($request->tag_id);
 
         return redirect()->route('articles.show', $article);
     }

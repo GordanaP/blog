@@ -113,4 +113,14 @@ class Article extends Model
     {
         return $this->status == 0 && $this->publish_at < today();
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->orderBy('name', 'asc');
+    }
+
+    public function addTags(array $tags)
+    {
+        return $this->tags()->sync($tags);
+    }
 }
