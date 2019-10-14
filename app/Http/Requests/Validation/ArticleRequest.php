@@ -31,6 +31,8 @@ class ArticleRequest extends FormRequest
             ],
             'excerpt' => 'required|min:5|max:300',
             'body' => 'required|min:5',
+            'publish_at' => 'nullable|date_format:Y-m-d|after:today()',
+            'status' => 'required|boolean',
         ];
     }
 }

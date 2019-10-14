@@ -175,6 +175,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\ObserverServiceProvider::class,
+        App\Providers\UtilityServiceProvider::class,
+        App\Providers\ComponentServiceProvider::class,
 
     ],
 
@@ -226,6 +228,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'DateFormatter' => App\Facades\DateFormatter::class,
+        'ArticleStatus' => App\Facades\ArticleStatus::class,
 
     ],
 

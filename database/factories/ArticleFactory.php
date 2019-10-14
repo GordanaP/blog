@@ -4,6 +4,7 @@
 
 use App\User;
 use App\Article;
+use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 $factory->define(Article::class, function (Faker $faker) {
@@ -12,6 +13,9 @@ $factory->define(Article::class, function (Faker $faker) {
         'excerpt' => $faker->sentence,
         'body' => $faker->paragraph,
         'user_id' => rand(1, 2),
-        'created_at'=> $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
+        'created_at'=> $created_at = $faker->dateTimeBetween($startDate = '-6 months', $endDate = 'now'),
+        'publish_at'=> Carbon::parse($created_at)->addMonths(random_int(1,6)),
+        'status' => rand(0, 1),
     ];
 });
+

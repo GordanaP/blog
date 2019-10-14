@@ -14,7 +14,7 @@
             <input type="text" name="title" id="title" class="form-control"
             placeholder="Article Title" value="{{ old('title', $article->title ?? null ) }}">
 
-            <p class="text-xs text-danger">{{ $errors->first('title') }}</p>
+            @formError(['field' => 'title'])@endformError
         </div>
 
         <!-- Excerpt -->
@@ -23,7 +23,7 @@
             <textarea name="excerpt" id="excerpt" class="form-control" rows="2"
             placeholder="Article Excerpt">{{ old('excerpt', $article->excerpt ?? null) }}</textarea>
 
-            <p class="text-xs text-danger">{{ $errors->first('excerpt') }}</p>
+            @formError(['field' => 'excerpt'])@endformError
         </div>
 
         <!-- Body -->
@@ -32,7 +32,37 @@
             <textarea name="body" id="body" class="form-control" rows="5"
             placeholder="Article Body">{{ old('body', $article->body ?? null) }}</textarea>
 
-            <p class="text-xs text-danger">{{ $errors->first('body') }}</p>
+            @formError(['field' => 'body'])@endformError
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+            <label for="publish_at">Publishing Date</label>
+            <input type="text" name="publish_at" id="publish_at"
+            class="form-control" placeholder="yyyy-mm-dd"
+            value="{{ old('publish_at', DateFormatter::displayAs('Y-m-d', $article->publish_at ?? null) ) }}">
+
+            @formError(['field' => 'publish_at'])@endformError
+        </div>
+
+        <!-- Approval -->
+        <div class="form-group">
+            <label>Approve publishing</label>
+            <p>
+                @foreach (ArticleStatus::all() as $key => $value)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="status"
+                            id="{{ $value }}" value="{{ $value }}"
+                            {{ getChecked($value, old('status', $article->status ?? null)) }}
+                        >
+                        <label class="form-check-label" for="approve">
+                            {{ ArticleStatus::getKey($value) }}
+                        </label>
+                    </div>
+                @endforeach
+            </p>
+
+            @formError(['field' => 'status'])@endformError
         </div>
 
         <!-- Button -->
