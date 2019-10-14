@@ -22,8 +22,8 @@ trait HasAttributes
         $this->attributes['body'] = ucfirst($value);
     }
 
-    public function getCreatedAtReadableAttribute()
+    public function getPublishAtReadableAttribute()
     {
-        return DateFormatter::readable($this->created_at);
+        return DateFormatter::readable($this->publish_at);
     }
 }

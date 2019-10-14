@@ -14,7 +14,9 @@ class Article extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'excerpt', 'body', 'publish_at', 'status'];
+    protected $fillable = [
+        'title', 'excerpt', 'body', 'category_id', 'publish_at', 'status'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -23,6 +25,16 @@ class Article extends Model
      */
     protected $dates = [
         'publish_at',
+    ];
+
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'status' => 'boolean',
     ];
 
     /**
@@ -38,6 +50,11 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function scopePublished($query)

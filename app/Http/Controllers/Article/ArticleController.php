@@ -16,7 +16,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user')->latest()->paginate(5);
+        $articles = Article::with('user', 'category')->published()->latest()->paginate(5);
 
         return view('welcome', compact('articles'));
     }

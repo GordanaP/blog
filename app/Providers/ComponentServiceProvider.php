@@ -24,5 +24,6 @@ class ComponentServiceProvider extends ServiceProvider
     public function boot()
     {
         Blade::component('components.error', 'formError');
+        Blade::component('components.asterisks', 'asterisks');
     }
 }

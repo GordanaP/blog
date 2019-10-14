@@ -41,4 +41,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Article::class);
     }
+
+    public function createArticle(array $data)
+    {
+        $article = (new Article)->fill($data);
+
+        return $this->articles()->save($article);
+    }
 }

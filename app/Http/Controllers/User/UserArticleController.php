@@ -29,9 +29,7 @@ class UserArticleController extends Controller
      */
     public function store(ArticleRequest $request, User $user)
     {
-        $article = (new Article)->fill($request->validated());
-
-        $user->articles()->save($article);
+        $article = $user->createArticle($request->validated());
 
         return redirect()->route('articles.show', $article);
     }

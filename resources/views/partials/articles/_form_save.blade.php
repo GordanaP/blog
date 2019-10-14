@@ -7,10 +7,11 @@
     @endif
 
     <div class="card card-body">
+        <p class="text-sm mb-3 text-gray-600 font-serif">* Required fields</p>
 
         <!-- Title -->
         <div class="form-group">
-            <label for="title">Title</label>
+            <label for="title">Title @asterisks @endasterisks</label>
             <input type="text" name="title" id="title" class="form-control"
             placeholder="Article Title" value="{{ old('title', $article->title ?? null ) }}">
 
@@ -19,7 +20,7 @@
 
         <!-- Excerpt -->
         <div class="form-group">
-            <label for="excerpt">Excerpt</label>
+            <label for="excerpt">Excerpt @asterisks @endasterisks</label>
             <textarea name="excerpt" id="excerpt" class="form-control" rows="2"
             placeholder="Article Excerpt">{{ old('excerpt', $article->excerpt ?? null) }}</textarea>
 
@@ -28,14 +29,31 @@
 
         <!-- Body -->
         <div class="form-group">
-            <label for="body">Body</label>
+            <label for="body">Body @asterisks @endasterisks</label>
             <textarea name="body" id="body" class="form-control" rows="5"
             placeholder="Article Body">{{ old('body', $article->body ?? null) }}</textarea>
 
             @formError(['field' => 'body'])@endformError
         </div>
 
-        <!-- Title -->
+        <!-- Category -->
+        <div class="form-group">
+            <label for="category_id">Category @asterisks @endasterisks</label>
+            <select name="category_id" id="category_id" class="form-control">
+                <option value="">Select a category</option>
+                @foreach (\App\Category::all() as $category)
+                    <option value="{{ $category->id }}"
+                        {{ getSelected($category->id, old('category_id', $article->category_id ?? null)) }}
+                    >
+                        {{ ucfirst($category->name) }}
+                    </option>
+                @endforeach
+            </select>
+
+            @formError(['field' => 'category_id'])@endformError
+        </div>
+
+        <!-- Publish At -->
         <div class="form-group">
             <label for="publish_at">Publishing Date</label>
             <input type="text" name="publish_at" id="publish_at"
@@ -47,7 +65,7 @@
 
         <!-- Approval -->
         <div class="form-group">
-            <label>Approve publishing</label>
+            <label>Approve publishing @asterisks @endasterisks</label>
             <p>
                 @foreach (ArticleStatus::all() as $key => $value)
                     <div class="form-check form-check-inline">
@@ -56,7 +74,7 @@
                             {{ getChecked($value, old('status', $article->status ?? null)) }}
                         >
                         <label class="form-check-label" for="approve">
-                            {{ ArticleStatus::getKey($value) }}
+                            {{ ucfirst(ArticleStatus::getKey($value)) }}
                         </label>
                     </div>
                 @endforeach

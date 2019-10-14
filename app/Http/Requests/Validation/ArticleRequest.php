@@ -31,6 +31,7 @@ class ArticleRequest extends FormRequest
             ],
             'excerpt' => 'required|min:5|max:300',
             'body' => 'required|min:5',
+            'category_id' => 'required|exists:categories,id',
             'publish_at' => 'nullable|date_format:Y-m-d|after:today()',
             'status' => 'required|boolean',
         ];
