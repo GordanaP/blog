@@ -28,7 +28,7 @@ class CreateArticlesTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')
                 ->onDelete('cascade');
 
-            $table->boolean('status')->default(false);
+            $table->boolean('is_approved')->default(false);
             $table->date('publish_at')->nullable();
             $table->timestamps();
         });

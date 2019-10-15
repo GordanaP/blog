@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Utilities\ArticleStatus;
 use App\Utilities\DateFormatter;
 use Illuminate\Support\ServiceProvider;
+use App\Utilities\ArticleApprovalStatus;
 
 class UtilityServiceProvider extends ServiceProvider
 {
@@ -19,8 +19,8 @@ class UtilityServiceProvider extends ServiceProvider
             return new DateFormatter;
         });
 
-        $this->app->bind('ArticleStatus', function($app){
-            return new ArticleStatus;
+        $this->app->bind('ArticleApprovalStatus', function($app){
+            return new ArticleApprovalStatus;
         });
     }
 

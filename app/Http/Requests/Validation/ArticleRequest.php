@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Validation;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -33,8 +34,11 @@ class ArticleRequest extends FormRequest
             'body' => 'required|min:5',
             'category_id' => 'required|exists:categories,id',
             'tag_id' => 'required|exists:tags,id',
-            'publish_at' => 'nullable|date_format:Y-m-d|after:today()',
-            'status' => 'required|boolean',
+            'is_approved' => 'required|boolean',
+            'publish_at' => [
+                'nullable','required_if:is_approved,1','date_format:Y-m-d',
+                'after:'.Carbon::yesterday()
+            ],
         ];
     }
 }

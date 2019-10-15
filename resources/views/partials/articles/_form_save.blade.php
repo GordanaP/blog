@@ -41,7 +41,7 @@
             <label for="category_id">Category @asterisks @endasterisks</label>
             <select name="category_id" id="category_id" class="form-control">
                 <option value="">Select a category</option>
-                @foreach (\App\Category::all() as $category)
+                @foreach ($categories as $category)
                     <option value="{{ $category->id }}"
                         {{ getSelected($category->id, old('category_id', $article->category_id ?? null)) }}
                     >
@@ -56,7 +56,7 @@
         <!-- Tag -->
         <div class="form-group mb-3">
             <p class="mb-1">Tag @asterisks @endasterisks</p>
-            @foreach (\App\Tag::all() as $tag)
+            @foreach ($tags as $tag)
                 <input type="checkbox" name="tag_id[]" id="tag_{{ $tag->id }}" value="{{ $tag->id }}"
                     @if ($ids = old('tag_id', isset($article) ? $article->tags->pluck('id') : null)))
                         @foreach ($ids as $tag_id)
@@ -70,6 +70,26 @@
             @formError(['field' => 'tag_id'])@endformError
         </div>
 
+        <!-- Approval -->
+        <div class="form-group">
+            <label>Approve publishing @asterisks @endasterisks</label>
+            <p>
+                @foreach ($approval_statuses as $key => $value)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="is_approved"
+                            id="{{ $value }}" value="{{ $value }}"
+                            {{ getChecked($value, old('is_approved', $article->is_approved ?? null)) }}
+                        >
+                        <label class="form-check-label"">
+                             {{ array_search($value, $approval_statuses) }}
+                        </label>
+                    </div>
+                @endforeach
+            </p>
+
+            @formError(['field' => 'is_approved'])@endformError
+        </div>
+
         <!-- Publish At -->
         <div class="form-group">
             <label for="publish_at">Publishing Date</label>
@@ -78,26 +98,6 @@
             value="{{ old('publish_at', DateFormatter::displayAs('Y-m-d', $article->publish_at ?? null) ) }}">
 
             @formError(['field' => 'publish_at'])@endformError
-        </div>
-
-        <!-- Approval -->
-        <div class="form-group">
-            <label>Approve publishing @asterisks @endasterisks</label>
-            <p>
-                @foreach (ArticleStatus::all() as $key => $value)
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="status"
-                            id="{{ $value }}" value="{{ $value }}"
-                            {{ getChecked($value, old('status', $article->status ?? null)) }}
-                        >
-                        <label class="form-check-label" for="approve">
-                            {{ ucfirst(ArticleStatus::getKey($value)) }}
-                        </label>
-                    </div>
-                @endforeach
-            </p>
-
-            @formError(['field' => 'status'])@endformError
         </div>
 
         <!-- Button -->

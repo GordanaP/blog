@@ -2,12 +2,14 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use App\Traits\Article\Scopeable;
 use App\Traits\Article\HasAttributes;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasAttributes;
+    use HasAttributes, Scopeable;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +29,6 @@ class Article extends Model
         'publish_at',
     ];
 
-
     /**
      * The attributes that should be cast to native types.
      *
@@ -35,6 +36,7 @@ class Article extends Model
      */
     protected $casts = [
         'status' => 'boolean',
+        'is_approved' => 'boolean',
     ];
 
     /**
@@ -67,63 +69,6 @@ class Article extends Model
         return $this->hasMany(Comment::class)
             ->with('user')
             ->orderBy('created_at','desc');
-    }
-
-    public function scopePublished($query)
-    {
-        return $query->where('status', 1)
-            ->where('publish_at', '<=', today());
-    }
-
-    public function scopeUnpublished($query)
-    {
-        return $query->where('status', 0);
-    }
-
-    public function scopeWaitPublishing($query)
-    {
-        return $query->where('status', 1)
-            ->where('publish_at', '>', today());
-        ;
-    }
-
-    public function scopeWaitApproval($query)
-    {
-        return $query->where('status', 0)
-            ->where('publish_at', '>=', today());
-        ;
-    }
-
-    public function scopeMissedPublishing($query)
-    {
-        return $query->where('status', 0)
-            ->where('publish_at', '<', today());
-        ;
-    }
-
-    public function isWaitingApproval()
-    {
-        return $this->status == 0 && $this->publish_at >= today();
-    }
-
-    public function isWaitingPublishing()
-    {
-        return $this->status == 1 && $this->publish_at > today();
-    }
-
-    public function isApproved()
-    {
-        return $this->status == 1;
-    }
-
-    public function isPublished()
-    {
-        return $this->status == 1 && $this->publish_at <= today();
-    }
-
-    public function missedPublishing()
-    {
-        return $this->status == 0 && $this->publish_at < today();
     }
 
     public function tags()

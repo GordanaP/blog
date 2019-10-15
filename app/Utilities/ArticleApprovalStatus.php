@@ -4,7 +4,7 @@ namespace App\Utilities;
 
 use App\Utilities\RadioButton;
 
-class ArticleStatus extends RadioButton
+class ArticleApprovalStatus extends RadioButton
 {
     /**
      * { @inheritDocs }

@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -177,6 +177,7 @@ return [
         App\Providers\ObserverServiceProvider::class,
         App\Providers\UtilityServiceProvider::class,
         App\Providers\ComponentServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

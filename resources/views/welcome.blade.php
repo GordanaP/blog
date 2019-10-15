@@ -11,7 +11,7 @@
         <p>There are no articles at present.</p>
     @endforelse
 
-    <div class="mx-auto">
+    {{-- <div class="mx-auto">
         {{ $articles->links() }}
-    </div>
+    </div> --}}
 @endsection

@@ -6,7 +6,6 @@ use App\Facades\DateFormatter;
 
 trait HasAttributes
 {
-
     public function setTitleAttribute($value)
     {
         $this->attributes['title'] = ucwords($value);
@@ -24,6 +23,36 @@ trait HasAttributes
 
     public function getPublishAtReadableAttribute()
     {
-        return DateFormatter::readable($this->publish_at);
+        return optional($this->publish_at)->diffForHumans();
+    }
+
+    public function getIsDraftAttribute()
+    {
+        return is_null($this->publish_at);
+    }
+
+    public function getIsUnpublishedAttribute()
+    {
+        return ! $this->is_approved;
+    }
+
+    public function getIsExpiredAttribute()
+    {
+        return ! $this->is_approved && optional($this->publish_at)->isPast();
+    }
+
+    public function getIsPendingAttribute()
+    {
+        return ! $this->is_approved && optional($this->publish_at)->isFuture();
+    }
+
+    public function getIsWaitingPublishingAttribute()
+    {
+        return $this->is_approved && optional($this->publish_at)->isFuture();
+    }
+
+    public function getIsPublishedAttribute()
+    {
+        return $this->is_approved && optional($this->publish_at)->isPast();
     }
 }
