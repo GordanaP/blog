@@ -24,7 +24,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user', 'category', 'tags')
+        $articles = Article::with('user', 'category', 'tags', 'comments')
+            ->withCount('comments')
             ->published()
             ->latest()
             ->paginate(5);

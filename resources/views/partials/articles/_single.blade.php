@@ -35,13 +35,22 @@
 
     <div class="mb-2">{{ $article->body }}</div>
 
-    <p>
-        @foreach ($article->tags as $tag)
-            <a href="#" class="btn btn-link btn-sm btn-success bg-green-400
-            text-white hover:no-underline">
-                {{ $tag->name }}
-            </a>
-         @endforeach
+    <p class="flex justify-between">
+        <span>
+            @foreach ($article->tags as $tag)
+                <a href="#" class="btn btn-link btn-sm btn-success bg-green-400
+                text-white hover:no-underline">
+                    {{ $tag->name }}
+                </a>
+             @endforeach
+        </span>
+
+        @if (! request()->route('article'))
+            <span>
+                 <i class="fa fa-comments-o" aria-hidden="true"></i>
+                {{ $article->comments->count() }}
+            </span>
+        @endif
     </p>
 
 </div><!-- /.blog-post -->

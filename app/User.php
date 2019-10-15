@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function createArticle(array $data)
     {
         $article = (new Article)->fill($data);
@@ -51,6 +56,16 @@ class User extends Authenticatable
         $article->addTags($data['tag_id']);
 
         return $article;
+    }
+
+    public function addComment($data, $article)
+    {
+        $comment = ((new Comment)->fill($data))
+            ->article()->associate($article);
+
+        $this->comments()->save($comment);
+
+        return $comment;
     }
 
     public function owns($model)

@@ -57,6 +57,18 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function latest_comments()
+    {
+        return $this->hasMany(Comment::class)
+            ->with('user')
+            ->orderBy('created_at','desc');
+    }
+
     public function scopePublished($query)
     {
         return $query->where('status', 1)
