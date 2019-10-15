@@ -52,4 +52,19 @@ class User extends Authenticatable
 
         return $article;
     }
+
+    public function owns($model)
+    {
+        return $this->id == $model->user_id;
+    }
+
+    public function isMe($user)
+    {
+        return $this->id == $user->id;
+    }
+
+    public function isAuthor()
+    {
+        return collect(['g@gmail.com', 'd@gmail.com'])->contains($this->email);
+    }
 }

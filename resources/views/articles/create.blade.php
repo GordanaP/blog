@@ -1,7 +1,6 @@
 @extends('layouts.auth')
 
 @section('content')
-
     <header>
         <h3>Create new article</h3>
         <hr>
@@ -13,5 +12,4 @@
             'button_title' => 'Submit',
         ])
     </main>
-
 @endsection

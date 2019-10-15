@@ -16,12 +16,14 @@
                         All articles
                     </a>
                 </li>
-                <li class="nav-item uppercase">
-                    <a class="nav-link text-white"
-                    href="{{ route('users.articles.create', Auth::user() ?? '') }}">
-                        New article
-                    </a>
-                </li>
+                @can('create', App\Article::class)
+                    <li class="nav-item uppercase">
+                        <a class="nav-link text-white"
+                        href="{{ route('users.articles.create', Auth::user() ?? '') }}">
+                            New article
+                        </a>
+                    </li>
+                @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->

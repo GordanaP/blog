@@ -10,6 +10,14 @@ use App\Http\Requests\Validation\ArticleRequest;
 class ArticleController extends Controller
 {
     /**
+     * Create a new controller instance
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -73,5 +81,19 @@ class ArticleController extends Controller
         $article->delete();
 
         return redirect()->route('articles.index');
+    }
+
+    /**
+     * Authorize the controller methods.
+     *
+     * @return array
+     */
+    protected function resourceAbilityMap()
+    {
+         return [
+            'edit' => 'update',
+            'update' => 'update',
+            'delete' => 'delete',
+        ];
     }
 }

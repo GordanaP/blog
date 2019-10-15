@@ -4,6 +4,7 @@
         <i class="fa fa-pencil fa-sm"></i>
     </a>
 
+
     @include('partials.articles._form_delete', [
         'article' => $article
     ])

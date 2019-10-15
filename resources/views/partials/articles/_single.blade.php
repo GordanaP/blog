@@ -1,5 +1,6 @@
 <div class="blog-post">
 
+    @can('update', $article)
     <div class="mb-3">
         @include('partials.articles._action_buttons', [
             'article' => $article
@@ -9,6 +10,7 @@
             'article' => $article
         ])
     </div>
+    @endcan
 
     <p class="uppercase text-xs tracking-wider font-thin mb-1">
         {{ $article->category->name }}
