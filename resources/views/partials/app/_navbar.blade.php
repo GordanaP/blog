@@ -45,6 +45,9 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a href="{{ route('home') }}"  class="dropdown-item no-underline">
+                                Home
+                            </a>
                             <a class="dropdown-item no-underline" href="{{ route('logout') }}"
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
@@ -56,6 +59,7 @@
                             </form>
                         </div>
                     </li>
+
                 @endguest
             </ul>
         </div>

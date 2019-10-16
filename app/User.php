@@ -37,6 +37,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class);
@@ -45,6 +50,13 @@ class User extends Authenticatable
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function addProfile(array $data)
+    {
+        $profile = (new Profile)->fill($data);
+
+        return $this->profile()->save($profile);
     }
 
     public function createArticle(array $data)
@@ -63,9 +75,7 @@ class User extends Authenticatable
         $comment = ((new Comment)->fill($data))
             ->article()->associate($article);
 
-        $this->comments()->save($comment);
-
-        return $comment;
+        return $this->comments()->save($comment);
     }
 
     public function owns($model)
@@ -81,5 +91,10 @@ class User extends Authenticatable
     public function isAuthor()
     {
         return collect(['g@gmail.com', 'd@gmail.com'])->contains($this->email);
+    }
+
+    public function hasProfile()
+    {
+        return $this->profile;
     }
 }

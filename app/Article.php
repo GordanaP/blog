@@ -20,6 +20,8 @@ class Article extends Model
         'title', 'excerpt', 'body', 'category_id', 'publish_at', 'status'
     ];
 
+    protected $with = ['category'];
+
     /**
      * The attributes that should be mutated to dates.
      *

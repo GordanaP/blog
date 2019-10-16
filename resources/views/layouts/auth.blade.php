@@ -11,7 +11,7 @@ class="text-gray-900 antialiased leading-tight">
 
             @include('partials.app._navbar')
 
-            <div class="py-4 container w-3/5 mt-4">
+            <div class="py-4 container mt-4">
 
                 @yield('content')
 
