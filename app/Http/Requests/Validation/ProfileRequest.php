@@ -27,6 +27,7 @@ class ProfileRequest extends FormRequest
             'first_name' => 'required|max:50',
             'last_name' => 'required|max:50',
             'biography' => 'nullable|max:500',
+            'image' => 'sometimes|image',
         ];
     }
 }

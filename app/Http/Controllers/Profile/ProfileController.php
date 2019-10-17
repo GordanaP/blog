@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 
 use App\Profile;
 use Illuminate\Http\Request;
+use App\Facades\ProfileImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ProfileRequest;
 
@@ -41,6 +42,8 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, Profile $profile)
     {
         $profile->update($request->validated());
+
+        ProfileImageService::manage($profile, $request->avatar);
 
         return view('profiles.show', compact('profile'));
     }

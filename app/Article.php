@@ -82,4 +82,14 @@ class Article extends Model
     {
         return $this->tags()->sync($tags);
     }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function hasImage()
+    {
+        return $this->image;
+    }
 }

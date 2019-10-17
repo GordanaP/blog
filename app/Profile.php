@@ -17,4 +17,14 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function avatar()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function hasAvatar()
+    {
+        return $this->avatar;
+    }
 }

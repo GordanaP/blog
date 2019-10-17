@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use Illuminate\Http\Request;
+use App\Facades\ProfileImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ProfileRequest;
 
@@ -39,6 +40,8 @@ class UserProfileController extends Controller
     public function store(ProfileRequest $request, User $user)
     {
         $profile = $user->addProfile($request->validated());
+
+        ProfileImageService::manage($profile, $request->avatar);
 
         return redirect()->route('profiles.show', $profile);
     }

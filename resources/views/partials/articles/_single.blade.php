@@ -20,6 +20,11 @@
 
     <hr>
 
+    @if ($article->hasImage())
+        <img src="{{ ArticleImageService::getUrl($article->image) }}" class="w-full mb-4"
+        alt="Article Image">
+    @endif
+
     <div class="mb-2">{{ $article->body }}</div>
 
     <p class="flex justify-between">

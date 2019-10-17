@@ -34,6 +34,7 @@ class ArticleRequest extends FormRequest
             'body' => 'required|min:5',
             'category_id' => 'required|exists:categories,id',
             'tag_id' => 'required|exists:tags,id',
+            'image' => 'sometimes|image',
             'is_approved' => 'required|boolean',
             'publish_at' => [
                 'nullable','required_if:is_approved,1','date_format:Y-m-d',

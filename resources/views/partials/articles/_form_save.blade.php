@@ -1,4 +1,4 @@
-<form action="{{ $route }}" method="POST">
+<form action="{{ $route }}" method="POST" enctype="multipart/form-data">
 
     @csrf
 
@@ -68,6 +68,23 @@
             @endforeach
 
             @formError(['field' => 'tag_id'])@endformError
+        </div>
+
+        <!-- Image -->
+        <div class="flex form-group mt-3">
+            <div>
+                <label for="image">Upload image</label>
+                <input type="file" name="image" id="image"
+                class="form-control-file">
+
+                @formError(['field' => 'image'])@endformError
+            </div>
+
+            @if (isset($article) && $article->hasImage())
+                <div class="w-1/4">
+                    <img src="{{ ArticleImageService::getUrl($article->image) }}" alt="Article Image">
+                </div>
+            @endif
         </div>
 
         <!-- Approval -->

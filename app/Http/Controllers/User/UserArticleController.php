@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
+use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
 
@@ -42,6 +43,8 @@ class UserArticleController extends Controller
         $this->authorize('view', $user);
 
         $article = $user->createArticle($request->validated());
+
+        ArticleImageService::manage($article, $request->image);
 
         return redirect()->route('articles.show', $article);
     }

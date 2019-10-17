@@ -1,4 +1,4 @@
-<form action="{{ $route }}" method="POST">
+<form action="{{ $route }}" method="POST" enctype="multipart/form-data">
 
     @csrf
 
@@ -34,6 +34,24 @@
             placeholder="Article biography">{{ old('biography', $profile->biography ?? null) }}</textarea>
 
             @formError(['field' => 'biography'])@endformError
+        </div>
+
+        <!-- Avatar -->
+        <div class="flex form-group mt-3">
+            <div>
+                <label for="avatar">Upload avatar</label>
+                <input type="file" name="avatar" id="avatar"
+                class="form-control-file">
+
+                @formError(['field' => 'biography'])@endformError
+            </div>
+
+            @if (isset($profile) && $profile->hasAvatar())
+                <div class="w-1/4">
+                    <img src="{{ ProfileImageService::getUrl($profile->avatar) }}"
+                    alt="Profile Avatar">
+                </div>`
+            @endif
         </div>
 
         <!-- Button -->

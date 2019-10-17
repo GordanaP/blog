@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Article;
 
 use App\Article;
 use Illuminate\Http\Request;
+use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
 
@@ -24,7 +25,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::with('user', 'category', 'tags', 'comments')
+        $articles = Article::with('user', 'category', 'tags', 'comments', 'image')
             ->withCount('comments')
             ->published()
             ->latest()
@@ -67,6 +68,8 @@ class ArticleController extends Controller
         $article->update($request->validated());
 
         $article->addTags($request->tag_id);
+
+        ArticleImageService::manage($article, $request->image);
 
         return redirect()->route('articles.show', $article);
     }

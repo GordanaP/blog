@@ -10,7 +10,6 @@
 @endsection
 
 @section('content')
-
     <div class="w-4/5 mx-auto">
         <header>
             <h1>Home Page</h1>
@@ -38,8 +37,10 @@
                 </div>
                 <div class="card-body flex flex-col justify-center">
                     <div class="mt-3 mb-2 mx-auto">
-                        <img src="{{ asset('images/profile_default.png') }}"
-                        width="150">
+                        <img src="{{ optional(Auth::user()->profile)->avatar
+                        ? ProfileImageService::getUrl(Auth::user()->profile->avatar)
+                        : asset('images/profile_default.png') }}" width="150" class="rounded-full">
+
                         @if (Auth::user()->hasProfile())
                             @include('partials.profiles._form_delete', [
                                 'profile' => Auth::user()->profile

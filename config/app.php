@@ -178,6 +178,7 @@ return [
         App\Providers\UtilityServiceProvider::class,
         App\Providers\ComponentServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
+        App\Providers\ServiceServiceProvider::class,
 
     ],
 
@@ -231,7 +232,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DateFormatter' => App\Facades\DateFormatter::class,
         'ArticleStatus' => App\Facades\ArticleStatus::class,
-
+        'ArticleImageService' => App\Facades\ArticleImageService::class,
+        'ProfileImageService' => App\Facades\ProfileImageService::class,
     ],
 
 ];
