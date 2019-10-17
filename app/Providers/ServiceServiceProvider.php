@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use App\Services\Images\ImageService;
 use Illuminate\Support\ServiceProvider;
-use App\Services\Images\ArticleImageService;
-use App\Services\Images\ProfileImageService;
+use App\Services\Image\ArticleImageService;
+use App\Services\Image\ProfileImageService;
 
 class ServiceServiceProvider extends ServiceProvider
 {

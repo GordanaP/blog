@@ -15,6 +15,23 @@
     </ol>
 </div>
 
+<!-- Filters -->
+@if (QueryManager::detectsAny($filters))
+    <a href="{{ route('articles.index') }}"
+    class="text-sm text-gray-700 uppercase font-semibold">
+        &times; Remove all filters
+    </a>
+@endif
+
+@foreach ($filters as $filter => $map)
+    @include('partials.articles._filters', [
+        'categories' => $filters['category']->chunk($filters['category']->count()/2),
+        'filter' => $filter,
+        'map' => $map,
+        'routeName' => 'articles.index',
+    ])
+@endforeach
+
 <div class="sidebar-module">
     <h4>Elsewhere</h4>
     <ol class="list-unstyled">

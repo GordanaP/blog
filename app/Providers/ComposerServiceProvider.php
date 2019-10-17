@@ -6,6 +6,7 @@ use App\ViewComposers\TagsComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\ViewComposers\CategoriesComposer;
+use App\ViewComposers\ArticleFiltersMapComposer;
 use App\ViewComposers\ArticleApprovalStatusComposer;
 
 class ComposerServiceProvider extends ServiceProvider
@@ -20,6 +21,7 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('partials.articles._form_save', CategoriesComposer::class);
         View::composer('partials.articles._form_save', TagsComposer::class);
         View::composer('partials.articles._form_save', ArticleApprovalStatusComposer::class);
+        View::composer('partials.app._side', ArticleFiltersMapComposer::class);
     }
 
     /**

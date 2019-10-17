@@ -234,6 +234,7 @@ return [
         'ArticleStatus' => App\Facades\ArticleStatus::class,
         'ArticleImageService' => App\Facades\ArticleImageService::class,
         'ProfileImageService' => App\Facades\ProfileImageService::class,
+        'QueryManager' => App\Facades\QueryManager::class,
     ],
 
 ];

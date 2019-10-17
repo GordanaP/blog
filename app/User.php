@@ -97,4 +97,9 @@ class User extends Authenticatable
     {
         return $this->profile;
     }
+
+    public static function findBy($attribute, $value)
+    {
+        return static::where($attribute, $value)->firstOrFail();
+    }
 }

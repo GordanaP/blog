@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\Images;
+namespace App\Services\Image;
 
-use App\Services\Images\ImageService;
+use App\Services\Image\ImageService;
 
 class ProfileImageService extends ImageService
 {

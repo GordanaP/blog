@@ -40,4 +40,9 @@ trait Scopeable
         return $query->where('is_approved', 1)
             ->where('publish_at', '<=', today());
     }
+
+    public function scopeFilter($query, $postFilterService)
+    {
+        return $postFilterService->apply($query);
+    }
 }

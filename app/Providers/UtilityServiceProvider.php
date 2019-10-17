@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Utilities\QueryManager;
 use App\Utilities\DateFormatter;
 use Illuminate\Support\ServiceProvider;
 use App\Utilities\ArticleApprovalStatus;
@@ -21,6 +22,10 @@ class UtilityServiceProvider extends ServiceProvider
 
         $this->app->bind('ArticleApprovalStatus', function($app){
             return new ArticleApprovalStatus;
+        });
+
+        $this->app->bind('QueryManager', function($app) {
+            return new QueryManager;
         });
     }
 

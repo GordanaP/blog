@@ -3,8 +3,7 @@
 /**
  * Welcome
  */
-Route::get('/', 'Article\ArticleController@index')
-    ->name('articles.index');
+Route::view('/', 'welcome');
 
 /**
  * Auth
@@ -20,7 +19,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  * Article
  */
 Route::resource('articles', 'Article\ArticleController')
-    ->except('index', 'create', 'store');
+    ->except('create', 'store');
 
 /**
  * UserArticle

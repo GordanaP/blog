@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
+use App\Services\Filter\Article\ArticleFilterService;
 
 class ArticleController extends Controller
 {
@@ -23,15 +24,15 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ArticleFilterService $articleFilterService)
     {
-        $articles = Article::with('user', 'category', 'tags', 'comments', 'image')
+        $articles = Article::filter($articleFilterService)
             ->withCount('comments')
-            ->published()
+            // ->published()
             ->latest()
             ->paginate(5);
 
-        return view('welcome', compact('articles'));
+        return view('articles.index', compact('articles'));
     }
 
     /**
