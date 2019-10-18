@@ -7,6 +7,7 @@ use Illuminate\Pipeline\Pipeline;
 use App\Services\Filter\TagFilter;
 use App\Services\Filter\SortFilter;
 use App\Services\Filter\UserFilter;
+use App\Services\Filter\ArchiveFilter;
 use App\Services\Filter\CategoryFilter;
 
 class ArticleFilterService
@@ -24,10 +25,11 @@ class ArticleFilterService
                 ->with('user', 'tags', 'comments', 'image')
             )
             ->through([
+                ArchiveFilter::class,
                 SortFilter::class,
                 CategoryFilter::class,
-                UserFilter::class,
                 TagFilter::class,
+                UserFilter::class,
             ])
             ->thenReturn();
     }

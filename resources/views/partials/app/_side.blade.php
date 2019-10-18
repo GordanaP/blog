@@ -5,17 +5,7 @@
     </p>
 </div>
 
-<div class="sidebar-module">
-    <h4>Archives</h4>
-    <ol class="list-unstyled">
-        <li><a href="#">March 2014</a></li>
-        <li><a href="#">February 2014</a></li>
-        <li><a href="#">January 2014</a></li>
-        <li><a href="#">December 2013</a></li>
-    </ol>
-</div>
-
-<!-- Filters -->
+<!-- Remove All Filters Link-->
 @if (QueryManager::detectsAny($filters))
     <a href="{{ route('articles.index') }}"
     class="text-sm text-gray-700 uppercase font-semibold">
@@ -23,11 +13,12 @@
     </a>
 @endif
 
-@foreach ($filters as $filter => $map)
+<!-- Filters list -->
+@foreach ($filters as $filter => $queryStrings)
     @include('partials.articles._filters', [
-        'categories' => $filters['category']->chunk($filters['category']->count()/2),
+        'categories' => $filters['category']->split(2),
         'filter' => $filter,
-        'map' => $map,
+        'queryStrings' => $queryStrings,
         'routeName' => 'articles.index',
     ])
 @endforeach

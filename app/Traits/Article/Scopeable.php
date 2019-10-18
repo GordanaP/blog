@@ -45,4 +45,9 @@ trait Scopeable
     {
         return $postFilterService->apply($query);
     }
+
+    public function scopeNewest($query)
+    {
+        return $query->orderBy('publish_at', 'desc');
+    }
 }

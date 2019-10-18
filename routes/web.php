@@ -4,6 +4,22 @@
  * Welcome
  */
 Route::view('/', 'welcome');
+// Route::get('/', function(){
+
+//     return App\Article::published()->newest()->get()->groupBy(function($article){
+//         if($article->publish_at->isCurrentMonth())
+//         {
+//             return 'this month';
+//         }
+
+//         if($article->publish_at->isLastMonth())
+//         {
+//             return 'last month';
+//         }
+
+//         return 'older';
+//     });
+// });
 
 /**
  * Auth

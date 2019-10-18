@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
@@ -28,8 +29,8 @@ class ArticleController extends Controller
     {
         $articles = Article::filter($articleFilterService)
             ->withCount('comments')
-            // ->published()
-            ->latest()
+            ->published()
+            ->newest()
             ->paginate(5);
 
         return view('articles.index', compact('articles'));

@@ -26,5 +26,6 @@ class ComponentServiceProvider extends ServiceProvider
         Blade::component('components.error', 'formError');
         Blade::component('components.asterisks', 'asterisks');
         Blade::component('components.comment', 'comment');
+        Blade::component('components.filters', 'filters');
     }
 }

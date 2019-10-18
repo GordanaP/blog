@@ -2,7 +2,6 @@
 
 namespace App\Services\Filter;
 
-use App\User;
 use App\Services\Filter\AbstractFilter;
 
 class UserFilter extends AbstractFilter
