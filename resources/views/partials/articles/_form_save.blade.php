@@ -126,3 +126,38 @@
     </div>
 
 </form>
+
+@section('links')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <style type="text/css">
+        .mark-holiday .ui-state-default { color: red }
+    </style>
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        $( "#publish_at" ).datepicker({
+            firstDay: 1,
+            dateFormat: "yy-mm-dd",
+            minDate: 0,
+            changeMonth: true,
+            changeYear: true,
+            beforeShowDay: function(date) {
+                var year = date.getFullYear();
+                var formattedDate = jQuery.datepicker.formatDate('yy-mm-dd', date);
+                var holidays = getHolidays(year);
+
+                if (isSunday(date) || isInArray(formattedDate, holidays)) {
+                    return [true, "mark-holiday"];
+                } else {
+                    return [true];
+                }
+            }
+        });
+    </script>
+@endsection

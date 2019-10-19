@@ -1,3 +1,5 @@
+<script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
+
 <script>
     $.ajaxSetup({
         headers: {
