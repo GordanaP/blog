@@ -1,3 +1,4 @@
+<!-- About widget -->
 <div class="sidebar-module sidebar-module-inset">
     <h4>About</h4>
     <p>
@@ -5,29 +6,21 @@
     </p>
 </div>
 
-<!-- Remove All Filters Link-->
+<!-- Filters widget -->
 @if (QueryManager::detectsAny($filters))
-    <a href="{{ route('articles.index') }}"
+    <a href="{{ isset($user) ? route('users.articles.index', $user) : route('articles.index') }}"
     class="text-sm text-gray-700 uppercase font-semibold">
         &times; Remove all filters
     </a>
 @endif
 
-<!-- Filters list -->
-@foreach ($filters as $filter => $queryStrings)
-    @include('partials.articles._filters', [
-        'categories' => $filters['category']->split(2),
-        'filter' => $filter,
-        'queryStrings' => $queryStrings,
-        'routeName' => 'articles.index',
-    ])
-@endforeach
-
-<div class="sidebar-module">
-    <h4>Elsewhere</h4>
-    <ol class="list-unstyled">
-        <li><a href="#">GitHub</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Facebook</a></li>
-    </ol>
-</div>
+@if ($filters = isset($user) ? Arr::except($filters, 'user') : Arr::except($filters, 'status'))
+    @foreach ($filters as $filter => $query)
+        @include('partials.articles._filters', [
+            'categoriesQuery' => $filters['category']->split(2),
+            'filter' => $filter,
+            'query' => $query,
+            'routeName' => isset($user) ? 'users.articles.index' : 'articles.index',
+        ])
+    @endforeach
+@endif

@@ -28,7 +28,6 @@ class ArticleController extends Controller
     public function index(ArticleFilterService $articleFilterService)
     {
         $articles = Article::filter($articleFilterService)
-            ->withCount('comments')
             ->published()
             ->newest()
             ->paginate(5);

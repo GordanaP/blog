@@ -3,7 +3,6 @@
 namespace App\Services\Filter;
 
 use App\Services\Filter\AbstractFilter;
-use App\Services\Filter\Article\ArticleFiltersMap;
 
 class SortFilter extends AbstractFilter
 {

@@ -75,7 +75,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class)->orderBy('name', 'asc');
+        return $this->belongsToMany(Tag::class);
     }
 
     public function addTags(array $tags)

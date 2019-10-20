@@ -10,6 +10,7 @@
 @endsection
 
 @section('content')
+
     <div class="w-4/5 mx-auto">
         <header>
             <h1>Home Page</h1>
@@ -36,22 +37,16 @@
                     <h4 class="font-normal text-center">My profile</h4>
                 </div>
                 <div class="card-body flex flex-col justify-center">
-                    <div class="mt-3 mb-2 mx-auto">
+                    <div class="mt-3 mb-4 mx-auto">
                         <img src="{{ optional(Auth::user()->profile)->avatar
                         ? ProfileImageService::getUrl(Auth::user()->profile->avatar)
                         : asset('images/profile_default.png') }}" width="150" class="rounded-full">
-
-                        @if (Auth::user()->hasProfile())
-                            @include('partials.profiles._form_delete', [
-                                'profile' => Auth::user()->profile
-                            ])
-                        @endif
                     </div>
                     <div>
-                        <a href="{{ Auth::user()->hasProfile() ? route('profiles.edit', Auth::user()->profile) : route('users.profiles.create', Auth::user()) }}"
+                        <a href="{{ Auth::user()->hasProfile() ? route('profiles.show', Auth::user()->profile) : route('users.profiles.create', Auth::user()) }}"
                         class="btn btn-lg btn-block btn-outline-primary">
                             {{ Auth::user()
-                                ->hasProfile() ? 'Edit' : 'Create' }} profile
+                                ->hasProfile() ? 'View' : 'Create' }} profile
                         </a>
                     </div>
                 </div>
@@ -66,35 +61,13 @@
                 <div class="card-body">
                     <ul class="list-unstyled mt-3 mb-4">
                         <li>
-                            <a href="">
-                                All articles
+                            <a href="{{ route('users.articles.index', Auth::user()) }}">
+                                All
                             </a>
                         </li>
-                        <li>
-                            <a href="">
-                                Published
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                Approved for publishing
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                Pending
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                Expired
-                            </a>
-                        </li>
-                        <li>
-                            <a href="">
-                                Draft
-                            </a>
-                        </li>
+
+                        @include('partials.home._article_filters')
+
                     </ul>
                     <button type="button" class="btn btn-lg btn-block btn-outline-primary">
                         Create new

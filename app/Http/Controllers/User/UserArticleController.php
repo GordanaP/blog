@@ -7,6 +7,7 @@ use App\Article;
 use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
+use App\Services\Filter\Article\ArticleFilterService;
 
 class UserArticleController extends Controller
 {
@@ -16,6 +17,23 @@ class UserArticleController extends Controller
     public function __construct()
     {
         $this->authorizeResource(Article::class);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(User $user, ArticleFilterService $articleFilterService)
+    {
+        $this->authorize('view', $user);
+
+        $articles = Article::filter($articleFilterService)
+            ->where('user_id', $user->id)
+            ->newest()
+            ->paginate(5);
+
+        return view('articles.index', compact('articles', 'user'));
     }
 
     /**

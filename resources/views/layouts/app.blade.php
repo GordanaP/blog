@@ -25,7 +25,7 @@ class="text-gray-900 antialiased leading-tight">
                     </div>
 
                     <div class="col-sm-3 offset-sm-1 blog-sidebar">
-                        @include('partials.app._side')
+                        @yield('sidebar')
                     </div>
                 </div>
             </main>
