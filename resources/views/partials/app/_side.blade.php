@@ -20,7 +20,6 @@
             'categoriesQuery' => $filters['category']->split(2),
             'filter' => $filter,
             'query' => $query,
-            'routeName' => isset($user) ? 'users.articles.index' : 'articles.index',
         ])
     @endforeach
 @endif

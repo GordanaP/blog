@@ -4,7 +4,7 @@
 
     @if (QueryManager::detects($filter))
         <small>
-            <a href="{{ route($routeName, isset($user) ? [$user] + QueryManager::remove($filter) : QueryManager::remove($filter)) }}" class="text-sm text-gray-700">
+            <a href="{{ request()->route('user') ? route( 'users.articles.index', [request()->route('user')] + QueryManager::remove($filter)) : route('articles.index', QueryManager::remove($filter)) }}" class="text-sm text-gray-700">
                 &times; Remove filter
             </a>
         </small>

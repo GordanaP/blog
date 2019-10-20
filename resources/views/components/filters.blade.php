@@ -4,7 +4,15 @@
             'filter' => $filter,
             'key' => $key,
             'value' => $value,
-            'route' => request()->fullUrlWithQuery(QueryManager::build([$filter => $key]))
+            'route' => request()->route('user')
+                ? route(
+                    'users.articles.index',
+                    [request()->route('user')] + QueryManager::build([$filter => $key])
+                )
+                : route(
+                    'articles.index',
+                    QueryManager::build([$filter => $key])
+                )
         ])
         @endfilter
     </ul>

@@ -1,8 +1,6 @@
 <div class="sidebar-module">
     @filterTitle([
         'filter' => $filter,
-        'routeName' => $routeName,
-        'user' => $user ?? ''
     ])
     @endfilterTitle
 
@@ -18,7 +16,7 @@
                 <div class="col-lg-6">
                     @filters([
                         'query' => $chunks,
-                        'filter' => $filter
+                        'filter' => $filter,
                     ])
                     @endfilters
                 </div>

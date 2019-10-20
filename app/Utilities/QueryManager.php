@@ -34,6 +34,7 @@ class QueryManager
         $queryString = array_merge( $this->query, $query);
 
         return Arr::except($queryString, ['page']);
+
     }
 
     /**
@@ -44,7 +45,8 @@ class QueryManager
      */
     public function remove($filter)
     {
-        return Arr::except($this->query, [$filter, 'page']);
+        // return Arr::except($this->query, [$filter, 'page']);
+        return request()->except([$filter, 'page']);
     }
 
     /**
