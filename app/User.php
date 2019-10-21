@@ -103,4 +103,11 @@ class User extends Authenticatable
     {
         return $this->profile;
     }
+
+    public static function allExceptTheAuthor($article)
+    {
+        return static::all()->filter(function($user, $key__) use ($article) {
+            return ! $user->owns($article);
+        });
+    }
 }

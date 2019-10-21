@@ -38,11 +38,13 @@
     <!-- Comments list -->
     <p class="text-lg font-bold">Comments: {{ $article->comments->count() }}</p>
 
-    @forelse ($article->latest_comments as $comment)
-        @comment(['comment' => $comment])
-        @endcomment
-    @empty
-        <p>There are no comments at present.</p>
-    @endforelse
+    <div href="#commentsList">
+        @forelse ($article->latest_comments as $comment)
+            @comment(['comment' => $comment])
+            @endcomment
+        @empty
+            <p>There are no comments at present.</p>
+        @endforelse
+    </div>
 
 @endsection

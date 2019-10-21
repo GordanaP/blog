@@ -4,7 +4,9 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
+use App\Mail\ArticleWasPublished;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
 
@@ -63,6 +65,17 @@ class UserArticleController extends Controller
         $this->authorize('view', $user);
 
         $article = $user->createArticle($request->validated());
+
+        if($article->is_published)
+        {
+            User::all()
+            ->filter(function($user, $key__) use ($article) {
+                return ! $user->owns($article);
+            })
+            ->map(function($recipient) use ($article) {
+                Mail::to($recipient)->send(new ArticleWasPublished($article, $recipient));
+            });
+        }
 
         return redirect()->route('articles.show', $article);
     }

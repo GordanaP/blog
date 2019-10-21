@@ -30,7 +30,7 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        //
+        return ! $user->owns($article) ? $article->is_published : $article;
     }
 
     /**
