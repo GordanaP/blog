@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
@@ -17,12 +14,14 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('auth')->except('index', 'show');
         $this->authorizeResource(Article::class);
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\Services\Filter\Article\ArticleFilterService $articleFilterService
      * @return \Illuminate\Http\Response
      */
     public function index(ArticleFilterService $articleFilterService)
@@ -66,11 +65,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        $article->update($request->validated());
-
-        $article->addTags($request->tag_id);
-
-        ArticleImageService::manage($article, $request->image);
+        $article->saveChanges($request->validated());
 
         return redirect()->route('articles.show', $article);
     }
@@ -83,7 +78,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->delete();
+        $article->remove();
 
         return redirect()->route('articles.index');
     }
@@ -98,7 +93,7 @@ class ArticleController extends Controller
          return [
             'edit' => 'update',
             'update' => 'update',
-            'delete' => 'delete',
+            'destroy' => 'delete',
         ];
     }
 }

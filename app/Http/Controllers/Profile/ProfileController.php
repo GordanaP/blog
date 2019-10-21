@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Profile;
-use Illuminate\Http\Request;
-use App\Facades\ProfileImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ProfileRequest;
 
 class ProfileController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('show');
+        $this->authorizeResource(Profile::class);
+    }
+
     /**
      * Display the specified resource.
      *
@@ -41,9 +48,7 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
-        $profile->update($request->validated());
-
-        ProfileImageService::manage($profile, $request->avatar);
+        $profile->saveChanges($request->validated());
 
         return view('profiles.show', compact('profile'));
     }
@@ -56,8 +61,22 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        $profile->delete();
+        $profile->remove();
 
         return view('home');
+    }
+
+    /**
+     * Authorize the controller methods.
+     *
+     * @return array
+     */
+    protected function resourceAbilityMap()
+    {
+         return [
+            'edit' => 'update',
+            'update' => 'update',
+            'destroy' => 'delete',
+        ];
     }
 }

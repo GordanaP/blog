@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use App\Traits\Article\Scopeable;
+use App\Facades\ArticleImageService;
 use App\Traits\Article\HasAttributes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +17,7 @@ class Article extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'excerpt', 'body', 'category_id', 'publish_at', 'status'
+        'title', 'excerpt', 'body', 'category_id', 'publish_at', 'is_approved'
     ];
 
     protected $with = ['category'];
@@ -37,7 +37,6 @@ class Article extends Model
      * @var array
      */
     protected $casts = [
-        'status' => 'boolean',
         'is_approved' => 'boolean',
     ];
 
@@ -75,12 +74,12 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->orderBy('name', 'asc');
     }
 
-    public function addTags(array $tags)
+    public function addTags(array $tags = null)
     {
-        return $this->tags()->sync($tags);
+        return $tags ? $this->tags()->sync($tags) : '';
     }
 
     public function image()
@@ -91,5 +90,21 @@ class Article extends Model
     public function hasImage()
     {
         return $this->image;
+    }
+
+    public function saveChanges(array $data)
+    {
+        tap($this)->update($data)->addTags(request('tag_id'));
+
+        ArticleImageService::manage($this, request('image'));
+    }
+
+    public function remove()
+    {
+        ArticleImageService::removeFromStorage($this->image);
+
+        optional($this->image)->delete();
+
+        $this->delete();
     }
 }

@@ -38,7 +38,7 @@ trait HasAttributes
 
     public function getIsExpiredAttribute()
     {
-        return ! $this->is_approved && optional($this->publish_at)->isPast();
+        return ! $this->is_approved && optional($this->publish_at) <= \Carbon\Carbon::yesterday();
     }
 
     public function getIsPendingAttribute()

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
-use App\Facades\ArticleImageService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
@@ -12,16 +11,19 @@ use App\Services\Filter\Article\ArticleFilterService;
 class UserArticleController extends Controller
 {
     /**
-     * Create a new controller instance
+     * Create a new controller instance.
      */
     public function __construct()
     {
+        $this->middleware('auth');
         $this->authorizeResource(Article::class);
     }
 
     /**
      * Display a listing of the resource.
      *
+     * @param  \App\User $user
+     * @param  \App\Services\Filter\Article\ArticleFilterService $articleFilterService
      * @return \Illuminate\Http\Response
      */
     public function index(User $user, ArticleFilterService $articleFilterService)
@@ -53,7 +55,7 @@ class UserArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \App\User  $user
-     * @param  \App\Http\Request\Validation\ArticleRequest  $request
+     * @param  \App\Http\Requests\Validation\ArticleRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ArticleRequest $request, User $user)
@@ -61,8 +63,6 @@ class UserArticleController extends Controller
         $this->authorize('view', $user);
 
         $article = $user->createArticle($request->validated());
-
-        ArticleImageService::manage($article, $request->image);
 
         return redirect()->route('articles.show', $article);
     }

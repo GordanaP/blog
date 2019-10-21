@@ -5,7 +5,7 @@
 @section('content')
     @forelse($articles as $article)
 
-        <!-- Authorized -->
+        <!-- Authorized actions-->
         @can('update', $article)
         <div class="mb-3">
             @include('partials.articles._action_buttons', [
@@ -22,7 +22,6 @@
         @include('partials.articles._single', [
             'article' => $article
         ])
-
     @empty
         <p>There are no articles at present.</p>
     @endforelse

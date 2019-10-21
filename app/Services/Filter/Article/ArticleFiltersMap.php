@@ -2,6 +2,7 @@
 
 namespace App\Services\Filter\Article;
 
+use App\Tag;
 use App\User;
 use App\Category;
 
@@ -26,8 +27,16 @@ class ArticleFiltersMap
                 'asc' => 'oldest',
                 'desc' => 'latest'
             ],
-            'category' =>  Category::all()->pluck('name', 'name'),
-            'user' =>  User::find([1,2])->pluck('name', 'id'),
+            'category' =>  Category::orderBy('name', 'asc')
+                ->get()
+                ->pluck('name', 'name'),
+            'tag' =>  Tag::orderBy('name', 'asc')
+                ->get()
+                ->pluck('name', 'id'),
+            'user' =>  User::orderBy('name')
+                ->whereIn('id', [1, 2])
+                ->get()
+                ->pluck('name', 'id'),
         ];
     }
 }

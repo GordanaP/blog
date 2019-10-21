@@ -19,7 +19,7 @@ abstract class ImageService
         return Storage::url(optional($image)->$pathName);
     }
 
-    public function removeStoragePath($image = null)
+    public function removeFromStorage($image = null)
     {
         $pathName = $this->imagePathName;
 
@@ -49,7 +49,7 @@ abstract class ImageService
 
     private function update($image, $data)
     {
-        $this->removeStoragePath($image);
+        $this->removeFromStorage($image);
 
         $this->save($image, $data);
     }

@@ -3,30 +3,31 @@
 namespace App\Http\Controllers\User;
 
 use App\User;
-use Illuminate\Http\Request;
-use App\Facades\ProfileImageService;
+use App\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ProfileRequest;
 
 class UserProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Create a new controller instance.
      */
-    public function index()
+    public function __construct()
     {
-        //
+        $this->middleware('auth');
+        $this->authorizeResource(Profile::class);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param  \App\User $user
      * @return \Illuminate\Http\Response
      */
     public function create(User $user)
     {
+        $this->authorize('view', $user);
+
         return view('profiles.create', compact('user'));
     }
 
@@ -39,55 +40,23 @@ class UserProfileController extends Controller
      */
     public function store(ProfileRequest $request, User $user)
     {
-        $profile = $user->addProfile($request->validated());
+        $this->authorize('view', $user);
 
-        ProfileImageService::manage($profile, $request->avatar);
+        $profile = $user->addProfile($request->validated());
 
         return redirect()->route('profiles.show', $profile);
     }
 
     /**
-     * Display the specified resource.
+     * Authorize the controller methods.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function show(User $user)
+    protected function resourceAbilityMap()
     {
-
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+         return [
+            'create' => 'create',
+            'store' => 'create',
+        ];
     }
 }

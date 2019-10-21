@@ -11,7 +11,7 @@ class ArchiveFilter extends AbstractFilter
 
     protected function applyFilter()
     {
-        $filters = $filters = ['this_month', 'last_month', 'older'];
+        $filters = ['this_month', 'last_month', 'older'];
 
         if (in_array(request($this->filterName), $filters)) {
             if(request($this->filterName) == 'this_month') {

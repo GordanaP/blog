@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Facades\ProfileImageService;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
@@ -26,5 +27,21 @@ class Profile extends Model
     public function hasAvatar()
     {
         return $this->avatar;
+    }
+
+    public function saveChanges(array $data)
+    {
+        $this->update($data);
+
+        ProfileImageService::manage($this, request('avatar'));
+    }
+
+    public function remove()
+    {
+        ProfileImageService::removeFromStorage($this->avatar);
+
+        optional($this->avatar)->delete();
+
+        $this->delete();
     }
 }

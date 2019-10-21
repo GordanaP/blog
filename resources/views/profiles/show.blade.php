@@ -7,15 +7,18 @@
         <header>
             <div class="flex justify-between">
                 <h3>{{ $profile->full_name }}</h3>
+                @can('update', $profile)
                 <div>
                     <a href="{{ route('profiles.edit', $profile) }}"
                     class="btn btn-link btn-sm btn-warning text-gray-900">
                         <i class="fa fa-sm fa-pencil" aria-hidden="true"></i>
                     </a>
+
                     @include('partials.profiles._form_delete', [
                         'profile' => $profile
                     ])
                 </div>
+                @endcan
             </div>
             <hr>
         </header>

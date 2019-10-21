@@ -4,6 +4,7 @@ namespace App\Services\Filter\Article;
 
 use App\Article;
 use Illuminate\Pipeline\Pipeline;
+use App\Services\Filter\TagFilter;
 use App\Services\Filter\SortFilter;
 use App\Services\Filter\UserFilter;
 use App\Services\Filter\StatusFilter;
@@ -29,6 +30,7 @@ class ArticleFilterService
                 ArchiveFilter::class,
                 SortFilter::class,
                 CategoryFilter::class,
+                TagFilter::class,
                 UserFilter::class,
             ])
             ->thenReturn();

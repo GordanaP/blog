@@ -45,7 +45,6 @@ class QueryManager
      */
     public function remove($filter)
     {
-        // return Arr::except($this->query, [$filter, 'page']);
         return request()->except([$filter, 'page']);
     }
 

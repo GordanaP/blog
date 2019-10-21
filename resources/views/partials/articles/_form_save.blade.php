@@ -55,7 +55,7 @@
 
         <!-- Tag -->
         <div class="form-group mb-3">
-            <p class="mb-1">Tag @asterisks @endasterisks</p>
+            <p class="mb-1">Tag</p>
             @foreach ($tags as $tag)
                 <input type="checkbox" name="tag_id[]" id="tag_{{ $tag->id }}" value="{{ $tag->id }}"
                     @if ($ids = old('tag_id', isset($article) ? $article->tags->pluck('id') : null)))

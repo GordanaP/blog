@@ -4,16 +4,11 @@
             'filter' => $filter,
             'key' => $key,
             'value' => $value,
-            'route' => request()->route('user')
-                ? route(
-                    'users.articles.index',
-                    [request()->route('user')] + QueryManager::build([$filter => $key])
-                )
-                : route(
-                    'articles.index',
-                    QueryManager::build([$filter => $key])
-                )
+            'route' => ArticleFiltersUrlManager::addQuery(
+                'users.articles.index', 'articles.index', [$filter=>$key]
+            )
         ])
         @endfilter
     </ul>
 @endforeach
+

@@ -2,10 +2,8 @@
 
 namespace App\ViewComposers;
 
-use Arr;
 use Illuminate\View\View;
 use App\Services\Filter\Article\ArticleFiltersMap;
-use App\Services\Filter\Article\UserArticleFiltersMap;
 
 class ArticleFiltersMapComposer
 {

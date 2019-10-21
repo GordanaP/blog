@@ -2,9 +2,11 @@
 
 namespace App;
 
+use App\Facades\ArticleImageService;
+use App\Facades\ProfileImageService;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -56,16 +58,20 @@ class User extends Authenticatable
     {
         $profile = (new Profile)->fill($data);
 
-        return $this->profile()->save($profile);
+        $this->profile()->save($profile);
+
+        ProfileImageService::manage($profile, request('avatar'));
+
+        return $profile;
     }
 
     public function createArticle(array $data)
     {
         $article = (new Article)->fill($data);
 
-        $this->articles()->save($article);
+        $this->articles()->save($article)->addTags(request('tag_id'));
 
-        $article->addTags($data['tag_id']);
+        ArticleImageService::manage($article, request('image'));
 
         return $article;
     }
@@ -96,10 +102,5 @@ class User extends Authenticatable
     public function hasProfile()
     {
         return $this->profile;
-    }
-
-    public static function findBy($attribute, $value)
-    {
-        return static::where($attribute, $value)->firstOrFail();
     }
 }

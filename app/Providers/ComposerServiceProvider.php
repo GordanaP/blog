@@ -21,7 +21,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('partials.articles._form_save', CategoriesComposer::class);
         View::composer('partials.articles._form_save', TagsComposer::class);
         View::composer('partials.articles._form_save', ArticleApprovalStatusComposer::class);
-        View::composer(['partials.app._side', 'partials.home._article_filters'], ArticleFiltersMapComposer::class);
+        View::composer(
+            ['partials.app._side', 'partials.home._article_filters'],
+            ArticleFiltersMapComposer::class);
     }
 
     /**

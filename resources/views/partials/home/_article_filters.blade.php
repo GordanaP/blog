@@ -6,7 +6,7 @@
                     'filter' => $filter,
                     'key' => $key,
                     'value' => $value,
-                    'route' => route('users.articles.index', [Auth::user()] + QueryManager::build([$filter => $key])),
+                    'route' => ArticleFiltersUrlManager::addQueryToRouteWithParameter('users.articles.index', [$filter => $key], Auth::user())
                 ])
                 @endfilter
             @endforeach

@@ -33,7 +33,7 @@ class ArticleRequest extends FormRequest
             'excerpt' => 'required|min:5|max:300',
             'body' => 'required|min:5',
             'category_id' => 'required|exists:categories,id',
-            'tag_id' => 'required|exists:tags,id',
+            'tag_id' => 'nullable|exists:tags,id',
             'image' => 'sometimes|image',
             'is_approved' => 'required|boolean',
             'publish_at' => [

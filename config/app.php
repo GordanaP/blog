@@ -235,6 +235,7 @@ return [
         'ArticleImageService' => App\Facades\ArticleImageService::class,
         'ProfileImageService' => App\Facades\ProfileImageService::class,
         'QueryManager' => App\Facades\QueryManager::class,
+        'ArticleFiltersUrlManager' => App\Facades\ArticleFiltersUrlManager::class,
     ],
 
 ];

@@ -10,4 +10,9 @@ class ArticleObserver
     {
         $model->slug = Str::slug($model->title);
     }
+
+    public function updating($model)
+    {
+        $model->slug = Str::slug($model->title);
+    }
 }
