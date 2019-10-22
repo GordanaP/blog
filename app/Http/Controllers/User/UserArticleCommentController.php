@@ -36,7 +36,9 @@ class UserArticleCommentController extends Controller
 
         if(! $article->user->owns($comment))
         {
-            Mail::to($article->user)->send(new CommentWasPosted($comment, $article));
+            $when = now()->addMinute();
+
+            Mail::to($article->user)->later($when, new CommentWasPosted($comment, $article));
         }
 
         return back();

@@ -26,7 +26,7 @@
         <p>There are no articles at present.</p>
     @endforelse
 
-    <div class="mx-auto">
+    <div class="mx-auto" href="#pagination">
         {{ $articles->appends(Request::query())->links() }}
     </div>
 @endsection

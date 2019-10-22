@@ -11,7 +11,7 @@
 
     <p class="blog-post-meta mt-1 mb-3">
         {{ $article->publish_at_readable }}
-        by <a href="#">
+        by <a href="{{ route('profiles.show', $article->user->profile) }}">
             {{ $article->user->name }}
         </a>
     </p>
