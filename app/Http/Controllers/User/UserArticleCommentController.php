@@ -22,7 +22,7 @@ class UserArticleCommentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Validation\CommentRequest  $request
      * @param  \App\User  $user
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response

@@ -16,7 +16,7 @@ class ArticleFiltersMap
                 'approved' => 'Approved for Publishing',
                 'pending' => 'Pending',
                 'expired' => 'Expired',
-                'draft' => 'Draft',
+                'draft' => 'Draft'
             ],
             'archive' => [
                 'this_month' => 'This month',
@@ -24,8 +24,8 @@ class ArticleFiltersMap
                 'older' => 'Older'
             ],
             'sort' => [
-                'asc' => 'oldest',
-                'desc' => 'latest'
+                'latest' => 'latest first',
+                'oldest' => 'oldest first'
             ],
             'category' =>  Category::orderBy('name', 'asc')
                 ->get()
@@ -36,7 +36,7 @@ class ArticleFiltersMap
             'user' =>  User::orderBy('name')
                 ->whereIn('id', [1, 2])
                 ->get()
-                ->pluck('name', 'id'),
+                ->pluck('name', 'id')
         ];
     }
 }

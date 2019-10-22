@@ -6,6 +6,13 @@
 Route::view('/', 'welcome');
 
 /**
+ * Preview Email
+ */
+Route::get('mailable', function () {
+    //
+});
+
+/**
  * Auth
  */
 Auth::routes();

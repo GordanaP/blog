@@ -10,11 +10,17 @@ class SortFilter extends AbstractFilter
 
     protected function applyFilter()
     {
-        $filters = ['asc', 'desc'];
+        // $filters = ['asc', 'desc'];
+        $filters = ['latest', 'oldest'];
 
         if (in_array(request($this->filterName), $filters)) {
+            if (request($this->filterName) == 'latest') {
+                return optional($this->builder)
+                    ->orderBy('publish_at', 'desc');
+            }
+
             return optional($this->builder)
-                ->orderBy('publish_at', request($this->filterName));
+                ->orderBy('publish_at', 'asc');
         }
 
         return $this->builder;

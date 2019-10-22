@@ -10,16 +10,22 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item uppercase">
+                <li class="nav-item uppercase text-xs tracking-wide">
                     <a class="nav-link text-white"
                     href="{{ route('articles.index') }}">
                         All articles
                     </a>
                 </li>
                 @can('create', App\Article::class)
-                    <li class="nav-item uppercase">
+                    <li class="nav-item uppercase text-xs tracking-wide">
                         <a class="nav-link text-white"
-                        href="{{ route('users.articles.create', Auth::user() ?? '') }}">
+                        href="{{ route('users.articles.index', Auth::user()) }}">
+                            My articles
+                        </a>
+                    </li>
+                    <li class="nav-item uppercase text-xs tracking-wide">
+                        <a class="nav-link text-white"
+                        href="{{ route('users.articles.create', Auth::user()) }}">
                             New article
                         </a>
                     </li>
