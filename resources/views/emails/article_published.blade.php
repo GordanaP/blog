@@ -2,7 +2,7 @@
 
 Dear {{ $user->name }},
 
-{{ ucfirst($article->user->profile->first_name) }} has just published a new article:
+{{ ucfirst($article->user->profile->full_name) }} has just published a new article:
 
 {{ $article->title }}
 
