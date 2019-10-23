@@ -4,9 +4,11 @@ namespace App\Jobs;
 
 use App\User;
 use App\Article;
+use App\Jobs\ThrottleMail;
 use Illuminate\Bus\Queueable;
 use App\Mail\ArticleWasPublished;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -35,15 +37,15 @@ class NotifyUsersTheNewArticleWasPublished implements ShouldQueue
      */
     public function handle()
     {
-        $now = now();
-
         User::allExceptTheArticleAuthor($this->article)
-            ->map(function($recipient) use($now) {
-                Mail::to($recipient)
-                    ->later(
-                        $now->addSeconds(6),
-                        new ArticleWasPublished($this->article, $recipient)
-                    );
+            ->map(function(User $recipient) {
+                Redis::throttle('mailtrap')->allow(2)->every(12)
+                    ->then(function() use($recipient) {
+                        Mail::to($recipient)
+                            ->send(new ArticleWasPublished($this->article, $recipient));
+                }, function () {
+                    return $this->release(5);
+                });
             });
     }
 }
