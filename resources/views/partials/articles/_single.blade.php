@@ -1,9 +1,18 @@
 <div class="blog-post">
-    <p class="uppercase text-xs tracking-wider font-thin mb-1">
-        {{ $article->category->name }}
-    </p>
+    <div class="uppercase text-xs tracking-wider font-thin flex justify-between">
+        <span>
+            {{ $article->category->name }}
+        </span>
 
-    <h3 class="mt-0">
+        <div>
+            @include('partials.ratings._form_store', [
+                'article' => $article,
+                'user' => Auth::user(),
+            ])
+        </div>
+    </div>
+
+    <h3 class="mt-1">
         <a href="{{ route('articles.show', $article) }}">
             {{ $article->title }}
         </a>

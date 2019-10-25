@@ -52,3 +52,9 @@ Route::resource('profiles', 'Profile\ProfileController')
 Route::resource('users.articles.comments', 'User\UserArticleCommentController')
     ->only('store');
 
+/**
+ * UserArticleRating
+ */
+Route::resource('users.articles.ratings', 'User\UserArticleRatingController')
+    ->only('store');
+

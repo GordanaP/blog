@@ -91,7 +91,7 @@ class ArticleController extends Controller
     protected function resourceAbilityMap()
     {
          return [
-            'show' => 'view',
+            // 'show' => 'view',
             'edit' => 'update',
             'update' => 'update',
             'destroy' => 'delete',

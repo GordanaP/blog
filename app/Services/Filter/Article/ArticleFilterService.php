@@ -23,7 +23,7 @@ class ArticleFilterService
         return app(Pipeline::class)
             ->send(Article::query()
                 ->withCount('comments')
-                ->with('user', 'tags', 'comments', 'image')
+                ->with('user', 'tags', 'comments', 'image', 'ratings')
             )
             ->through([
                 StatusFilter::class,

@@ -29,5 +29,6 @@ class ComponentServiceProvider extends ServiceProvider
         Blade::component('components.filters', 'filters');
         Blade::component('components.filter', 'filter');
         Blade::component('components.filter_title', 'filterTitle');
+        Blade::component('components.article_rating', 'rating');
     }
 }

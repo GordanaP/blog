@@ -111,4 +111,10 @@ class User extends Authenticatable
         });
     }
 
+    public function rateArticle($article, $rating)
+    {
+        $article->ratings()->attach([
+            $rating => ['user_id' => $this->id]
+        ]);
+    }
 }

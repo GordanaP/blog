@@ -77,14 +77,26 @@ class Article extends Model
         return $this->belongsToMany(Tag::class)->orderBy('name', 'asc');
     }
 
-    public function addTags(array $tags = null)
-    {
-        return $tags ? $this->tags()->sync($tags) : '';
-    }
-
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function ratings()
+    {
+        return $this->belongsToMany(Rating::class)
+            ->as('user')
+            ->withPivot('user_id');
+    }
+
+    public function wasRatedBy($user = null)
+    {
+        return $user ? $this->ratings->pluck('user.user_id')->contains($user->id) : '';
+    }
+
+    public function addTags(array $tags = null)
+    {
+        return $tags ? $this->tags()->sync($tags) : '';
     }
 
     public function hasImage()
@@ -106,5 +118,10 @@ class Article extends Model
         optional($this->image)->delete();
 
         $this->delete();
+    }
+
+    public function averageRating()
+    {
+        return $this->ratings->avg('star');
     }
 }
