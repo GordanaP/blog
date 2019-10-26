@@ -65,25 +65,6 @@ class User extends Authenticatable
         return $profile;
     }
 
-    public function createArticle(array $data)
-    {
-        $article = (new Article)->fill($data);
-
-        $this->articles()->save($article)->addTags(request('tag_id'));
-
-        ArticleImageService::manage($article, request('image'));
-
-        return $article;
-    }
-
-    public function addComment($data, $article)
-    {
-        $comment = ((new Comment)->fill($data))
-            ->article()->associate($article);
-
-        return $this->comments()->save($comment);
-    }
-
     public function owns($model)
     {
         return $this->id == $model->user_id;
@@ -111,10 +92,10 @@ class User extends Authenticatable
         });
     }
 
-    public function rateArticle($article, $rating)
-    {
-        $article->ratings()->attach([
-            $rating => ['user_id' => $this->id]
-        ]);
-    }
+    // public function rateArticle($article, $rating)
+    // {
+    //     $article->ratings()->attach([
+    //         $rating => ['user_id' => $this->id]
+    //     ]);
+    // }
 }

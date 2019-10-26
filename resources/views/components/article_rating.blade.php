@@ -1,7 +1,7 @@
 @for ($i = 1; $i < 6; $i++)
     <button type="submit" name="rating" value="{{ $i }}">
         <i class="fa
-        {{ $article->wasRatedBy($user) || !isset($user) ? '' :  'hover:text-yellow-600'}}
+        {{ $article->isRatedBy($user) || !isset($user) ? '' :  'hover:text-yellow-600'}}
         {{ $i <= $article->averageRating() ? 'text-yellow-400 fa-star' : 'fa-star-o' }}"></i>
     </button>
 @endfor

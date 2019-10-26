@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
+use App\Facades\ArticleService;
 use App\Events\ArticlePublished;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
@@ -64,13 +65,10 @@ class UserArticleController extends Controller
     {
         $this->authorize('view', $user);
 
-        $article = $user->createArticle($request->validated());
+        $article = ArticleService::create($request->validated());
 
         if($article->is_published) {
-
             event(new ArticlePublished($article));
-
-            // NotifyUsersTheNewArticleWasPublished::dispatch($article);
         }
 
         return redirect()->route('articles.show', $article);

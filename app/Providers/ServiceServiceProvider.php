@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Services\Image\ArticleImageService;
 use App\Services\Image\ProfileImageService;
 use App\Services\Filter\Article\ArticleFiltersUrlManager;
+use App\Services\Article\ArticleService;
 
 class ServiceServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,10 @@ class ServiceServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('ArticleService', function($app){
+            return new ArticleService;
+        });
+
         $this->app->bind('ArticleFiltersUrlManager', function($app){
             return new ArticleFiltersUrlManager;
         });

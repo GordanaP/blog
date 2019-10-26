@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
+use App\Facades\ArticleService;
 use App\Http\Requests\Validation\RatingRequest;
 use App\Http\Controllers\Controller;
 
@@ -27,7 +28,8 @@ class UserArticleRatingController extends Controller
      */
     public function store(RatingRequest $request, User $user, Article $article)
     {
-        $user->rateArticle($article, $request->rating);
+        // $user->rateArticle($article, $request->rating);
+        ArticleService::addRating($request->rating);
 
         return back();
     }

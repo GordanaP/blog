@@ -2,14 +2,16 @@
 
 namespace App;
 
+use App\Traits\Article\Rateable;
 use App\Traits\Article\Scopeable;
 use App\Facades\ArticleImageService;
 use App\Traits\Article\HasAttributes;
+use App\Services\Article\ManageArticle;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasAttributes, Scopeable;
+    use HasAttributes, Rateable, Scopeable;
 
     /**
      * The attributes that are mass assignable.
@@ -65,13 +67,6 @@ class Article extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function latest_comments()
-    {
-        return $this->hasMany(Comment::class)
-            ->with('user')
-            ->orderBy('created_at','desc');
-    }
-
     public function tags()
     {
         return $this->belongsToMany(Tag::class)->orderBy('name', 'asc');
@@ -89,14 +84,11 @@ class Article extends Model
             ->withPivot('user_id');
     }
 
-    public function wasRatedBy($user = null)
+    public function latest_comments()
     {
-        return $user ? $this->ratings->pluck('user.user_id')->contains($user->id) : '';
-    }
-
-    public function addTags(array $tags = null)
-    {
-        return $tags ? $this->tags()->sync($tags) : '';
+        return $this->hasMany(Comment::class)
+            ->with('user')
+            ->orderBy('created_at','desc');
     }
 
     public function hasImage()
@@ -104,24 +96,16 @@ class Article extends Model
         return $this->image;
     }
 
-    public function saveChanges(array $data)
+    public function addTags($tags)
     {
-        tap($this)->update($data)->addTags(request('tag_id'));
-
-        ArticleImageService::manage($this, request('image'));
+        return $this->tags()->sync($tags);
     }
 
-    public function remove()
+    public function addUser($user)
     {
-        ArticleImageService::removeFromStorage($this->image);
+       $this->user()->associate($user)->save();
 
-        optional($this->image)->delete();
-
-        $this->delete();
+       return $this;
     }
 
-    public function averageRating()
-    {
-        return $this->ratings->avg('star');
-    }
 }

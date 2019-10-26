@@ -7,6 +7,7 @@ use App\Article;
 use App\Mail\CommentWasPosted;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use App\Facades\ArticleService;
 use App\Http\Requests\Validation\CommentRequest;
 
 class UserArticleCommentController extends Controller
@@ -32,12 +33,10 @@ class UserArticleCommentController extends Controller
         $this->authorize('view', $user);
         $this->authorize('view', $article);
 
-        $comment = $user->addComment($request->validated(), $article);
+        $comment = ArticleService::addComment($request->validated());
 
-        if(! $article->user->owns($comment))
-        {
+        if(! $article->user->owns($comment)) {
             $when = now()->addMinute();
-
             Mail::to($article->user)->later($when, new CommentWasPosted($comment, $article));
         }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
+use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
@@ -65,7 +66,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        $article->saveChanges($request->validated());
+        ArticleService::update($request->validated());
 
         return redirect()->route('articles.show', $article);
     }
@@ -78,7 +79,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        $article->remove();
+        ArticleService::remove();
 
         return redirect()->route('articles.index');
     }
@@ -91,7 +92,6 @@ class ArticleController extends Controller
     protected function resourceAbilityMap()
     {
          return [
-            // 'show' => 'view',
             'edit' => 'update',
             'update' => 'update',
             'destroy' => 'delete',
