@@ -91,11 +91,4 @@ class User extends Authenticatable
             return ! $user->owns($article);
         });
     }
-
-    // public function rateArticle($article, $rating)
-    // {
-    //     $article->ratings()->attach([
-    //         $rating => ['user_id' => $this->id]
-    //     ]);
-    // }
 }

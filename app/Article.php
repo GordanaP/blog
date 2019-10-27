@@ -87,7 +87,7 @@ class Article extends Model
     public function latest_comments()
     {
         return $this->hasMany(Comment::class)
-            ->with('user')
+            ->with('user', 'likings')
             ->orderBy('created_at','desc');
     }
 

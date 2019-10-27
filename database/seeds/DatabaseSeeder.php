@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     protected $tables = [
         'users', 'categories', 'articles', 'tags', 'article_tag', 'comments',
-        'profiles', 'images', 'ratings', 'article_rating'
+        'profiles', 'images', 'ratings', 'article_rating', 'comment_liking'
     ];
 
     /**
@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ImagesTableSeeder::class);
         $this->call(RatingsTableSeeder::class);
         $this->call(ArticleRatingTableSeeder::class);
+        $this->call(CommentLikingTableSeeder::class);
     }
 
     /**

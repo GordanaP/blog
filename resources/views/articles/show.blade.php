@@ -16,7 +16,6 @@
     </div>
     @endcan
 
-
     <!-- Article -->
     @include('partials.articles._single', [
         'article' => $article
@@ -40,7 +39,7 @@
 
     <div href="#commentsList">
         @forelse ($article->latest_comments as $comment)
-            @comment(['comment' => $comment])
+            @comment(['comment' => $comment, 'user' => Auth::user()])
             @endcomment
         @empty
             <p>There are no comments at present.</p>

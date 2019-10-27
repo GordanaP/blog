@@ -58,3 +58,8 @@ Route::resource('users.articles.comments', 'User\UserArticleCommentController')
 Route::resource('users.articles.ratings', 'User\UserArticleRatingController')
     ->only('store');
 
+/**
+ * UserCommentLiking
+ */
+Route::resource('users.comments.likings', 'User\UserCommentLikingController')
+    ->only('store');

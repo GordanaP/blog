@@ -28,7 +28,6 @@ class UserArticleRatingController extends Controller
      */
     public function store(RatingRequest $request, User $user, Article $article)
     {
-        // $user->rateArticle($article, $request->rating);
         ArticleService::addRating($request->rating);
 
         return back();

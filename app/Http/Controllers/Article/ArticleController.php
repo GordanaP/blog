@@ -11,7 +11,7 @@ use App\Services\Filter\Article\ArticleFilterService;
 class ArticleController extends Controller
 {
     /**
-     * Create a new controller instance
+     * Create a new controller instance.
      */
     public function __construct()
     {
