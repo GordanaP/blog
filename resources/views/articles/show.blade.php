@@ -45,5 +45,8 @@
             <p>There are no comments at present.</p>
         @endforelse
     </div>
+@endsection
 
+@section('sidebar')
+    @include('partials.app._side')
 @endsection

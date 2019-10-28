@@ -25,7 +25,7 @@ class CreateCommentLikingTable extends Migration
 
             $table->boolean('is_liked')->default(false);
 
-            $table->primary(['comment_id', 'user_id']);
+            $table->primary(['comment_id', 'user_id', 'is_liked']);
         });
     }
 

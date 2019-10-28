@@ -14,7 +14,8 @@ trait Likeable
 
     public function likes_count()
     {
-        $count = $this->likings->pluck('pivot.is_liked')->filter(function($value, $key){
+        $count = $this->likings->pluck('pivot.is_liked')
+            ->filter(function($value, $key){
                 return $value == 1;
             })->count();
 
@@ -23,7 +24,8 @@ trait Likeable
 
     public function dislikes_count()
     {
-        $count = $this->likings->pluck('pivot.is_liked')->filter(function($value, $key){
+        $count = $this->likings->pluck('pivot.is_liked')
+            ->filter(function($value, $key){
                 return $value == 0;
             })->count();
 
@@ -58,7 +60,7 @@ trait Likeable
         }
     }
 
-    public function isSubjectedToLikingBy($user)
+    public function getLikingBy($user)
     {
         $this->likings()
             ->attach($user, ['is_liked' => request('is_liked')]);

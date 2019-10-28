@@ -17,7 +17,7 @@ class UserCommentLikingController extends Controller
      */
     public function store(Request $request, User $user, Comment $comment)
     {
-        $comment->isSubjectedToLikingBy($user);
+        $comment->getLikingBy($user);
 
         return back();
     }
