@@ -179,6 +179,7 @@ return [
         App\Providers\ComponentServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         App\Providers\ServiceServiceProvider::class,
+        App\Providers\DirectiveServiceProvider::class,
 
     ],
 

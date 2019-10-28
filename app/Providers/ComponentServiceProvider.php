@@ -30,5 +30,7 @@ class ComponentServiceProvider extends ServiceProvider
         Blade::component('components.filter', 'filter');
         Blade::component('components.filter_title', 'filterTitle');
         Blade::component('components.article_rating', 'rating');
+        Blade::component('components.button_like', 'buttonLike');
+        Blade::component('components.button_dislike', 'buttonDislike');
     }
 }
