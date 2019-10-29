@@ -36,7 +36,7 @@
 
     <div class="mb-2">{{ $article->body }}</div>
 
-    <p class="flex justify-between">
+    <div class="flex justify-between">
         <span>
             @foreach ($article->tags as $tag)
                 <a href="#" class="btn btn-link btn-sm btn-success bg-green-400
@@ -46,12 +46,24 @@
              @endforeach
         </span>
 
-        @if (! request()->route('article'))
+        @routeDoesntHave('article')
             <span>
                  <i class="fa fa-comments-o" aria-hidden="true"></i>
                 {{ $article->comments->count() }}
             </span>
-        @endif
-    </p>
+        @endrouteDoesntHave
+
+        @routeHas('article')
+            <span>
+                @include('partials.likeables._model', [
+                    'user' => Auth::user(),
+                    'model' => $article,
+                    'route' => route('users.articles.likes.store', [Auth::user(), $article])
+                ])
+            </span>
+        @endrouteHas
+    </div>
+
+    <hr>
 
 </div><!-- /.article -->

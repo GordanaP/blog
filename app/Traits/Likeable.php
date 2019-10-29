@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Traits\Comment;
+namespace App\Traits;
 
 use App\User;
 
 trait Likeable
 {
-    public function likings()
+    public function likes()
     {
-        return $this->belongsToMany(User::class, 'comment_liking')
-            ->withPivot('is_liked');
+        return $this->morphToMany(User::class, 'likeable')
+            ->withPivot('is_liked')->as('status');
     }
 
     public function likes_count()
     {
-        $count = $this->likings->pluck('pivot.is_liked')
+        $count = $this->likes->pluck('status.is_liked')
             ->filter(function($value, $key){
                 return $value == 1;
             })->count();
@@ -24,7 +24,7 @@ trait Likeable
 
     public function dislikes_count()
     {
-        $count = $this->likings->pluck('pivot.is_liked')
+        $count = $this->likes->pluck('status.is_liked')
             ->filter(function($value, $key){
                 return $value == 0;
             })->count();
@@ -35,9 +35,9 @@ trait Likeable
     public function isLikedBy($user = null)
     {
         if($user) {
-            return $this->likings
-                ->where('pivot.user_id', $user->id)
-                ->where('pivot.is_liked', 1)
+            return $this->likes
+                ->where('status.user_id', $user->id)
+                ->where('status.is_liked', 1)
                 ->isNotEmpty();
         }
     }
@@ -45,9 +45,9 @@ trait Likeable
     public function isDislikedBy($user = null)
     {
         if($user) {
-            return $this->likings
-                ->where('pivot.user_id', $user->id)
-                ->where('pivot.is_liked', 0)
+            return $this->likes
+                ->where('status.user_id', $user->id)
+                ->where('status.is_liked', 0)
                 ->isNotEmpty();
         }
     }
@@ -55,14 +55,14 @@ trait Likeable
     public function isLikedOrDislikedBy($user = null)
     {
         if($user) {
-            return $this->likings
-                ->contains('pivot.user_id', $user->id);
+            return $this->likes
+                ->contains('status.user_id', $user->id);
         }
     }
 
-    public function getLikingBy($user)
+    public function getLikeOrDislikeFrom($user)
     {
-        $this->likings()
+        $this->likes()
             ->attach($user, ['is_liked' => request('is_liked')]);
     }
 }

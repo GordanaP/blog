@@ -3,6 +3,7 @@
 @section('title', $article->title)
 
 @section('content')
+
     <!-- Authorized views -->
     @can('update', $article)
     <div class="mb-3">

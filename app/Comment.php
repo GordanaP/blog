@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Traits\Comment\Likeable;
+use App\Traits\Likeable;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model

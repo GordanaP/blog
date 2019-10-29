@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Article\Rateable;
+use App\Traits\Likeable;
 use App\Traits\Article\Scopeable;
 use App\Facades\ArticleImageService;
 use App\Traits\Article\HasAttributes;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasAttributes, Rateable, Scopeable;
+    use HasAttributes, Likeable, Rateable, Scopeable;
 
     /**
      * The attributes that are mass assignable.
@@ -87,7 +88,7 @@ class Article extends Model
     public function latest_comments()
     {
         return $this->hasMany(Comment::class)
-            ->with('user', 'likings')
+            ->with('user', 'likes')
             ->orderBy('created_at','desc');
     }
 
@@ -107,5 +108,4 @@ class Article extends Model
 
        return $this;
     }
-
 }
