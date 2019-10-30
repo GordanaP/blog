@@ -23,8 +23,6 @@ class Article extends Model
         'title', 'excerpt', 'body', 'category_id', 'publish_at', 'is_approved'
     ];
 
-    protected $with = ['category'];
-
     /**
      * The attributes that should be mutated to dates.
      *
@@ -42,6 +40,8 @@ class Article extends Model
     protected $casts = [
         'is_approved' => 'boolean',
     ];
+
+    protected $appends = ['average_rating'];
 
     /**
      * Get the route key for the model.
@@ -76,13 +76,6 @@ class Article extends Model
     public function image()
     {
         return $this->morphOne(Image::class, 'imageable');
-    }
-
-    public function ratings()
-    {
-        return $this->belongsToMany(Rating::class)
-            ->as('user')
-            ->withPivot('user_id');
     }
 
     public function latest_comments()

@@ -10,7 +10,6 @@ class SortFilter extends AbstractFilter
 
     protected function applyFilter()
     {
-        // $filters = ['asc', 'desc'];
         $filters = ['latest', 'oldest'];
 
         if (in_array(request($this->filterName), $filters)) {

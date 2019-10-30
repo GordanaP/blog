@@ -16,6 +16,7 @@
         <span class="normal-case text-sm font-semibold text-yellow-700 mr-2">
             Your rating: {{ $article->ratingGivenBy(Auth::user()) }}
         </span>
+
         @rating(['article' => $article, 'user' => $user])
         @endrating
     </div>

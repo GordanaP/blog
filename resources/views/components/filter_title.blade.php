@@ -1,4 +1,4 @@
-<h4 class="flex justify-between">
+<h4 class="flex justify-between mb-1">
     {{ ucfirst($filter) }}
 
     @if (QueryManager::detects($filter))

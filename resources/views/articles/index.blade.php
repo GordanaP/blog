@@ -3,7 +3,6 @@
 @section('title', 'All Articles')
 
 @section('content')
-
     @forelse($articles as $article)
 
         <!-- Authorized actions-->

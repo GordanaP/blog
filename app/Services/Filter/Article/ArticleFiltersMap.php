@@ -18,6 +18,10 @@ class ArticleFiltersMap
                 'expired' => 'Expired',
                 'draft' => 'Draft'
             ],
+            'popular' =>[
+                'most_liked' => 'Most liked',
+                'most_disliked' => 'Most disliked',
+            ],
             'archive' => [
                 'this_month' => 'This month',
                 'last_month' => 'Last month',

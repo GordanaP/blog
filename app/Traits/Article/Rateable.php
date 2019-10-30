@@ -2,9 +2,18 @@
 
 namespace App\Traits\Article;
 
+use App\Rating;
+
 trait Rateable
 {
-    public function averageRating()
+    public function ratings()
+    {
+        return $this->belongsToMany(Rating::class)
+            ->as('user')
+            ->withPivot('user_id');
+    }
+
+    public function getAverageRatingAttribute()
     {
         return $this->ratings->avg('star');
     }
