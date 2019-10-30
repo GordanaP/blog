@@ -35,20 +35,21 @@ trait Likeable
     public function isLikedBy($user = null)
     {
         if($user) {
-            return $this->likes
-                ->where('status.user_id', $user->id)
-                ->where('status.is_liked', 1)
-                ->isNotEmpty();
+            $this->likes
+            ->where('status.user_id', $user->id)
+            ->where('status.is_liked', 1)
+            ->isNotEmpty();
         }
     }
 
     public function isDislikedBy($user = null)
     {
         if($user) {
-            return $this->likes
-                ->where('status.user_id', $user->id)
-                ->where('status.is_liked', 0)
-                ->isNotEmpty();
+            return $this->likes->where([
+                'status.user_id' => $user->id,
+                'status.is_liked' => 0
+            ])
+            ->count();
         }
     }
 
