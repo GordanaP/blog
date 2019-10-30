@@ -1,11 +1,11 @@
 <?php
 
-namespace App\ViewComposers;
+namespace App\ViewComposers\Article;
 
 use Illuminate\View\View;
 use App\Services\Filter\Article\ArticleFiltersMap;
 
-class ArticleFiltersMapComposer
+class FiltersComposer
 {
     public function compose(View $view)
     {

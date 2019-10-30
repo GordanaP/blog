@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\Likeable;
 use App\Traits\Article\Rateable;
 use App\Traits\Article\Scopeable;
 use App\Facades\ArticleImageService;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasAttributes, Rateable, Scopeable;
+    use HasAttributes, Likeable, Rateable, Scopeable;
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +22,6 @@ class Article extends Model
     protected $fillable = [
         'title', 'excerpt', 'body', 'category_id', 'publish_at', 'is_approved'
     ];
-
-    protected $with = ['category'];
 
     /**
      * The attributes that should be mutated to dates.
@@ -41,6 +40,8 @@ class Article extends Model
     protected $casts = [
         'is_approved' => 'boolean',
     ];
+
+    protected $appends = [ 'average_rating' ];
 
     /**
      * Get the route key for the model.
@@ -77,17 +78,10 @@ class Article extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function ratings()
-    {
-        return $this->belongsToMany(Rating::class)
-            ->as('user')
-            ->withPivot('user_id');
-    }
-
     public function latest_comments()
     {
         return $this->hasMany(Comment::class)
-            ->with('user', 'likings')
+            ->with('user', 'likes')
             ->orderBy('created_at','desc');
     }
 
@@ -107,5 +101,4 @@ class Article extends Model
 
        return $this;
     }
-
 }

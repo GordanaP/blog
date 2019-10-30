@@ -1,4 +1,4 @@
-<form action="{{ route('users.comments.likings.store', [$user, $comment]) }}"
+<form action="{{ $route }}"
 method="POST" class="form-inline">
 
     @csrf
@@ -10,4 +10,7 @@ method="POST" class="form-inline">
     @buttonDislike
         bg-red-300 hover:bg-red-400
     @endbuttonDislike
+
+    @formError(['field' => 'is_liked'])
+    @endformError
 </form>

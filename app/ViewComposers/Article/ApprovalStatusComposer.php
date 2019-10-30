@@ -1,11 +1,11 @@
 <?php
 
-namespace App\ViewComposers;
+namespace App\ViewComposers\Article;
 
 use Illuminate\View\View;
 use App\Utilities\ArticleApprovalStatus;
 
-class ArticleApprovalStatusComposer
+class ApprovalStatusComposer
 {
     public function compose(View $view)
     {

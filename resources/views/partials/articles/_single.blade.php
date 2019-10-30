@@ -36,7 +36,7 @@
 
     <div class="mb-2">{{ $article->body }}</div>
 
-    <p class="flex justify-between">
+    <div class="flex justify-between">
         <span>
             @foreach ($article->tags as $tag)
                 <a href="#" class="btn btn-link btn-sm btn-success bg-green-400
@@ -51,7 +51,16 @@
                  <i class="fa fa-comments-o" aria-hidden="true"></i>
                 {{ $article->comments->count() }}
             </span>
+        @else
+            <span>
+                @include('partials.likeables._model', [
+                    'user' => Auth::user(),
+                    'model' => $article,
+                    'route' => route('users.articles.likes.store', [Auth::user(), $article])
+                ])
+            </span>
         @endif
-    </p>
+    </div>
+
 
 </div><!-- /.article -->

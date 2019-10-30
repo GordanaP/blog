@@ -59,7 +59,13 @@ Route::resource('users.articles.ratings', 'User\UserArticleRatingController')
     ->only('store');
 
 /**
- * UserCommentLiking
+ * UserCommentLike
  */
-Route::resource('users.comments.likings', 'User\UserCommentLikingController')
+Route::resource('users.comments.likes', 'User\UserCommentLikeController')
+    ->only('store');
+
+/**
+ * UserArticleLike
+ */
+Route::resource('users.articles.likes', 'User\UserArticleLikeController')
     ->only('store');

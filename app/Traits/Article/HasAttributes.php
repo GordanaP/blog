@@ -55,4 +55,9 @@ trait HasAttributes
     {
         return $this->is_approved && optional($this->publish_at)->isPast();
     }
+
+    public function getAverageRatingAttribute()
+    {
+        return $this->ratings->avg('star');
+    }
 }

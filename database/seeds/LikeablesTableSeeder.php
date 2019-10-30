@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class CommentLikingSeeder extends Seeder
+class LikeablesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -7,9 +7,10 @@
         </div>
 
         <div>
-            @include('partials.comments._likings', [
+            @include('partials.likeables._model', [
                 'user' => $user,
-                'comment' => $comment,
+                'model' => $comment,
+                'route' => route('users.comments.likes.store', [$user, $comment])
             ])
         </div>
     </div>

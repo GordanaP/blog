@@ -6,8 +6,9 @@ use App\ViewComposers\TagsComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\ViewComposers\CategoriesComposer;
-use App\ViewComposers\ArticleFiltersMapComposer;
-use App\ViewComposers\ArticleApprovalStatusComposer;
+use App\ViewComposers\Article\FiltersComposer;
+use App\ViewComposers\Article\StatisticsComposer;
+use App\ViewComposers\Article\ApprovalStatusComposer;
 
 class ComposerServiceProvider extends ServiceProvider
 {
@@ -20,10 +21,11 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer('partials.articles._form_save', CategoriesComposer::class);
         View::composer('partials.articles._form_save', TagsComposer::class);
-        View::composer('partials.articles._form_save', ArticleApprovalStatusComposer::class);
+        View::composer('partials.articles._form_save', ApprovalStatusComposer::class);
         View::composer(
             ['partials.app._side', 'partials.home._article_filters'],
-            ArticleFiltersMapComposer::class);
+            FiltersComposer::class);
+        View::composer('partials.app._side', StatisticsComposer::class);
     }
 
     /**

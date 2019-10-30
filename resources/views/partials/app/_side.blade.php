@@ -1,10 +1,11 @@
 <!-- About widget -->
-<div class="sidebar-module sidebar-module-inset">
-    <h4>About</h4>
-    <p>
-        Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.
-    </p>
-</div>
+@include('partials.app.widgets._about')
+
+<!-- Most commented widget-->
+@include('partials.app.widgets._most_commented')
+
+<!-- Best rated widget-->
+@include('partials.app.widgets._best_rated')
 
 <!-- Filters widget -->
 @if (QueryManager::detectsAny($filters))
@@ -16,7 +17,7 @@
 
 @if ($filters = isset($user) ? Arr::except($filters, 'user') : Arr::except($filters, 'status'))
     @foreach ($filters as $filter => $query)
-        @include('partials.articles._filters', [
+        @include('partials.app.widgets._filters', [
             'categoriesQuery' => $filters['category']->split(2),
             'filter' => $filter,
             'query' => $query,

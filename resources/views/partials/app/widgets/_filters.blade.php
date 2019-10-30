@@ -1,4 +1,4 @@
-<div class="sidebar-module">
+<div class="py-2">
     @filterTitle([
         'filter' => $filter,
     ])
