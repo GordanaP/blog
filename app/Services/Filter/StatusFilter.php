@@ -2,6 +2,11 @@
 
 namespace App\Services\Filter;
 
+use App\Scopes\DraftScope;
+use App\Scopes\ExpiredScope;
+use App\Scopes\PendingScope;
+use App\Scopes\ApprovedScope;
+use App\Scopes\PublishedScope;
 use App\Services\Filter\AbstractFilter;
 
 class StatusFilter extends AbstractFilter
@@ -14,35 +19,23 @@ class StatusFilter extends AbstractFilter
 
         if (in_array(request($this->filterName), $filters)) {
             if(request($this->filterName) == 'published'){
-                return $this->builder->where([
-                    ['is_approved', 1],
-                    ['publish_at', '<=', today()]
-                ]);
+                PublishedScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'approved') {
-                return $this->builder->where([
-                    ['is_approved', 1],
-                    ['publish_at', '>', today()]
-                ]);
+                ApprovedScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'pending') {
-                return $this->builder->where([
-                    ['is_approved', 0],
-                    ['publish_at', '>', today()]
-                ]);
+                PendingScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'expired') {
-                return $this->builder->where([
-                    ['is_approved', 0],
-                    ['publish_at', '<=', today()]
-                ]);
+                ExpiredScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'draft') {
-                return $this->builder->where('publish_at', null);
+                DraftScope::apply($this->builder);
             }
         }
 

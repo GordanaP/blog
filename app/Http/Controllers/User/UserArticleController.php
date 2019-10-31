@@ -34,7 +34,7 @@ class UserArticleController extends Controller
         $this->authorize('view', $user);
 
         $articles = Article::filter($articleFilterService)
-            ->where('user_id', $user->id)
+            ->ownedBy($user)
             ->newest()
             ->paginate(5);
 

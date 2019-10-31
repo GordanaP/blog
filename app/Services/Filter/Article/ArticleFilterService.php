@@ -24,10 +24,10 @@ class ArticleFilterService
         return app(Pipeline::class)
             ->send(Article::query()
                 ->withCount([
-                        'likes as approved_count' => function ($query) {
+                        'likes as approved_likes_count' => function ($query) {
                             $query->where('is_liked', 1);
                         },
-                        'likes as disapproved_count' => function ($query) {
+                        'likes as disapproved_likes_count' => function ($query) {
                             $query->where('is_liked', 0);
                         },
                     ]

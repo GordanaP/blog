@@ -16,14 +16,14 @@ trait Likeable
     {
         $count = $this->likes->where('status.is_liked', 1)->count();
 
-        return $count > 0 ?? '';
+        return $count > 0 ? $count : '';
     }
 
     public function dislikes_count()
     {
         $count = $this->likes->where('status.is_liked', 0)->count();
 
-        return $count > 0 ?? '';
+        return $count > 0 ? $count : '';
     }
 
     public function isLikedBy($user = null)

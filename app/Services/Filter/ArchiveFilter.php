@@ -2,7 +2,9 @@
 
 namespace App\Services\Filter;
 
-use Carbon\Carbon;
+use App\Scopes\OlderScope;
+use App\Scopes\LastMonthScope;
+use App\Scopes\ThisMonthScope;
 use App\Services\Filter\AbstractFilter;
 
 class ArchiveFilter extends AbstractFilter
@@ -15,19 +17,15 @@ class ArchiveFilter extends AbstractFilter
 
         if (in_array(request($this->filterName), $filters)) {
             if(request($this->filterName) == 'this_month') {
-                return $this->builder->whereBetween('publish_at', [
-                    today()->subDays(30), today()
-                ]);
+                ThisMonthScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'last_month') {
-                return $this->builder->whereBetween('publish_at', [
-                    today()->subDays(60), today()->subDays(30)
-                ]);
+                LastMonthScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'older') {
-                return $this->builder->where('publish_at', '<', today()->subDays(60));
+                OlderScope::apply($this->builder);
             }
         }
 

@@ -17,7 +17,6 @@ class ArticleStatistics
     public static function bestRated($take = 3)
     {
         return Article::with('ratings')
-            ->whereHas('ratings')
             ->get()
             ->sortByDesc('average_rating')
             ->take($take);

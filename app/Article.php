@@ -80,9 +80,7 @@ class Article extends Model
 
     public function latest_comments()
     {
-        return $this->hasMany(Comment::class)
-            ->with('user', 'likes')
-            ->orderBy('created_at','desc');
+        return $this->comments()->with('user', 'likes')->latest();
     }
 
     public function hasImage()

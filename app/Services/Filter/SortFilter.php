@@ -2,6 +2,8 @@
 
 namespace App\Services\Filter;
 
+use App\Scopes\NewestScope;
+use App\Scopes\OldestScope;
 use App\Services\Filter\AbstractFilter;
 
 class SortFilter extends AbstractFilter
@@ -10,17 +12,16 @@ class SortFilter extends AbstractFilter
 
     protected function applyFilter()
     {
-        // $filters = ['asc', 'desc'];
         $filters = ['latest', 'oldest'];
 
         if (in_array(request($this->filterName), $filters)) {
             if (request($this->filterName) == 'latest') {
-                return optional($this->builder)
-                    ->orderBy('publish_at', 'desc');
+                NewestScope::apply($this->builder);
             }
 
-            return optional($this->builder)
-                ->orderBy('publish_at', 'asc');
+            if (request($this->filterName) == 'oldest') {
+                OldestScope::apply($this->builder);
+            }
         }
 
         return $this->builder;

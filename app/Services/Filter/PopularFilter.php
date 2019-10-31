@@ -2,6 +2,8 @@
 
 namespace App\Services\Filter;
 
+use App\Scopes\MostLikedScope;
+use App\Scopes\MostDislikedScope;
 use App\Services\Filter\AbstractFilter;
 
 class PopularFilter extends AbstractFilter
@@ -15,11 +17,11 @@ class PopularFilter extends AbstractFilter
         if (in_array(request($this->filterName), $filters)) {
 
             if(request($this->filterName) == 'most_liked') {
-                return $this->builder->orderBy('approved_count', 'desc');
+                MostLikedScope::apply($this->builder);
             }
 
             if(request($this->filterName) == 'most_disliked') {
-                return $this->builder->orderBy('disapproved_count', 'desc');
+                MostDislikedScope::apply($this->builder);
             }
         }
 
