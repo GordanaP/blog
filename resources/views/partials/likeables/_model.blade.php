@@ -1,4 +1,4 @@
-<span class="mr-1">{{  $model->likes_count() }}</span>
+<span class="mr-1">{{  $model->approved_count > 0 ? $model->approved_count : '' }}</span>
 
 @noAuthLiking($model)
     @include('partials.likeables._form_store', [
@@ -17,5 +17,5 @@
 @endguestOrAuthLiking
 
 <span class="ml-1">
-    {{  $model->dislikes_count() }}
+    {{  $model->disapproved_count > 0 ? $model->disapproved_count : ''  }}
 </span>

@@ -8,8 +8,7 @@ class ArticleStatistics
 {
     public static function mostCommented($take = 3)
     {
-        return Article::withCount('comments')
-            ->orderBy('comments_count', 'desc')
+        return Article::orderBy('comments_count', 'desc')
             ->take($take)
             ->get();
     }

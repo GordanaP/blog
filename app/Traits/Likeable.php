@@ -12,20 +12,6 @@ trait Likeable
             ->withPivot('is_liked')->as('status');
     }
 
-    public function likes_count()
-    {
-        $count = $this->likes->where('status.is_liked', 1)->count();
-
-        return $count > 0 ? $count : '';
-    }
-
-    public function dislikes_count()
-    {
-        $count = $this->likes->where('status.is_liked', 0)->count();
-
-        return $count > 0 ? $count : '';
-    }
-
     public function isLikedBy($user = null)
     {
         if($user) {

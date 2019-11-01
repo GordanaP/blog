@@ -40,7 +40,8 @@ class ArticleFiltersMap
             'user' =>  User::orderBy('name')
                 ->whereIn('id', [1, 2])
                 ->get()
-                ->pluck('name', 'id')
+                // ->pluck('name', 'id')
+                ->pluck('name', 'name')
         ];
     }
 }

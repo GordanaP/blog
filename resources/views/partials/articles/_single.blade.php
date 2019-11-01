@@ -49,14 +49,14 @@
         @if (! request()->route('article'))
             <span>
                  <i class="fa fa-comments-o" aria-hidden="true"></i>
-                {{ $article->comments->count() }}
+                {{ $article->comments_count }}
             </span>
         @else
             <span>
                 @include('partials.likeables._model', [
                     'user' => Auth::user(),
                     'model' => $article,
-                    'route' => route('users.articles.likes.store', [Auth::user(), $article])
+                    'route' => route('users.articles.likes.store', [Auth::user(), $article]),
                 ])
             </span>
         @endif

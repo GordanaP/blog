@@ -10,7 +10,7 @@
             @include('partials.likeables._model', [
                 'user' => $user,
                 'model' => $comment,
-                'route' => route('users.comments.likes.store', [$user, $comment])
+                'route' => route('users.comments.likes.store', [$user, $comment]),
             ])
         </div>
     </div>

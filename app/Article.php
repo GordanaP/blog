@@ -3,8 +3,11 @@
 namespace App;
 
 use App\Traits\Likeable;
+use App\Scopes\LikesCountScope;
 use App\Traits\Article\Rateable;
 use App\Traits\Article\Scopeable;
+use App\Scopes\CommentsCountScope;
+use App\Scopes\DislikesCountScope;
 use App\Facades\ArticleImageService;
 use App\Traits\Article\HasAttributes;
 use App\Services\Article\ManageArticle;
@@ -35,13 +38,22 @@ class Article extends Model
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array+
      */
     protected $casts = [
         'is_approved' => 'boolean',
     ];
 
     protected $appends = [ 'average_rating' ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new CommentsCountScope);
+        static::addGlobalScope(new LikesCountScope);
+        static::addGlobalScope(new DislikesCountScope);
+    }
 
     /**
      * Get the route key for the model.
@@ -80,7 +92,17 @@ class Article extends Model
 
     public function latest_comments()
     {
-        return $this->comments()->with('user', 'likes')->latest();
+        return $this->comments()
+            ->with('user', 'likes')
+            ->withCount([
+                'likes as approved_count' => function ($query) {
+                    $query->where('is_liked', 1);
+                },
+                'likes as disapproved_count' => function ($query) {
+                    $query->where('is_liked', 0);
+                },
+            ])
+            ->latest();
     }
 
     public function hasImage()

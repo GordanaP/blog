@@ -2,6 +2,7 @@
 
 namespace App\Traits\Article;
 
+use Carbon\Carbon;
 use App\Facades\DateFormatter;
 
 trait HasAttributes
@@ -38,22 +39,22 @@ trait HasAttributes
 
     public function getIsExpiredAttribute()
     {
-        return ! $this->is_approved && optional($this->publish_at) <= \Carbon\Carbon::yesterday();
+        return ! $this->is_approved && $this->publish_at <= Carbon::yesterday();
     }
 
     public function getIsPendingAttribute()
     {
-        return ! $this->is_approved && optional($this->publish_at)->isFuture();
+        return ! $this->is_approved && $this->publish_at->isFuture();
     }
 
     public function getIsWaitingPublishingAttribute()
     {
-        return $this->is_approved && optional($this->publish_at)->isFuture();
+        return $this->is_approved && $this->publish_at->isFuture();
     }
 
     public function getIsPublishedAttribute()
     {
-        return $this->is_approved && optional($this->publish_at)->isPast();
+        return $this->is_approved && $this->publish_at->isPast();
     }
 
     public function getAverageRatingAttribute()

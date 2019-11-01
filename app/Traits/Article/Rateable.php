@@ -20,9 +20,6 @@ trait Rateable
 
     public function ratingGivenBy($user)
     {
-        return $this->ratings->pluck('user.rating_id', 'user.user_id')
-            ->map(function($ratingId, $userId) use($user) {
-                return $userId == $user->id ? $ratingId : null;
-            })->filter()->flatten()->first();
+        return $this->ratings->where('user.user_id', $user->id)->first()->star;
     }
 }

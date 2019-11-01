@@ -20,7 +20,6 @@
     @include('partials.articles._single', [
         'article' => $article
     ])
-
     <!-- Login prompt for an unauthenticated user -->
     @guest
         @include('partials.comments._login_prompt')
@@ -35,7 +34,7 @@
     @endauth
 
     <!-- Comments list -->
-    <p class="text-lg font-bold">Comments: {{ $article->comments->count() }}</p>
+    <p class="text-lg font-bold">Comments: {{ $article->comments_count }}</p>
 
     <div href="#commentsList">
         @forelse ($article->latest_comments as $comment)
