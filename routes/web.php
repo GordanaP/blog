@@ -31,7 +31,7 @@ Route::resource('articles', 'Article\ArticleController')
 /**
  * Comment
  */
-Route::resource('comments', 'Article\ArticleController')
+Route::resource('comments', 'Comment\CommentController')
     ->only('edit', 'update', 'destroy');
 
 /**

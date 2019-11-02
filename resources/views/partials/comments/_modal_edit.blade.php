@@ -11,11 +11,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
-                    <label for="commentBody">Body</label>
-                    <textarea class="form-control" id="commentBody" rows="4"
-                    placeholder="500 characters maximum"></textarea>
-                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="commentBody">Body</label>
+                        <textarea class="form-control" name="body" id="commentBody" rows="4"></textarea>
+
+                        <span class="text-xs text-danger normal-case body"></span>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="commentSaveButton">

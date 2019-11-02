@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Comment;
 
 use App\Comment;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Validation\CommentRequest;
 
 class CommentController extends Controller
 {
@@ -16,19 +16,26 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        //
+        return response([
+            'comment' => $comment
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Validation\CommentRequest  $request
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(CommentRequest $request, Comment $comment)
     {
-        //
+        $comment->update(['body' => $request->body]);
+
+        return response([
+            'success' => 'The comment has been updated.',
+            'comment' => $comment
+        ]);
     }
 
     /**
@@ -39,6 +46,10 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return response([
+            'success' => 'The comment has been deleted.'
+        ]);
     }
 }

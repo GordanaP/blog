@@ -27,22 +27,24 @@
 
     <!-- Comment form -->
     @auth
-        @include('partials.comments._form_save', [
+        @include('partials.comments._form_store', [
             'user' => Auth::user(),
             'article' => $article,
         ])
     @endauth
 
     <!-- Comments list -->
-    <p class="text-lg font-bold">Comments: {{ $article->comments_count }}</p>
+    <div id="commentsList">
+        <p class="text-lg font-bold">Comments: {{ $article->comments_count }}</p>
 
-    <div href="#commentsList">
-        @forelse ($article->latest_comments as $comment)
-            @comment(['comment' => $comment, 'user' => Auth::user()])
-            @endcomment
-        @empty
-            <p>There are no comments at present.</p>
-        @endforelse
+        <div href="#commentsList">
+            @forelse ($article->latest_comments as $comment)
+                @comment(['comment' => $comment, 'user' => Auth::user()])
+                @endcomment
+            @empty
+                <p>There are no comments at present.</p>
+            @endforelse
+        </div>
     </div>
 
     @include('partials.comments._modal_edit')
@@ -51,4 +53,28 @@
 
 @section('sidebar')
     @include('partials.app._side')
+@endsection
+
+@section('scripts')
+    <script>
+
+        var commentModal = $('#commentModal');
+        var commentBody = $('#commentBody');
+        var commentSaveButton = $('#commentSaveButton');
+        var errorFields = ['body'];
+
+        commentModal.setAutofocus('#commentBody');
+        commentModal.clearOnClose(errorFields);
+        clearErrorOnNewInput()
+
+        // Edit comment
+        @include('partials.comments._js_edit')
+
+        // Update comment
+        @include('partials.comments._js_update')
+
+        // Delete comment
+        @include('partials.comments._js_delete')
+
+    </script>
 @endsection

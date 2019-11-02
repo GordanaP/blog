@@ -1,4 +1,6 @@
 <script type="text/javascript" src="{{ asset('js/helpers.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/form_helpers.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/modal_helpers.js') }}"></script>
 
 <script>
     $.ajaxSetup({
