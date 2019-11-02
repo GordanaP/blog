@@ -44,6 +44,9 @@
             <p>There are no comments at present.</p>
         @endforelse
     </div>
+
+    @include('partials.comments._modal_edit')
+
 @endsection
 
 @section('sidebar')

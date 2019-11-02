@@ -15,5 +15,33 @@
         </div>
     </div>
 
-    <p class="mt-3">{{ $comment->body }}</p>
+    <div class="mt-3">{{ $comment->body }}</div>
+
+    <div class="pull-right">
+        <button id="commentEditButton" class="btn-link mr-1" value="{{ $comment->id }}">
+            Edit
+        </button>
+        <button id="commentDeleteButton" class="btn-link" value="{{ $comment->id }}">
+            Delete
+        </button>
+    </div>
+
+    <div class="clearfix"></div>
 </div>
+
+@section('scripts')
+    <script>
+
+        var commentModal = $('#commentModal');
+        var commentSave = $('#commentSaveButton');
+
+        $(document).on('click', '#commentEditButton', function(){
+
+            var commentId = $(this).val();
+
+            commentModal.modal('show');
+            commentSave.val(commentId);
+        });
+
+    </script>
+@endsection
