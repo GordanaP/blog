@@ -29,6 +29,12 @@ Route::resource('articles', 'Article\ArticleController')
     ->except('create', 'store');
 
 /**
+ * Comment
+ */
+Route::resource('comments', 'Article\ArticleController')
+    ->only('edit', 'update', 'destroy');
+
+/**
  * UserArticle
  */
 Route::resource('users.articles', 'User\UserArticleController')

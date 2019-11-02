@@ -43,6 +43,8 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
+        // return $article->comments;
+
         return view('articles.show', compact('article'));
     }
 

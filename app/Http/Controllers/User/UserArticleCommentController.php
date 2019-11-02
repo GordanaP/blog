@@ -4,10 +4,11 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Article;
+use Illuminate\Http\Request;
 use App\Mail\CommentWasPosted;
+use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
-use App\Facades\ArticleService;
 use App\Http\Requests\Validation\CommentRequest;
 
 class UserArticleCommentController extends Controller
@@ -35,10 +36,7 @@ class UserArticleCommentController extends Controller
 
         $comment = ArticleService::addComment($request->validated());
 
-        if(! $article->user->owns($comment)) {
-            $when = now()->addMinute();
-            Mail::to($article->user)->later($when, new CommentWasPosted($comment, $article));
-        }
+        ArticleService::notifyAuthorOnANewComment($comment);
 
         return back();
     }

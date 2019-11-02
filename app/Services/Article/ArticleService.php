@@ -4,7 +4,9 @@ namespace App\Services\Article;
 
 use App\Article;
 use App\Comment;
+use App\Mail\CommentWasPosted;
 use App\Facades\ArticleImageService;
+use Illuminate\Support\Facades\Mail;
 
 class ArticleService
 {
@@ -61,5 +63,15 @@ class ArticleService
         $this->article->ratings()->attach([
             $rating => ['user_id' => $this->user->id]
         ]);
+    }
+
+    public function notifyAuthorOnANewComment($comment)
+    {
+        if(! $this->article->user->owns($comment)) {
+            $when = now()->addSeconds(15);
+
+            Mail::to($this->article->user)
+                ->later($when, new CommentWasPosted($comment, $this->article));
+        }
     }
 }

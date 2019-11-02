@@ -8,7 +8,6 @@ use App\Facades\ArticleService;
 use App\Events\ArticlePublished;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
-use App\Jobs\NotifyUsersTheNewArticleWasPublished;
 use App\Services\Filter\Article\ArticleFilterService;
 
 class UserArticleController extends Controller

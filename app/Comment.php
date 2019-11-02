@@ -20,6 +20,8 @@ class Comment extends Model
         'is_liked' => 'boolean',
     ];
 
+    protected $appends = ['likes_count'];
+
     public function user()
     {
         return $this->belongsTo(User::class);
