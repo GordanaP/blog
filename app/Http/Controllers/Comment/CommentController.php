@@ -9,6 +9,15 @@ use App\Http\Requests\Validation\CommentRequest;
 class CommentController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(Comment::class);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Comment  $comment
@@ -51,5 +60,19 @@ class CommentController extends Controller
         return response([
             'success' => 'The comment has been deleted.'
         ]);
+    }
+
+    /**
+     * Authorize the controller methods.
+     *
+     * @return array
+     */
+    protected function resourceAbilityMap()
+    {
+         return [
+            'edit' => 'update',
+            'update' => 'update',
+            'destroy' => 'delete',
+        ];
     }
 }

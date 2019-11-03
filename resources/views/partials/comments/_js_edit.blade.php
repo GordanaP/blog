@@ -7,9 +7,10 @@ $(document).on('click', '#commentEditButton', function() {
 
     $.ajax({
         url : commentEditUrl,
-        type: 'GET',
+        type: 'GET'
     })
     .done(function(response) {
+
         commentBody.val(response.comment.body);
         commentSaveButton.val(response.comment.id);
     });

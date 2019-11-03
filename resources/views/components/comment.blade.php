@@ -19,14 +19,16 @@
         {{ $comment->body }}
     </div>
 
-    <div class="pull-right">
-        <button id="commentEditButton" class="btn-link mr-1" value="{{ $comment->id }}">
-            Edit
-        </button>
-        <button id="commentDeleteButton" class="btn-link" value="{{ $comment->id }}">
-            Delete
-        </button>
-    </div>
+    @can('update', $comment)
+        <div class="pull-right">
+            <button id="commentEditButton" class="btn-link mr-1" value="{{ $comment->id }}">
+                Edit
+            </button>
+            <button id="commentDeleteButton" class="btn-link" value="{{ $comment->id }}">
+                Delete
+            </button>
+        </div>
+    @endcan
 
     <div class="clearfix"></div>
 </div>

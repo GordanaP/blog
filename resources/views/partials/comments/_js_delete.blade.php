@@ -8,6 +8,8 @@ $(document).on('click', '#commentDeleteButton', function() {
         url: commentDeleteUrl
     })
     .done(function(response) {
+
         reloadLocation('#commentsList');
+        reloadLocation('#mostCommentedArticles');
     });
 });

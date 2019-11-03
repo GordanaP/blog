@@ -3,7 +3,7 @@
     <p class="text-gray-600 text-sm">What people are talking about</p>
     <hr>
 
-    <ul class="list-unstyled">
+    <ul class="list-unstyled" id="mostCommentedArticles">
         @foreach ($most_commented as $article)
             <li class="mb-1">
                 <a href="{{ route('articles.show', $article) }}">

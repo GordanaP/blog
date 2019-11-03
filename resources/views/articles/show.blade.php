@@ -20,7 +20,8 @@
     @include('partials.articles._single', [
         'article' => $article
     ])
-    <!-- Login prompt for an unauthenticated user -->
+
+    <!-- Prompt login for an unauthenticated user -->
     @guest
         @include('partials.comments._login_prompt')
     @endguest
@@ -58,6 +59,7 @@
 @section('scripts')
     <script>
 
+        var loginUrl = "{{ route('login') }}";
         var commentModal = $('#commentModal');
         var commentBody = $('#commentBody');
         var commentSaveButton = $('#commentSaveButton');

@@ -45,3 +45,8 @@ function clearForm()
 {
     $("form").trigger('reset');
 }
+
+function redirectTo(url)
+{
+    location.href = url;
+}

@@ -15,6 +15,7 @@ $(document).on('click', '#commentSaveButton', function() {
         reloadLocation("#body-"+response.comment.id);
     })
     .fail(function(response) {
+
         displayErrors(response.responseJSON.errors);
     });
 });
