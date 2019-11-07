@@ -238,6 +238,7 @@ return [
         'QueryManager' => App\Facades\QueryManager::class,
         'ArticleFiltersUrlManager' => App\Facades\ArticleFiltersUrlManager::class,
         'ArticleService' => App\Facades\ArticleService::class,
+        'UserService' => App\Facades\UserService::class,
     ],
 
 ];

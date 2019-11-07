@@ -41,7 +41,7 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        return $user->isAuthor() && ! $user->hasProfile();
+        return $user->is_author && ! $user->hasProfile();
     }
 
     /**

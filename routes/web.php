@@ -3,12 +3,19 @@
 /**
  * Welcome
  */
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
+
+/**
+ * Admin Dashboard
+ */
+Route::view('/dashboard', 'admin.index')
+    ->name('admin.index')
+    ->middleware('admin');
 
 /**
  * Preview Email
  */
-Route::get('mailable', function () {
+Route::get('/mailable', function () {
     //
 });
 
@@ -35,16 +42,21 @@ Route::resource('comments', 'Comment\CommentController')
     ->only('edit', 'update', 'destroy');
 
 /**
- * UserArticle
+ * User
  */
-Route::resource('users.articles', 'User\UserArticleController')
-    ->only('index', 'create', 'store');
+Route::resource('users', 'User\UserController')->middleware('admin');
 
 /**
  * Profile
  */
 Route::resource('profiles', 'Profile\ProfileController')
     ->except('index', 'create', 'store');
+
+/**
+ * UserArticle
+ */
+Route::resource('users.articles', 'User\UserArticleController')
+    ->only('index', 'create', 'store');
 
 /**
  * UserProfile

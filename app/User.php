@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Traits\User\HasRole;
 use App\Facades\ArticleImageService;
 use App\Facades\ProfileImageService;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasRole, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -68,16 +69,6 @@ class User extends Authenticatable
     public function owns($model)
     {
         return $this->id == $model->user_id;
-    }
-
-    public function isMe($user)
-    {
-        return $this->id == $user->id;
-    }
-
-    public function isAuthor()
-    {
-        return collect(['g@gmail.com', 'd@gmail.com'])->contains($this->email);
     }
 
     public function hasProfile()

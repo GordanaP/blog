@@ -25,6 +25,10 @@ class DirectiveServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Blade::if('admin', function () {
+            return Auth::check() && Auth::user()->is_admin;
+        });
+
         Blade::if('noAuthLiking', function ($comment) {
             return Auth::check() && ! $comment->isLikedOrDislikedBy(Auth::user());
         });

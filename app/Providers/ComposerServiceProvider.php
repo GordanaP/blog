@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\ViewComposers\TagsComposer;
+use App\ViewComposers\RolesComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\ViewComposers\CategoriesComposer;
@@ -26,6 +27,7 @@ class ComposerServiceProvider extends ServiceProvider
             ['partials.app._side', 'partials.home._article_filters'],
             FiltersComposer::class);
         View::composer('partials.app._side', StatisticsComposer::class);
+        View::composer('partials.users._form_save', RolesComposer::class);
     }
 
     /**
