@@ -39,10 +39,9 @@ function deleteManyRecords(records, datatable)
 
 function markCheckboxes(records)
 {
-    var table = $('#table'+records);
     var singleCheckbox = '.checkitem'+records
 
-    table.on('click', checkAll(records), function () {
+    table(records).on('click', checkAll(records), function () {
 
         $(singleCheckbox).prop('checked', $(this).prop("checked"));
         deleteButton(records).show();
@@ -52,7 +51,7 @@ function markCheckboxes(records)
         }
     });
 
-    table.on('click', singleCheckbox, function () {
+    table(records).on('click', singleCheckbox, function () {
 
         if(isChecked($(this))) {
             deleteButton(records).show();
@@ -131,6 +130,16 @@ function countChecked(checkboxName)
 function countDataTableRows(datatable)
 {
     return datatable.data().count();
+}
+
+function table(records)
+{
+    return $('#table'+records);
+}
+
+function resourceUrl(records)
+{
+    return 'api/'+records.toLowerCase();
 }
 
 function deleteButton(records)
