@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Role;
 use App\User;
 use App\Facades\UserService;
 use Illuminate\Http\Request;
@@ -89,10 +88,16 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        $user->delete();
+        if (is_array($request->ids)) {
+            User::destroy($request->ids);
+        } else {
+            $user->delete();
+        }
 
-        return back();
+        return response([
+            'success' => 'The record has been deleted.'
+        ]);
     }
 }

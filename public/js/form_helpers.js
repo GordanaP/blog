@@ -31,9 +31,15 @@ function clearError(field)
     field.hide().text('');
 }
 
+
 function reloadLocation(location)
 {
     $(location).load(' '+location );
+}
+
+function reloadDataTable(datatable)
+{
+    datatable.ajax.reload();
 }
 
 function errorBox(name, tag = 'span.')
@@ -105,9 +111,4 @@ function isEmptyInput( input )
 function isEmptyElement( el )
 {
     return ! $.trim(el.html());
-}
-
-function getCheckedValue(inputType)
-{
-    return $("form input[type='"+inputType+"']:checked").val();
 }

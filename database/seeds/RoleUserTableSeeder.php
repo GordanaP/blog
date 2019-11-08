@@ -1,5 +1,7 @@
 <?php
 
+use App\Role;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class RoleUserTableSeeder extends Seeder
@@ -11,6 +13,8 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $role = Role::whereName('admin')->first();
+
+        User::first()->roles()->attach($role);
     }
 }
