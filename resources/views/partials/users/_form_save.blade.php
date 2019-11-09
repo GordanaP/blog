@@ -1,4 +1,4 @@
-<form action="{{ $route }}" method="POST">
+<form action="{{ $route }}" method="POST" id="saveUser">
 
     @csrf
 
@@ -93,7 +93,7 @@
     </div>
 
     <div class="form-group">
-        <button class="btn btn-primary">
+        <button type="submit" class="btn btn-primary">
             {{ $button_title }}
         </button>
     </div>
@@ -101,13 +101,12 @@
 
 @section('scripts')
     <script>
+        var form = $('#saveUser');
+        var radioOption = $('#manualPassword');
+        var hiddenInput = $('#password');
+        var hiddenError = $('p.password');
 
-        var radio = 'radio'
-        var passwordInput = $('#password');
-        var passwordError = $('p.password');
-        var checkedValue = 'manually_generate';
-
-        toggleHiddenElementByCheckedInput(radio, checkedValue, passwordInput, passwordError)
+        toggleHiddenElement(radioName(form), optionValue(radioOption), hiddenInput, hiddenError)
 
     </script>
 @endsection

@@ -23,12 +23,13 @@ table.admin-table tbody tr td { border-top: none !important; padding-left: 16px;
 /* Pagination buttons */
 li.paginate_button.page-item,
 li.paginate_button.page-item.active {
-  padding: 8px 0 !important; margin-right: 8px;
+  padding: 4px !important; margin-right: 8px;
 }
 li.paginate_button.page-item.next,
 li.paginate_button.page-item.previous {
-  padding: 8px 0;
+  padding: 4px;
 }
+li.paginate_button.page-item.active { background: #ddd !important;}
 
 li.paginate_button.page-item a.page-link,
 li.paginate_button.page-item.next a.page-link,

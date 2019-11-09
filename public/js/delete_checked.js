@@ -11,6 +11,9 @@ function deleteSingleRecord(records, datatable)
                 countDataTableRows(datatable) == 1
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
+
+                deleteButton(records).hide();
+                uncheck($(checkAll(records)));
             }
         });
     });
@@ -19,11 +22,14 @@ function deleteSingleRecord(records, datatable)
 function deleteManyRecords(records, datatable)
 {
     $(document).on('click', deleteMany(records), function() {
+
+        var checkbox = records.toLowerCase();
+
         $.ajax({
             type: 'DELETE',
             url: deleteUrl(records),
             data: {
-                ids: getCheckedValues(records.toLowerCase())
+                ids: getCheckedValues(checkbox)
             },
             success: function(response) {
                 countDataTableRows(datatable) == 1 || noneChecked(records.toLowerCase())
@@ -39,7 +45,8 @@ function deleteManyRecords(records, datatable)
 
 function markCheckboxes(records)
 {
-    var singleCheckbox = '.checkitem'+records
+    var singleCheckbox = '.checkitem'+records;
+    var checkbox = records.toLowerCase();
 
     table(records).on('click', checkAll(records), function () {
 
@@ -65,66 +72,15 @@ function markCheckboxes(records)
             check($(checkAll(records)))
         }
 
-        if(noneChecked(records.toLowerCase())) {
+        if(noneChecked(checkbox)) {
             deleteButton(records).hide();
         }
     });
 }
 
-function isChecked(checkbox)
-{
-    return checkbox.prop("checked") == true;
-}
-
-function isNotChecked(checkbox)
-{
-    return checkbox.prop("checked") == false;
-}
-
-function check(checkbox)
-{
-    return checkbox.prop('checked', true);
-}
-
-function uncheck(checkbox)
-{
-    return checkbox.prop('checked', false);
-}
-
 function checkAll(records)
 {
     return '#checkAll'+records;
-}
-
-function allChecked(checkbox)
-{
-    return $(checkbox+":checked").length == $(checkbox).length
-}
-
-function noneChecked(checkbox)
-{
-    return countChecked(checkbox) == 0
-}
-
-function getCheckedValue(inputType)
-{
-    return $("form input[type='"+inputType+"']:checked").val();
-}
-
-function getCheckedValues(checkboxName)
-{
-    var values = [];
-
-    $('input[name*="' + checkboxName + '"]:checked').each(function() {
-       values.push($(this).val());
-    });
-
-    return values;
-}
-
-function countChecked(checkboxName)
-{
-    return $('input[name*="' + checkboxName + '"]:checked').length;
 }
 
 function countDataTableRows(datatable)
@@ -162,7 +118,17 @@ function deleteSingle(records)
     return '#delete'+pluralize.singular(records);
 }
 
-function getLocation(records, location='#card')
+function getLocation(records, id='#card')
 {
-    return location+records;
+    return id+records;
+}
+
+function handleResponse(records, datatable)
+{
+    countDataTableRows(datatable) == 1 || noneChecked(records.toLowerCase())
+        ? reloadLocation(getLocation(records))
+        : reloadDataTable(datatable);
+
+    deleteButton(records).hide();
+    uncheck($(checkAll(records)));
 }

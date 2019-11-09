@@ -77,9 +77,9 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-            UserService::update($request->all());
+        UserService::update($request->validated());
 
-            return back();
+        return back();
     }
 
     /**

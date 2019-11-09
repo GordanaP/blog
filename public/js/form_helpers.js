@@ -57,25 +57,9 @@ function redirectTo(url)
     location.href = url;
 }
 
-function toggleHiddenElementByCheckedInput(inputType, checkedValue, hiddenElement, errorField)
+function showElement(el)
 {
-    $("input:"+inputType).change(function() {
-
-        if(getCheckedValue(inputType) == checkedValue) {
-            showElement(hiddenElement)
-        }
-        else
-        {
-            hideElement(hiddenElement)
-            resetInput(hiddenElement)
-            emptyElement(errorField)
-        }
-    });
-
-    if (! isEmptyElement( errorField )) {
-        showElement(hiddenElement);
-        checkInput(inputType);
-    }
+    el.removeClass('hidden')
 }
 
 function hideElement(el)
@@ -83,24 +67,14 @@ function hideElement(el)
     el.addClass('hidden')
 }
 
-function showElement(el)
-{
-    el.removeClass('hidden')
-}
-
-function emptyElement(el)
-{
-    el.empty();
-}
-
 function resetInput(input)
 {
     input.val('');
 }
 
-function checkInput(inputType)
+function emptyElement(el)
 {
-    $("input:"+inputType).prop("checked", true);
+    el.empty();
 }
 
 function isEmptyInput( input )
@@ -111,4 +85,14 @@ function isEmptyInput( input )
 function isEmptyElement( el )
 {
     return ! $.trim(el.html());
+}
+
+function inputType(type)
+{
+    return $("input:"+type);
+}
+
+function optionValue(option)
+{
+    return option.val();
 }

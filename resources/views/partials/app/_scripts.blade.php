@@ -2,6 +2,8 @@
 <script type="text/javascript" src="{{ asset('js/form_helpers.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/modal_helpers.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/delete_checked.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/radio_check.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/checkbox_check.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/pluralize.js') }}"></script>
 
 <!-- Datatables -->
