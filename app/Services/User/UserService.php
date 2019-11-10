@@ -11,13 +11,15 @@ class UserService
 {
     protected $user;
     protected $roles;
+    protected $generate_password;
     protected $password;
 
     public function __construct()
     {
         $this->user = request()->route('user');
         $this->roles = request('role_id');
-        $this->password = request('generate_password');
+        $this->generate_password = request('generate_password');
+        $this->password = request('password');
     }
 
     public function create(array $data)
@@ -34,17 +36,15 @@ class UserService
 
     private function credentials(array $data)
     {
-        if ($this->password == 'auto_generate') {
+        if ($this->generate_password == 'auto_generate') {
             $data['password'] = Hash::make(Str::random(8));
         }
 
-        if ($this->password == 'manually_generate') {
-            $data['password'] = Hash::make($data['password']);
+        if ($this->generate_password == 'do_not_change' || $this->password == null) {
+            $data = Arr::except($data, 'password');
         }
 
-        if ($this->password == 'do_not_change') {
-            $data = Arr::except($data, ['password']);
-        }
+        ! is_null($this->password) ? $data['password'] = Hash::make($this->password) : '';
 
         return $data;
     }

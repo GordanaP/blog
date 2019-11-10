@@ -11,6 +11,15 @@ use App\Http\Requests\Validation\UserRequest;
 class UserController extends Controller
 {
     /**
+     * Create a new controller instance.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->authorizeResource(User::class);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,7 +38,6 @@ class UserController extends Controller
      */
     public function create()
     {
-
         return view('users.create');
     }
 
@@ -65,13 +73,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        return view(\Auth::user()->is_admin ? 'users.edit' : 'auth.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Validation\UserRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -85,6 +93,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param \Illuminate\Http\Request $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
@@ -99,5 +108,22 @@ class UserController extends Controller
         return response([
             'success' => 'The record has been deleted.'
         ]);
+    }
+
+    /**
+     * Authorize the controller methods.
+     *
+     * @return array
+     */
+    protected function resourceAbilityMap()
+    {
+         return [
+            'index' => 'viewAny',
+            'create' => 'create',
+            'store' => 'create',
+            'edit' => 'update',
+            'update' => 'update',
+            'destroy' => 'delete',
+        ];
     }
 }

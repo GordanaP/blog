@@ -24,9 +24,25 @@
                     <h4 class="font-normal text-center">My account</h4>
                 </div>
                 <div class="card-body">
-                    <button type="button" class="btn btn-lg btn-block btn-outline-primary">
-                        Edit account
-                    </button>
+                    <div class="flex-col justify-between">
+                        <div>
+                            <p class="mb-1"><span class="font-semibold">Username:</span>
+                                {{ Auth::user()->name }}
+                            </p>
+                            <p class="mb-1"><span class="font-semibold">E_mail address:</span>
+                                {{ Auth::user()->email }}
+                            </p>
+                            <p><span class="font-semibold">Joined:</span>
+                                {{ Auth::user()->created_at->format('d M Y') }}
+                            </p>
+                        </div>
+                        <div>
+                            <a href="{{ route('users.edit', Auth::user()) }}"
+                            class="btn btn-lg btn-block btn-link btn-outline-primary">
+                                Edit account
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>
@@ -44,7 +60,7 @@
                     </div>
                     <div>
                         <a href="{{ Auth::user()->hasProfile() ? route('profiles.show', Auth::user()->profile) : route('users.profiles.create', Auth::user()) }}"
-                        class="btn btn-lg btn-block btn-outline-primary">
+                            class="btn btn-lg btn-block btn-outline-primary">
                             {{ Auth::user()
                                 ->hasProfile() ? 'View' : 'Create' }} profile
                         </a>

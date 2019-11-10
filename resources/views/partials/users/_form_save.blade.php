@@ -9,27 +9,29 @@
     <p class="text-sm mb-3 text-gray-600 font-serif">* Required fields</p>
 
     <!-- Roles -->
-    <div class="form-group">
-        <label for="role" class="mr-3"> Role:</label>
-        @foreach ($roles as $role)
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox"
-                    name="role_id[]" id="role_{{ $role->id }}"
-                    value="{{ $role->id }}"
-                    @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null)))
-                        @foreach ($ids as $role_id)
-                            {{ getChecked($role->id, $role_id) }}
-                        @endforeach
-                    @endif
-                >
-                <label class="form-check-label">
-                    {{ $role->name }}
-                </label>
-            </div>
-        @endforeach
+    @admin
+        <div class="form-group">
+            <label for="role" class="mr-3"> Role:</label>
+            @foreach ($roles as $role)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox"
+                        name="role_id[]" id="role_{{ $role->id }}"
+                        value="{{ $role->id }}"
+                        @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null)))
+                            @foreach ($ids as $role_id)
+                                {{ getChecked($role->id, $role_id) }}
+                            @endforeach
+                        @endif
+                    >
+                    <label class="form-check-label">
+                        {{ $role->name }}
+                    </label>
+                </div>
+            @endforeach
 
-        @formError(['field' => 'role_id'])@endformError
-    </div>
+            @formError(['field' => 'role_id'])@endformError
+        </div>
+    @endadmin
 
     <!-- Username -->
     <div class="form-group">
@@ -57,6 +59,7 @@
             @endif
         </label>
 
+        @admin
         @if (request()->route('user'))
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="generate_password"
@@ -84,12 +87,25 @@
                 Generate manually
             </label>
         </div>
+        @endadmin
 
-        <input type="text" class="form-control mt-2 hidden"
+        <input type="password" class="form-control mt-2 @admin hidden @endadmin"
         id="password" name="password" placeholder="********">
 
         @formError(['field' => 'password'])@endformError
-        @formError(['field' => 'generate_password'])@endformError
+        @admin
+            @formError(['field' => 'generate_password'])@endformError
+        @endadmin
+
+        <!-- Password confirm -->
+        @notAdmin
+        <div class="form-group mt-3">
+            <label for="password-confirm">Confirm password:</label>
+
+            <input type="password" name="password_confirmation" id="password-confirm"
+                class="form-control" placeholder="Retype password">
+        </div>
+        @endnotAdmin
     </div>
 
     <div class="form-group">
@@ -99,7 +115,9 @@
     </div>
 </form>
 
+
 @section('scripts')
+    @admin
     <script>
         var form = $('#saveUser');
         var radioOption = $('#manualPassword');
@@ -109,4 +127,5 @@
         toggleHiddenElement(radioName(form), optionValue(radioOption), hiddenInput, hiddenError)
 
     </script>
+    @endadmin
 @endsection
