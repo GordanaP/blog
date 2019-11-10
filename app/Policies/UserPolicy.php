@@ -29,7 +29,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isMe($model);
+        return $user->isMe($model) || $user->is_admin;
     }
 
     /**
