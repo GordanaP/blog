@@ -33,5 +33,6 @@ class ComponentServiceProvider extends ServiceProvider
         Blade::component('components.button_like', 'buttonLike');
         Blade::component('components.button_dislike', 'buttonDislike');
         Blade::component('components.datatable', 'dataTable');
+        Blade::component('components.navitem_sideadmin', 'navitem');
     }
 }

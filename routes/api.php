@@ -12,3 +12,9 @@ use Illuminate\Http\Request;
 Route::get('users', 'Api\ApiUserController@index')
     ->name('api.users.index');
 
+/**
+ * User
+ */
+Route::get('articles', 'Api\ApiArticleController@index')
+    ->name('api.articles.index');
+

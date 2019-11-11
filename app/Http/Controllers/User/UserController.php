@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Facades\UserService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\UserRequest;
 

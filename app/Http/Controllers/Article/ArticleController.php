@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
+use Illuminate\Http\Request;
 use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ArticleRequest;
@@ -32,7 +33,11 @@ class ArticleController extends Controller
             ->newest()
             ->paginate(5);
 
-        return view('articles.index', compact('articles'));
+
+        return view('articles.index')->with([
+            'articles' => $articles,
+            'all_articles' => Article::all(),
+        ]);
     }
 
     /**
@@ -43,9 +48,17 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        // return $article->comments;
-
         return view('articles.show', compact('article'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -79,8 +92,11 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Request $request, Article $article = null)
     {
+        $article ? $this->authorize('delete', $article)
+            : $this->authorize('viewAny', Article::class);
+
         ArticleService::remove();
 
         return redirect()->route('articles.index');
@@ -96,7 +112,6 @@ class ArticleController extends Controller
          return [
             'edit' => 'update',
             'update' => 'update',
-            'destroy' => 'delete',
         ];
     }
 }

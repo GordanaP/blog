@@ -8,12 +8,10 @@
                     Dashboard <span class="sr-only">(current)</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-database mr-2 text-gray-600" aria-hidden="true"></i>
-                    Articles
-                </a>
-            </li>
+
+            @navitem(['icon' => 'fa-database']) Articles
+            @endnavitem
+
             <li class="nav-item">
                 <a class="nav-link flex items-center" href="#">
                     <i class="fa fa-share-alt mr-2 text-gray-600" aria-hidden="true"></i>
@@ -26,32 +24,10 @@
                     Tags
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link flex items-center" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers">
-                    <i class="fa fa-users mr-2 text-gray-600" aria-hidden="true"></i>
-                    Users
-                </a>
-                <div class="collapse" id="collapseUsers">
-                    <div class="card card-body py-0">
-                        <ul class="nav flex-column">
-                            <li class="nav-item font-light">
-                                <a class="nav-link text-sm py-1 flex items-center"
-                                href="{{ route('users.index') }}" >
-                                    <i class="fa fa-eye mr-2 text-gray-600" aria-hidden="true"></i>
-                                    All Users
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link py-1 text-sm flex items-center"
-                                    href="{{ route('users.create') }}">
-                                    <i class="fa fa-pencil mr-2 text-gray-600" aria-hidden="true"></i>
-                                    Create user
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
+
+            @navitem(['icon' => 'fa-users']) Users
+            @endnavitem
+
             <li class="nav-item">
                 <a class="nav-link flex items-center" href="#">
                     <i class="fa fa-user-circle mr-2 text-gray-600" aria-hidden="true"></i>
