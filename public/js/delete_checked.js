@@ -38,6 +38,12 @@ function deleteManyRecords(records, datatable)
 
                 deleteButton(records).hide();
                 uncheck($(checkAll(records)));
+            },
+            error: function(response) {
+                displayErrors(response.responseJSON.errors, 'div.');
+                deleteButton(records).hide();
+                uncheck($(checkAll(records)));
+                reloadDataTable(datatable);
             }
         });
     });

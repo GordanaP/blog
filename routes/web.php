@@ -44,11 +44,8 @@ Route::resource('comments', 'Comment\CommentController')
 /**
  * User
  */
-Route::middleware('admin')->group(function () {
-    Route::delete('users/{user?}', 'User\UserController@destroy')
-        ->name('users.destroy');
-});
-
+Route::delete('users/{user?}', 'User\UserController@destroy')
+    ->name('users.destroy');
 Route::resource('users', 'User\UserController')
     ->except('destroy');
 

@@ -6,11 +6,11 @@ function clearErrorOnNewInput()
     });
 }
 
-function displayErrors(errors)
+function displayErrors(errors, htmlEl = 'span.')
 {
     for (error in errors) {
         var errorMessage = errors[error][0];
-        displayError(errorBox(error), errorMessage);
+        displayError(errorBox(error, htmlEl), errorMessage);
     }
 }
 
@@ -31,7 +31,6 @@ function clearError(field)
     field.hide().text('');
 }
 
-
 function reloadLocation(location)
 {
     $(location).load(' '+location );
@@ -42,9 +41,9 @@ function reloadDataTable(datatable)
     datatable.ajax.reload();
 }
 
-function errorBox(name, tag = 'span.')
+function errorBox(name, htmlEl)
 {
-    return $(tag+name);
+    return $(htmlEl+name);
 }
 
 function clearForm()

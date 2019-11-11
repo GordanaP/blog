@@ -5,6 +5,9 @@
 @section('page_title', 'All Users')
 
 @section('content')
+
+        @include('alerts._error_ajax')
+
         @dataTable(['records' => 'Users', 'collection' => $users])
             <th>Id</th>
             <th>Name</th>

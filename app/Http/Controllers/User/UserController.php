@@ -97,13 +97,12 @@ class UserController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, User $user)
+    public function destroy(UserRequest $request, User $user = null)
     {
-        if (is_array($request->ids)) {
-            User::destroy($request->ids);
-        } else {
-            $user->delete();
-        }
+        $user ? $this->authorize('delete', $user)
+            : $this->authorize('viewAny', User::class);
+
+        UserService::delete();
 
         return response([
             'success' => 'The record has been deleted.'
@@ -123,7 +122,6 @@ class UserController extends Controller
             'store' => 'create',
             'edit' => 'update',
             'update' => 'update',
-            'destroy' => 'delete',
         ];
     }
 }
