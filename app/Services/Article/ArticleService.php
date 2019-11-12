@@ -18,16 +18,17 @@ class ArticleService
     public function __construct()
     {
         $this->article  = request()->route('article');
-        $this->user  = request()->route('user');
+        $this->user  = request()->route('user') ?? request('user_id');
         $this->tags = request('tag_id');
         $this->image = request('image');
     }
 
     public function create($data)
     {
-        $article = (new Article)->fill($data);
+        $article = new Article($data);
 
-        $article->addUser($this->user)->addTags($this->tags);
+        $article->addUser($this->user)
+            ->addTags($this->tags);
 
         ArticleImageService::manage($article, $this->image);
 

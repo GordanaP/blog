@@ -35,7 +35,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::delete('articles/{article?}', 'Article\ArticleController@destroy')
     ->name('articles.destroy');
 Route::resource('articles', 'Article\ArticleController')
-    ->except('store', 'destroy');
+    ->except('destroy');
 
 /**
  * Comment

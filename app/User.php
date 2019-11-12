@@ -82,4 +82,9 @@ class User extends Authenticatable
             return ! $user->owns($article);
         });
     }
+
+    public function memberCanSeeOnlyPublished($article)
+    {
+        return ! $this->owns($article) ? $article->is_published : $article;
+    }
 }

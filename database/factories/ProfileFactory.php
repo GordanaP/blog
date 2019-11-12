@@ -14,15 +14,14 @@ $factory->define(Profile::class, function (Faker $faker) {
 });
 
 // Create a user with determined attribute values
-$factory->state(Profile::class, 'gordana', [
-    'first_name' => 'Gordana',
-    'last_name' => 'Vlajkovic',
-    'user_id' => 1
-]);
-
-$factory->state(Profile::class, 'darko', [
+$factory->state(Profile::class, 'author1', [
     'first_name' => 'Darko',
     'last_name' => 'Vlajkovic',
     'user_id' => 2
 ]);
 
+$factory->state(Profile::class, 'author2', [
+    'first_name' => 'John',
+    'last_name' => 'Doe',
+    'user_id' => 3
+]);

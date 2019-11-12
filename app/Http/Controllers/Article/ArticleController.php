@@ -6,6 +6,7 @@ use App\Article;
 use Illuminate\Http\Request;
 use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
+use App\Services\Image\ArticleImageService;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
 
@@ -58,7 +59,20 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        return view('articles.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \App\Http\Requests\Validation\UserRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(ArticleRequest $request)
+    {
+        ArticleService::create($request->validated());
+
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -112,6 +126,7 @@ class ArticleController extends Controller
          return [
             'edit' => 'update',
             'update' => 'update',
+            'show' => 'view'
         ];
     }
 }

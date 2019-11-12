@@ -10,9 +10,9 @@ class DatabaseSeeder extends Seeder
      * @var array
      */
     protected $tables = [
-        'users', 'categories', 'articles', 'tags', 'article_tag', 'comments',
-        'profiles', 'images', 'ratings', 'article_rating', 'likeables', 'roles',
-        'role_user'
+        'users', 'roles', 'role_user', 'categories', 'articles', 'tags',
+        'article_tag', 'comments', 'profiles', 'images', 'ratings',
+        'article_rating', 'likeables',
     ];
 
     /**
@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
         $this->cleanDatabase();
 
         $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
         $this->call(CategoriesTableSeeder::class);
         $this->call(ArticlesTableSeeder::class);
         $this->call(TagsTableSeeder::class);
@@ -33,8 +35,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RatingsTableSeeder::class);
         $this->call(ArticleRatingTableSeeder::class);
         $this->call(LikeablesTableSeeder::class);
-        $this->call(RolesTableSeeder::class);
-        $this->call(RoleUserTableSeeder::class);
     }
 
     /**

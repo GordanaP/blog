@@ -30,7 +30,7 @@ class ArticlePolicy
      */
     public function view(User $user, Article $article)
     {
-        return ! $user->owns($article) ? $article->is_published : $article;
+        return $user->memberCanSeeOnlyPublished($article) || $user->is_admin;
     }
 
     /**
@@ -41,7 +41,7 @@ class ArticlePolicy
      */
     public function create(User $user)
     {
-        return $user->is_author;
+        return $user->is_author || $user->is_admin;
     }
 
     /**
@@ -53,7 +53,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return $user->owns($article);
+        return $user->owns($article) || $user->is_admin;
     }
 
     /**

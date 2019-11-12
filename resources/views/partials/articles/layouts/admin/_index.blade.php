@@ -14,7 +14,7 @@
             <th>Author</th>
             <th class="w-1/5"></th>
         @enddataTable
-    </div>
+
 @endsection
 
 

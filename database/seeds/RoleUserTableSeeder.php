@@ -13,8 +13,13 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        $role = Role::whereName('admin')->first();
+        $admin = Role::whereName('admin')->first();
+        $author = Role::whereName('author')->first();
 
-        User::first()->roles()->attach($role);
+        User::first()->roles()->attach($admin);
+
+        User::findMany([2,3])->map(function($user) use ($author) {
+            $user->roles()->attach($author);
+        });
     }
 }

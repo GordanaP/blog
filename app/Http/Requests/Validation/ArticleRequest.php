@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Validation;
 
+use App\Rules\IsAuthor;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -26,6 +27,10 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
+            'user_id' => [
+                'sometimes','required','exists:users,id',
+                new IsAuthor()
+            ],
             'title' => [
                 'required', 'min:5', 'max:100',
                 Rule::unique('articles')->ignore($this->article),

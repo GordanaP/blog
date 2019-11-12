@@ -17,13 +17,18 @@ $factory->define(User::class, function (Faker $faker) {
 });
 
 // Create a user with determined attribute values
-$factory->state(User::class, 'gordana', [
+$factory->state(User::class, 'admin', [
     'name' => 'gordana',
     'email' => 'g@gmail.com',
 ]);
 
-$factory->state(User::class, 'darko', [
+$factory->state(User::class, 'author1', [
     'name' => 'darko',
-    'email' => 'd@gmail.com',
+    'email' => 'd@test.com',
+]);
+
+$factory->state(User::class, 'author2', [
+    'name' => 'john',
+    'email' => 'john@test.com',
 ]);
 

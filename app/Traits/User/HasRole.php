@@ -35,4 +35,12 @@ trait HasRole
     {
         $this->roles()->sync($roles);
     }
+
+    public static function getAuthors()
+    {
+        return static::with('profile')->whereHas('roles', function($query) {
+            return $query->where('name', 'author');
+        })->get();
+
+    }
 }
