@@ -133,7 +133,7 @@
             <label for="publish_at">Publishing Date</label>
             <input type="text" name="publish_at" id="publish_at"
             class="form-control" placeholder="yyyy-mm-dd"
-            value="{{ old('publish_at', DateFormatter::display($article->publish_at ?? null) ) }}">
+            value="{{ old('publish_at', $article->publish_at_DB_formatted ?? null) }}">
 
             @formError(['field' => 'publish_at'])@endformError
         </div>

@@ -25,33 +25,26 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        if($this->isMethod('delete')) {
-            $rules = [
-                'ids' => 'nullable|exists:users,id'
+        $rules = [
+            'ids' => 'sometimes|exists:users,id',
+            'name' => 'sometimes|required|alpha_num|max:100',
+            'email' => [
+                'sometimes','required', 'email', 'max:100',
+                Rule::unique('users')->ignore(optional($this->user)->id)
+            ],
+        ];
+
+        if(Auth::user()->is_admin) {
+            $rules['role_id'] = ['sometimes', 'exists:roles,id' ];
+            $rules['generate_password'] = [
+                'sometimes', 'required',
+                Rule::in(['auto_generate', 'manually_generate', 'do_not_change'])
             ];
+            $rules['password'] = ['nullable', 'required_if:generate_password,manually_generate', 'min:8'];
         }
-        else
-        {
-            $rules = [
-                'name' => ['required', 'alpha_num', 'max:100'],
-                'email' => [
-                    'required', 'email', 'max:100',
-                    Rule::unique('users')->ignore(optional($this->user)->id)
-                ],
-            ];
 
-            if(Auth::user()->is_admin) {
-                $rules['role_id'] = ['nullable', 'exists:roles,id' ];
-                $rules['generate_password'] = [
-                    'required',
-                    Rule::in(['auto_generate', 'manually_generate', 'do_not_change'])
-                ];
-                $rules['password'] = ['nullable', 'required_if:generate_password,manually_generate', 'min:8'];
-            }
-
-            if(! Auth::user()->is_admin) {
-                $rules['password'] = ['nullable', 'confirmed', 'min:8'];
-            }
+        if(! Auth::user()->is_admin) {
+            $rules['password'] = ['nullable', 'confirmed', 'min:8'];
         }
 
         return $rules;

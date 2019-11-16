@@ -17,7 +17,7 @@
                     <input class="form-check-input" type="checkbox"
                         name="role_id[]" id="role_{{ $role->id }}"
                         value="{{ $role->id }}"
-                        @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null)))
+                        @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null))
                             @foreach ($ids as $role_id)
                                 {{ getChecked($role->id, $role_id) }}
                             @endforeach

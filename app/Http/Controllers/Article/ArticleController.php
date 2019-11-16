@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
-use Illuminate\Http\Request;
 use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

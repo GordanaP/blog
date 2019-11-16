@@ -12,12 +12,11 @@ function deleteSingleRecord(records, datatable)
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
 
-                deleteButton(records).hide();
-                uncheck($(checkAll(records)));
+                handleSuccessResponse(records);
             },
             error: function(response) {
-                console.log(response.responseJSON.errors)
                 displayErrors(response.responseJSON.errors, 'div.');
+                reloadDataTable(datatable);
             }
         });
     });
@@ -40,14 +39,11 @@ function deleteManyRecords(records, datatable)
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
 
-                deleteButton(records).hide();
-                uncheck($(checkAll(records)));
+                handleSuccessResponse(records);
             },
             error: function(response) {
                 displayErrors(response.responseJSON.errors, 'div.');
-                deleteButton(records).hide();
-                uncheck($(checkAll(records)));
-                reloadDataTable(datatable);
+                handleErrorResponse(records, datatable);
             }
         });
     });
@@ -134,12 +130,26 @@ function getLocation(records, id='#card')
     return id+records;
 }
 
-function handleResponse(records, datatable)
+function handleSuccessResponse(records)
 {
-    countDataTableRows(datatable) == 1 || noneChecked(records.toLowerCase())
-        ? reloadLocation(getLocation(records))
-        : reloadDataTable(datatable);
+    removeErrorField();
+    handleResponse(records);
+}
 
+function handleErrorResponse(records, datatable)
+{
+    handleResponse(records);
+    reloadDataTable(datatable);
+}
+
+function removeErrorField()
+{
+    $('div.invalid-feedback').empty().hide();
+}
+
+function handleResponse(records)
+{
     deleteButton(records).hide();
     uncheck($(checkAll(records)));
 }
+
