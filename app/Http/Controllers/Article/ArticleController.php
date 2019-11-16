@@ -6,6 +6,7 @@ use App\Article;
 use Illuminate\Http\Request;
 use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Services\Image\ArticleImageService;
 use App\Http\Requests\Validation\ArticleRequest;
 use App\Services\Filter\Article\ArticleFilterService;
@@ -106,14 +107,13 @@ class ArticleController extends Controller
      */
     public function destroy(Request $request, Article $article = null)
     {
-        // $article ? $this->authorize('delete', $article)
-        //     : $this->authorize('viewAny', Article::class);
-
         ArticleService::remove();
 
-        return response([
-            'message' => 'The article has been deleted'
-        ]);
+        if (request()->ajax()) {
+            return response(['message' => 'The article has been deleted']);
+        } else {
+            return redirect()->route('users.articles.index', Auth::user());
+        }
     }
 
     /**

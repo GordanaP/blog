@@ -7,17 +7,19 @@
     @forelse($articles as $article)
 
         <!-- Authorized actions-->
-        @can('update', $article)
-        <div class="mb-3">
-            @include('partials.articles._action_buttons', [
-                'article' => $article
-            ])
+        @if (request()->route('user'))
+            @can('update', $article)
+                <div class="mb-3">
+                    @include('partials.articles._action_buttons', [
+                        'article' => $article
+                    ])
 
-            @include('partials.articles._status_info', [
-                'article' => $article
-            ])
-        </div>
-        @endcan
+                    @include('partials.articles._status_info', [
+                        'article' => $article
+                    ])
+                </div>
+            @endcan
+        @endif
 
         <!-- Article -->
         @include('partials.articles._single', [

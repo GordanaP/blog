@@ -18,7 +18,7 @@ var datatable = table(records).DataTable({
     "columns": [
         {
             render: function(data, type, row, meta) {
-              return '<div class="checkbox"><label class="checkbox-container"><input type="checkbox" class="checkitem'+records+'" name="'+records.toLowerCase()+'[]" value="' + row.slug + '"></label></div>'
+              return '<div class="checkbox"><label class="checkbox-container"><input type="checkbox" class="checkitem'+records+'" name="'+records.toLowerCase()+'[]" value="' + row.id + '"></label></div>'
             },
             searchable: false,
             sortable: false,

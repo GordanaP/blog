@@ -9,14 +9,9 @@ Route::view('/', 'welcome')->name('welcome');
  * Admin Dashboard
  */
 Route::view('/dashboard', 'admin.index')
-->name('admin.index')
-->middleware('admin');
+    ->name('admin.index')
+    ->middleware('admin');
 
-Route::middleware('admin')->get('/admin/articles', 'Article\ArticleController@index')
-->name('admin.articles.index');
-
-Route::middleware('admin')->get('/admin/users', 'User\UserController@index')
-->name('admin.users.index');
 
 /**
  * Preview Email
@@ -98,3 +93,16 @@ Route::resource('users.comments.likes', 'User\UserCommentLikeController')
  */
 Route::resource('users.articles.likes', 'User\UserArticleLikeController')
 ->only('store');
+
+/**
+ * Admin
+ */
+Route::middleware('admin')->prefix('admin')
+    ->group(function () {
+        Route::get('/articles', 'Article\ArticleController@index')
+            ->name('admin.articles.index');
+        Route::get('/users', 'User\UserController@index')
+            ->name('admin.users.index');
+        Route::get('/articles/list', 'Article\ArticleAjaxController');
+        Route::get('/users/list', 'User\UserAjaxController');
+    });

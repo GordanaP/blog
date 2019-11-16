@@ -5,17 +5,17 @@
 @section('content')
 
     <!-- Authorized views -->
-    @can('update', $article)
-    <div class="mb-3">
-        @include('partials.articles._action_buttons', [
-            'article' => $article
-        ])
+        @can('update', $article)
+        <div class="mb-3">
+            @include('partials.articles._action_buttons', [
+                'article' => $article
+            ])
 
-        @include('partials.articles._status_info', [
-            'article' => $article
-        ])
-    </div>
-    @endcan
+            @include('partials.articles._status_info', [
+                'article' => $article
+            ])
+        </div>
+        @endcan
 
     <!-- Article -->
     @include('partials.articles._single', [

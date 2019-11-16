@@ -18,7 +18,7 @@ class ArticleService
 
     public function __construct()
     {
-        $this->article  = request()->route('article') ?? Article::find(request('article_id'));
+        $this->article  = request()->route('article') ?? request('ids');
         $this->user  = request()->route('user') ?? User::find(request('user_id'));
         $this->tags = request('tag_id');
         $this->image = request('image');
@@ -45,12 +45,8 @@ class ArticleService
 
     public function remove()
     {
-        if($this->article->image) {
-            ArticleImageService::removeFromStorage($this->article->image);
-            $this->article->image->delete;
-        }
-
-        $this->article->delete();
+        is_array($this->article) ? $this->deleteMany($this->article)
+            : $this->deleteSingle($this->article);
     }
 
     public function addComment($data)
@@ -81,5 +77,29 @@ class ArticleService
     private function new($data)
     {
         return $this->user->addArticle(new Article($data));
+    }
+
+    private function deleteSingle($article)
+    {
+        if($article->image) {
+
+            ArticleImageService::removeFromStorage($article->image);
+
+            $article->image->delete();
+        }
+
+        $this->article->delete();
+    }
+
+    private function deleteMany($articles)
+    {
+        Article::with('image')->findMany($articles)->map(function($article) {
+            if($article->image) {
+                ArticleImageService::removeFromStorage($article->image);
+                $article->image->delete();
+            }
+        });
+
+        Article::destroy($articles);
     }
 }

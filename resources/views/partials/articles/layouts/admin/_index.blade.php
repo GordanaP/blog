@@ -26,23 +26,7 @@
 
         @include('partials.articles._datatable')
 
-        $(document).on('click', deleteSingle(records), function() {
-
-            var record = $(this).attr('data-record');
-
-            $.ajax({
-                type: 'DELETE',
-                url: deleteUrl(records, record),
-                success: function(response) {
-                    countDataTableRows(datatable) == 1
-                        ? reloadLocation(getLocation(records))
-                        : reloadDataTable(datatable);
-
-                    deleteButton(records).hide();
-                    uncheck($(checkAll(records)));
-                }
-            });
-        });
+        @include('partials.datatables._delete_records')
 
     </script>
 @endsection
