@@ -76,6 +76,16 @@ class User extends Authenticatable
         return $this->profile;
     }
 
+    public function addArticle($article)
+    {
+        return $this->articles()->save($article);
+    }
+
+    public function addComment($comment)
+    {
+        return $this->comments()->save($comment);
+    }
+
     public static function allExceptTheArticleAuthor($article)
     {
         return static::all()->filter(function($user, $key__) use ($article) {

@@ -34,10 +34,8 @@ class ArticleController extends Controller
             ->newest()
             ->paginate(5);
 
-
         return view('articles.index')->with([
             'articles' => $articles,
-            'all_articles' => Article::all(),
         ]);
     }
 
@@ -108,12 +106,14 @@ class ArticleController extends Controller
      */
     public function destroy(Request $request, Article $article = null)
     {
-        $article ? $this->authorize('delete', $article)
-            : $this->authorize('viewAny', Article::class);
+        // $article ? $this->authorize('delete', $article)
+        //     : $this->authorize('viewAny', Article::class);
 
         ArticleService::remove();
 
-        return redirect()->route('articles.index');
+        return response([
+            'message' => 'The article has been deleted'
+        ]);
     }
 
     /**
@@ -126,7 +126,6 @@ class ArticleController extends Controller
          return [
             'edit' => 'update',
             'update' => 'update',
-            'show' => 'view'
         ];
     }
 }

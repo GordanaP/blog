@@ -2,6 +2,7 @@
 
 namespace App\Services\Article;
 
+use App\User;
 use App\Article;
 use App\Comment;
 use App\Mail\CommentWasPosted;
@@ -10,25 +11,24 @@ use Illuminate\Support\Facades\Mail;
 
 class ArticleService
 {
-    protected $article;
-    protected $user;
-    protected $tags = [];
-    protected $image = '';
+    private $article;
+    private $user;
+    private $tags = [];
+    private $image = '';
 
     public function __construct()
     {
-        $this->article  = request()->route('article');
-        $this->user  = request()->route('user') ?? request('user_id');
+        $this->article  = request()->route('article') ?? Article::find(request('article_id'));
+        $this->user  = request()->route('user') ?? User::find(request('user_id'));
         $this->tags = request('tag_id');
         $this->image = request('image');
     }
 
     public function create($data)
     {
-        $article = new Article($data);
+        $article = $this->new($data);
 
-        $article->addUser($this->user)
-            ->addTags($this->tags);
+        $article->addTags($this->tags);
 
         ArticleImageService::manage($article, $this->image);
 
@@ -37,26 +37,28 @@ class ArticleService
 
     public function update($data)
     {
-        tap($this->article)->update($data)->addTags($this->tags);
+        tap($this->article)->update($data)
+            ->addTags($this->tags);
 
         ArticleImageService::manage($this->article, $this->image);
     }
 
     public function remove()
     {
-        ArticleImageService::removeFromStorage($this->article->image);
-
-        optional($this->article->image)->delete();
+        if($this->article->image) {
+            ArticleImageService::removeFromStorage($this->article->image);
+            $this->article->image->delete;
+        }
 
         $this->article->delete();
     }
 
     public function addComment($data)
     {
-        $comment = ((new Comment)->fill($data))
-            ->user()->associate($this->user);
+        $comment = (new Comment($data))
+            ->article()->associate($this->article);
 
-       return $this->article->comments()->save($comment);
+       return $this->user->addComment($comment);
     }
 
     public function addRating($rating)
@@ -74,5 +76,10 @@ class ArticleService
             Mail::to($this->article->user)
                 ->later($when, new CommentWasPosted($comment, $this->article));
         }
+    }
+
+    private function new($data)
+    {
+        return $this->user->addArticle(new Article($data));
     }
 }

@@ -3,12 +3,13 @@
         <i class="fa {{ $icon }} mr-2 text-gray-600" aria-hidden="true"></i>
         {{ $slot }}
     </a>
+
     <div class="collapse" id="collapse{{ $slot }}">
         <div class="card card-body py-0">
             <ul class="nav flex-column">
                 <li class="nav-item font-light">
                     <a class="nav-link text-sm py-1 flex items-center"
-                    href="{{ route(strtolower($slot).'.index') }}" >
+                    href="{{ route('admin.'.strtolower($slot).'.index') }}" >
                         <i class="fa fa-eye mr-2 text-gray-600" aria-hidden="true"></i>
                         View all
                     </a>

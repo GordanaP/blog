@@ -17,4 +17,3 @@ Route::get('users', 'Api\ApiUserController@index')
  */
 Route::get('articles', 'Api\ApiArticleController@index')
     ->name('api.articles.index');
-

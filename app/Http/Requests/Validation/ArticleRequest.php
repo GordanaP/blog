@@ -28,7 +28,7 @@ class ArticleRequest extends FormRequest
     {
         return [
             'user_id' => [
-                'sometimes','required','exists:users,id',
+                'sometimes','required','exists:users,id', 'min:1',
                 new IsAuthor()
             ],
             'title' => [
@@ -37,8 +37,8 @@ class ArticleRequest extends FormRequest
             ],
             'excerpt' => 'required|min:5|max:300',
             'body' => 'required|min:5',
-            'category_id' => 'required|exists:categories,id',
-            'tag_id' => 'nullable|exists:tags,id',
+            'category_id' => 'required|exists:categories,id|min:1',
+            'tag_id' => 'nullable|exists:tags,id|min:1',
             'image' => 'sometimes|image',
             'is_approved' => 'required|boolean',
             'publish_at' => [

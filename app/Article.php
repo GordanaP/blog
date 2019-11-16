@@ -8,14 +8,12 @@ use App\Traits\Article\Rateable;
 use App\Traits\Article\Scopeable;
 use App\Scopes\CommentsCountScope;
 use App\Scopes\DislikesCountScope;
-use App\Facades\ArticleImageService;
-use App\Traits\Article\HasAttributes;
-use App\Services\Article\ManageArticle;
+use App\Traits\Article\Presentable;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use HasAttributes, Likeable, Rateable, Scopeable;
+    use Presentable, Likeable, Rateable, Scopeable;
 
     /**
      * The attributes that are mass assignable.

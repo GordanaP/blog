@@ -9,8 +9,14 @@ Route::view('/', 'welcome')->name('welcome');
  * Admin Dashboard
  */
 Route::view('/dashboard', 'admin.index')
-    ->name('admin.index')
-    ->middleware('admin');
+->name('admin.index')
+->middleware('admin');
+
+Route::middleware('admin')->get('/admin/articles', 'Article\ArticleController@index')
+->name('admin.articles.index');
+
+Route::middleware('admin')->get('/admin/users', 'User\UserController@index')
+->name('admin.users.index');
 
 /**
  * Preview Email
@@ -33,62 +39,62 @@ Route::get('/home', 'HomeController@index')->name('home');
  * Article
  */
 Route::delete('articles/{article?}', 'Article\ArticleController@destroy')
-    ->name('articles.destroy');
+->name('articles.destroy');
 Route::resource('articles', 'Article\ArticleController')
-    ->except('destroy');
+->except('destroy');
 
 /**
  * Comment
  */
 Route::resource('comments', 'Comment\CommentController')
-    ->only('edit', 'update', 'destroy');
+->only('edit', 'update', 'destroy');
 
 /**
  * User
  */
 Route::delete('users/{user?}', 'User\UserController@destroy')
-    ->name('users.destroy');
+->name('users.destroy');
 Route::resource('users', 'User\UserController')
-    ->except('destroy');
+->except('destroy');
 
 /**
  * Profile
  */
 Route::resource('profiles', 'Profile\ProfileController')
-    ->except('index', 'create', 'store');
+->except('index', 'create', 'store');
 
 /**
  * UserArticle
  */
 Route::resource('users.articles', 'User\UserArticleController')
-    ->only('index', 'create', 'store');
+->only('index', 'create', 'store');
 
 /**
  * UserProfile
  */
- Route::resource('users.profiles', 'User\UserProfileController')
-     ->only('create', 'store');
+Route::resource('users.profiles', 'User\UserProfileController')
+->only('create', 'store');
 
 /**
  * UserArticleComment
  */
 Route::resource('users.articles.comments', 'User\UserArticleCommentController')
-    ->only('store');
+->only('store');
 
 /**
  * UserArticleRating
  */
 Route::resource('users.articles.ratings', 'User\UserArticleRatingController')
-    ->only('store');
+->only('store');
 
 /**
  * UserCommentLike
  */
 Route::resource('users.comments.likes', 'User\UserCommentLikeController')
-    ->only('store');
+->only('store');
 
 /**
  * UserArticleLike
  */
 Route::resource('users.articles.likes', 'User\UserArticleLikeController')
-    ->only('store');
+->only('store');

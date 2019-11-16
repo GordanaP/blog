@@ -19,6 +19,8 @@ class ArticleResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'author' => $this->user->profile->full_name,
+            'status' => $this->status,
+            'color' => $this->status_color,
             'link' => [
                 'show' => route('articles.show', $this),
                 'edit' => route('articles.edit', $this),

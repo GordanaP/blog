@@ -101,7 +101,7 @@ function table(records)
 
 function resourceUrl(records)
 {
-    return 'api/'+records.toLowerCase();
+    return '/api/'+records.toLowerCase();
 }
 
 function deleteButton(records)

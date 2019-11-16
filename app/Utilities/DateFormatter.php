@@ -6,11 +6,11 @@ class DateFormatter
 {
     public function readable($date)
     {
-        return $date->diffForHumans();
+        return optional($date)->diffForHumans();
     }
 
-    public function displayAs($format = 'Y-m-d', $date = null)
+    public function display($date, $format = 'Y-m-d')
     {
-        return $date ? $date->format($format) : null;
+        return optional($date)->format($format);
     }
 }

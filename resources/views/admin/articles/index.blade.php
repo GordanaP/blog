@@ -8,11 +8,10 @@
 
         @include('alerts._error_ajax')
 
-        @dataTable(['records' => 'Articles'])
+        @dataTable(['records' => 'Articles', 'collection' => $all_articles])
             <th>Id</th>
             <th>Title</th>
             <th>Author</th>
-            <th>Status</th>
             <th class="w-1/5"></th>
         @enddataTable
 

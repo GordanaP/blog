@@ -16,7 +16,7 @@ class IsAuthor implements Rule
      */
     public function passes($attribute, $value)
     {
-        return User::find($value)->is_author;
+        return optional(User::find($value))->is_author;
     }
 
     /**

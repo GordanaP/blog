@@ -1,11 +1,5 @@
-@guest
-    @include('partials.articles.layouts.user._index')
-@endguest
-
-@notAdmin
-    @include('partials.articles.layouts.user._index')
-@endnotAdmin
-
-@admin
+@if (Request::is('admin/*'))
     @include('partials.articles.layouts.admin._index')
-@endadmin
+@else
+    @include('partials.articles.layouts.user._index')
+@endif
