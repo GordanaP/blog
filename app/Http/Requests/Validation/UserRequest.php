@@ -33,7 +33,7 @@ class UserRequest extends FormRequest
         else
         {
             $rules = [
-                'name' => [ 'required', 'alpha_num', 'max:100'],
+                'name' => ['required', 'alpha_num', 'max:100'],
                 'email' => [
                     'required', 'email', 'max:100',
                     Rule::unique('users')->ignore(optional($this->user)->id)

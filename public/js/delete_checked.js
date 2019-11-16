@@ -14,6 +14,10 @@ function deleteSingleRecord(records, datatable)
 
                 deleteButton(records).hide();
                 uncheck($(checkAll(records)));
+            },
+            error: function(response) {
+                console.log(response.responseJSON.errors)
+                displayErrors(response.responseJSON.errors, 'div.');
             }
         });
     });

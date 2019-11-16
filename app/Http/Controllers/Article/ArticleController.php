@@ -105,7 +105,7 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Article $article = null)
+    public function destroy(ArticleRequest $request, Article $article = null)
     {
         ArticleService::remove();
 

@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -49,6 +50,16 @@ class Handler extends ExceptionHandler
     {
         if($exception instanceof AuthorizationException) {
             return redirect('/');
+        }
+
+        if ($exception instanceof ModelNotFoundException && $request->ajax()) {
+            return response()->json([
+                'errors' => [
+                    'ids' => [
+                        0 => 'The selected value is invalid.'
+                    ],
+                ]
+            ], 404);
         }
 
         return parent::render($request, $exception);

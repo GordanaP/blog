@@ -27,20 +27,21 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
+            'ids' => 'sometimes|exists:users,id',
             'user_id' => [
                 'sometimes','required','exists:users,id', 'min:1',
                 new IsAuthor()
             ],
             'title' => [
-                'required', 'min:5', 'max:100',
+                'sometimes','required', 'min:5', 'max:100',
                 Rule::unique('articles')->ignore($this->article),
             ],
-            'excerpt' => 'required|min:5|max:300',
-            'body' => 'required|min:5',
-            'category_id' => 'required|exists:categories,id|min:1',
+            'excerpt' => 'sometimes|required|min:5|max:300',
+            'body' => 'sometimes|required|min:5',
+            'category_id' => 'sometimes|required|exists:categories,id|min:1',
             'tag_id' => 'nullable|exists:tags,id|min:1',
             'image' => 'sometimes|image',
-            'is_approved' => 'required|boolean',
+            'is_approved' => 'sometimes|required|boolean',
             'publish_at' => [
                 'nullable','required_if:is_approved,1','date_format:Y-m-d',
                 'after:'.Carbon::yesterday()
