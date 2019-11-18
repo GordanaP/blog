@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'ids' => 'sometimes|exists:users,id',
+            'ids' => 'sometimes|exists:articles,id',
             'user_id' => [
                 'sometimes','required','exists:users,id', 'min:1',
                 new IsAuthor()

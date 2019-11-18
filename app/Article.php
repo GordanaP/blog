@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\Likeable;
+use App\Traits\DatePresenter;
 use App\Scopes\LikesCountScope;
 use App\Traits\Article\Rateable;
 use App\Traits\Article\Scopeable;
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    use Presentable, Likeable, Rateable, Scopeable;
+    use DatePresenter, Presentable, Likeable, Rateable, Scopeable;
 
     /**
      * The attributes that are mass assignable.

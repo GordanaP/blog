@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+<div class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
     <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{ route('welcome') }}">
         {{ config('app.name', 'Laravel') }}
     </a>
@@ -8,4 +8,4 @@
             <a class="nav-link" href="#">Sign out</a>
         </li>
     </ul>
-</nav>
+</div>

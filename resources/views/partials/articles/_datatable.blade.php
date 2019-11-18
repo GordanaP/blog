@@ -11,7 +11,7 @@ var datatable = table(records).DataTable({
         }
     ],
     "ajax": {
-        "url": resourceUrl(records),
+        "url": resourceUrl(records, parentRecords, parentId),
         "type": "GET"
     },
     "deferRender": true,

@@ -1,6 +1,6 @@
-@notAdmin
+@author
     @include('partials.articles.layouts.user._create')
-@endnotAdmin
+@endauthor
 
 @admin
     @include('partials.articles.layouts.admin._create')

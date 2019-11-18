@@ -11,7 +11,7 @@ class UserAjaxController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function __invoke()
+    public function index()
     {
         return response([
             'data' => UserResource::collection(User::all())

@@ -91,4 +91,9 @@ class ArticlePolicy
     {
         //
     }
+
+    public function touchAsAuthor(User $user, Article $article)
+    {
+        return $user->owns($article);
+    }
 }

@@ -36,6 +36,7 @@ class ArticleController extends Controller
 
         return view('articles.index')->with([
             'articles' => $articles,
+            'user' => null
         ]);
     }
 

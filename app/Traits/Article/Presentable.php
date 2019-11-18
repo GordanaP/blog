@@ -21,21 +21,6 @@ trait Presentable
         $this->attributes['body'] = ucfirst($value);
     }
 
-    public function getPublishAtDBFormattedAttribute()
-    {
-        return optional($this->publish_at)->format('Y-m-d');
-    }
-
-    public function getPublishAtReadableAttribute()
-    {
-        return optional($this->publish_at)->diffForHumans();
-    }
-
-    public function getPublishAtFormattedAttribute()
-    {
-        return optional($this->publish_at)->format('d M Y') ?? 'n/a';
-    }
-
     public function getIsDraftAttribute()
     {
         return is_null($this->publish_at);

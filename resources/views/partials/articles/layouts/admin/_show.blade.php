@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin | Edit Article')
+@section('title', 'Admin | Show Article')
 
 @section('page_title')
     @pageTitle(['title' => $article->title])
@@ -15,17 +15,15 @@
             @delete(['route' => route('admin.articles.destroy', $article)])
             @enddelete
 
-            @view(['route' => route('admin.articles.show', $article)])
-            @endview
+            @edit(['route' => route('admin.articles.edit', $article)])
+            @endedit
         </div>
 
         <div class="clearfix"></div>
 
         <div class="card card-body bg-gray-100 p-1 text-sm">
-            @include('partials.articles._form_save', [
-                'route' => route('articles.update', $article),
-                'article' => $article,
-                'button_title' => 'Save changes',
+            @include('partials.articles._table_info', [
+                'article' => $article
             ])
         </div>
     </div>

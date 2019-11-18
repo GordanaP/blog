@@ -22,8 +22,8 @@ class ArticleResource extends JsonResource
             'status' => $this->status,
             'color' => $this->status_color,
             'link' => [
-                'show' => route('articles.show', $this),
-                'edit' => route('articles.edit', $this),
+                'show' => route('admin.articles.show', $this),
+                'edit' => route('admin.articles.edit', $this),
                 'show_author' => route('profiles.show', $this->user->profile),
             ]
         ];

@@ -33,7 +33,7 @@
                                 {{ Auth::user()->email }}
                             </p>
                             <p><span class="font-semibold">Joined:</span>
-                                {{ Auth::user()->created_at->format('d M Y') }}
+                                {{ Auth::user()->created_at }}
                             </p>
                         </div>
                         <div>

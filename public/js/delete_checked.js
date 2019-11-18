@@ -35,6 +35,7 @@ function deleteManyRecords(records, datatable)
                 ids: getCheckedValues(checkbox)
             },
             success: function(response) {
+                console.log(response)
                 countDataTableRows(datatable) == 1 || noneChecked(records.toLowerCase())
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
@@ -99,9 +100,11 @@ function table(records)
     return $('#table'+records);
 }
 
-function resourceUrl(records)
+function resourceUrl(records, parentRecords = null, parentId = null)
 {
-    return '/admin/'+records.toLowerCase() + '/list';
+    return parentId
+        ? '/admin/' + parentRecords + '/' + parentId + '/' + records.toLowerCase() + '/list'
+        : '/admin/' + records.toLowerCase() + '/list';
 }
 
 function deleteButton(records)
@@ -111,8 +114,8 @@ function deleteButton(records)
 
 function deleteUrl(records, record = null)
 {
-    return record ? '/' + records.toLowerCase() + '/' + record
-        : '/'+ records.toLowerCase();
+    return record ? '/admin/' + records.toLowerCase() + '/' + record
+        : '/admin/'+ records.toLowerCase();
 }
 
 function deleteMany(records)

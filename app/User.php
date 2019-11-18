@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\User\HasRole;
+use App\Traits\DatePresenter;
 use App\Facades\ArticleImageService;
 use App\Facades\ProfileImageService;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasRole, Notifiable;
+    use DatePresenter, HasRole, Notifiable;
 
     /**
      * The attributes that are mass assignable.
