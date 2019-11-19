@@ -20,8 +20,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'roles' => optional($this->roles)->pluck('name'),
             'link' => [
-                'show' => route('users.show', $this),
-                'edit' => route('users.edit', $this),
+                'show' => route('admin.users.show', $this),
+                'edit' => route('admin.users.edit', $this),
             ]
         ];
     }

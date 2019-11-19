@@ -5,8 +5,6 @@
 @section('content')
 
     @forelse($articles as $article)
-
-        <!-- Authorized actions-->
         @if (request()->route('user'))
             @can('update', $article)
                 <div class="mb-3">

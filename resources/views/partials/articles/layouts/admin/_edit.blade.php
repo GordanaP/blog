@@ -22,11 +22,13 @@
         <div class="clearfix"></div>
 
         <div class="card card-body bg-gray-100 p-1 text-sm">
-            @include('partials.articles._form_save', [
-                'route' => route('articles.update', $article),
-                'article' => $article,
-                'button_title' => 'Save changes',
-            ])
+            <div class="card card-body">
+                @include('partials.articles._form_save', [
+                    'article' => $article,
+                    'route' => route('admin.articles.update', $article),
+                    'button_title' => 'Save changes',
+                ])
+            </div>
         </div>
     </div>
 @endsection

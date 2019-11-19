@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
+use Illuminate\Http\Request;
 use App\Facades\ArticleService;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,6 @@ class ArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except('index', 'show');
         $this->authorizeResource(Article::class);
     }
 
@@ -29,26 +29,15 @@ class ArticleController extends Controller
      */
     public function index(ArticleFilterService $articleFilterService)
     {
-        $articles = Article::filter($articleFilterService)
+        $published = Article::filter($articleFilterService)
             ->published()
             ->newest()
             ->paginate(5);
 
         return view('articles.index')->with([
-            'articles' => $articles,
+            'articles' => $published,
             'user' => null
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Article  $article
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Article $article)
-    {
-        return view('articles.show', compact('article'));
     }
 
     /**
@@ -72,6 +61,17 @@ class ArticleController extends Controller
         ArticleService::create($request->validated());
 
         return redirect()->route('articles.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Article  $article
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Article $article)
+    {
+        return view('articles.show', compact('article'));
     }
 
     /**
@@ -110,7 +110,7 @@ class ArticleController extends Controller
         ArticleService::remove();
 
         if (request()->ajax()) {
-            return response(['message' => 'The article has been deleted']);
+            return response(['message' => 'The record has been deleted']);
         } else {
             return redirect()->route('users.articles.index', Auth::user());
         }
@@ -124,8 +124,11 @@ class ArticleController extends Controller
     protected function resourceAbilityMap()
     {
          return [
+            'create' => 'create',
+            'store' => 'create',
             'edit' => 'update',
             'update' => 'update',
+            'destroy' => 'delete',
         ];
     }
 }

@@ -62,5 +62,4 @@
         @endif
     </div>
 
-
 </div><!-- /.article -->

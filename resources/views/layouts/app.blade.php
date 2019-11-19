@@ -9,26 +9,26 @@ class="text-gray-900 antialiased leading-tight">
     <body class="min-h-screen bg-white font-sans">
         <div id="app">
 
-            @include('partials.app._navbar')
+            <nav>
+                @include('partials.app._navbar')
+            </nav>
 
-            <div class="blog-header">
-                <div class="container w-4/5">
+            <div class="container w-4/5">
+                <header class="blog-header">
                     <h1 class="blog-title">The Bootstrap Blog</h1>
                     <p class="lead blog-description">An example blog template built with Bootstrap.</p>
+                </header>
+
+                <div class="row py-4" >
+                    <main class="col-md-8 blog-main">
+                        @yield('content')
+                    </main>
+                    <aside class="col-sm-3 offset-sm-1 blog-sidebar">
+                        @yield('sidebar')
+                    </aside>
                 </div>
             </div>
 
-            <main class="py-4 container w-4/5">
-                <div class="row">
-                    <div class="col-md-8 blog-main">
-                        @yield('content')
-                    </div>
-
-                    <div class="col-sm-3 offset-sm-1 blog-sidebar">
-                        @yield('sidebar')
-                    </div>
-                </div>
-            </main>
         </div>
 
         @include('partials.app._scripts')

@@ -10,13 +10,13 @@
             <hr>
         </header>
 
-        <main>
+        <div class="card card-body">
             @include('partials.articles._form_save', [
                 'route' => route('articles.update', $article),
                 'article' => $article,
                 'button_title' => 'Save changes',
             ])
-        </main>
+        </div>
     </div>
 
 @endsection

@@ -94,8 +94,8 @@ class User extends Authenticatable
         });
     }
 
-    public function memberCanSeeOnlyPublished($article)
+    public function cannotAccessUnpublished($article)
     {
-        return ! $this->owns($article) ? $article->is_published : $article;
+        return ! $this->owns($article) || $this->is_member;
     }
 }

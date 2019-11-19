@@ -31,7 +31,14 @@
         @endrowInfo
 
         @rowInfo(['name' => 'Body'])
-            {{ $article->body }}
+            <a class="btn btn-outline-primary btn-sm" data-toggle="collapse"
+                href="#articleBody" aria-expanded="false" aria-controls="collapseExample">
+                View
+            </a>
+
+            <div class="collapse" id="articleBody">
+                {{ $article->body }}
+            </div>
         @endrowInfo
 
         @rowInfo(['name' => 'Tags'])

@@ -9,11 +9,11 @@
             <hr>
         </header>
 
-        <main>
+        <div class="card card-body">
             @include('partials.articles._form_save', [
                 'route' => route('users.articles.store', $user),
                 'button_title' => 'Submit',
             ])
-        </main>
+        </div>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin | Show User')
+@section('title', 'Admin | Edit User')
 
 @section('page_title')
     @pageTitle(['title' => '@'.$user->name])
@@ -15,16 +15,20 @@
             @delete(['route' => route('admin.users.destroy', $user)])
             @enddelete
 
-            @edit(['route' => route('admin.users.edit', $user)])
-            @endedit
+            @view(['route' => route('admin.users.show', $user)])
+            @endview
         </div>
 
         <div class="clearfix"></div>
 
         <div class="card card-body bg-gray-100 p-1 text-sm">
-            @include('partials.users._show_user', [
-                'user' => $user
-            ])
+            <div class="card card-body">
+                @include('partials.users._form_save', [
+                    'user' => $user,
+                    'route' => route('admin.users.update', $user),
+                    'button_title' =>'Save changes',
+                ])
+            </div>
         </div>
     </div>
 @endsection

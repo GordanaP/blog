@@ -9,13 +9,15 @@ class="text-gray-900 antialiased leading-tight">
     <body class="min-h-screen bg-gray-100 font-sans">
         <div id="app">
 
-            @include('partials.app._navbar')
+            <nav>
+                @include('partials.app._navbar')
+            </nav>
 
-            <div class="py-4 container mt-4">
-
-                @yield('content')
-
-            </div>
+            <main>
+                <div class="py-4 container mt-2">
+                    @yield('content')
+                </div>
+            </main>
         </div>
 
         @include('partials.app._scripts')

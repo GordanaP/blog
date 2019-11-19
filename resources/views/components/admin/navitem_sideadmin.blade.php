@@ -16,7 +16,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link py-1 text-sm flex items-center"
-                        href="{{ route(strtolower($slot).'.create') }}">
+                        href="{{ route('admin.'.strtolower($slot).'.create') }}">
                         <i class="fa fa-pencil mr-2 text-gray-600" aria-hidden="true"></i>
                         Add new
                     </a>

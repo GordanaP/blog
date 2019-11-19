@@ -17,7 +17,6 @@ class UserArticleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
         $this->authorizeResource(Article::class);
     }
 
@@ -32,12 +31,15 @@ class UserArticleController extends Controller
     {
         $this->authorize('view', $user);
 
-        $articles = Article::filter($articleFilterService)
+        $user_articles = Article::filter($articleFilterService)
             ->ownedBy($user)
             ->newest()
             ->paginate(5);
 
-        return view('articles.index', compact('articles', 'user'));
+        return view('articles.index')->with([
+            'articles' => $user_articles,
+            'user' => $user
+        ]);
     }
 
     /**

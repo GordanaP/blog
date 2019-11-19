@@ -1,11 +1,7 @@
 <div class="mb-2">
-    <a href="{{ route('articles.edit', $article) }}"
-    class="btn btn-sm btn-warning">
-        <i class="fa fa-pencil fa-sm"></i>
-    </a>
+    @edit(['route' => route('articles.edit', $article)])
+    @endedit
 
-
-    @include('partials.articles._form_delete', [
-        'article' => $article
-    ])
+    @delete(['route' => route('articles.destroy', $article)])
+    @enddelete
 </div>

@@ -19,7 +19,7 @@ class="text-gray-900 antialiased leading-tight">
                         @include('partials.admin._sidebar')
                     </aside>
 
-                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+                    <main class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
 
                         @yield('page_title')
 

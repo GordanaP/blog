@@ -22,7 +22,7 @@
         <div class="clearfix"></div>
 
         <div class="card card-body bg-gray-100 p-1 text-sm">
-            @include('partials.articles._table_info', [
+            @include('partials.articles._show_article', [
                 'article' => $article
             ])
         </div>

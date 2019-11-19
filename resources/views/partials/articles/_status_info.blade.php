@@ -9,7 +9,6 @@
     <p class="text-gray-600 text-xs">
         Publishing Date:
         <span class="font-semibold">
-            {{-- {{ optional($article->publish_at)->format('d M Y') ?? 'n/a' }} --}}
             {{ $article->publish_at_formatted }}
         </span>
     </p>

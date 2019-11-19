@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -51,6 +52,19 @@ class Handler extends ExceptionHandler
         if($exception instanceof AuthorizationException) {
             return redirect('/');
         }
+
+        if($exception instanceof MethodNotAllowedHttpException && $request->ajax()) {
+            return response()->json([
+                'errors' => [
+                    'ids' => [
+                        0 => 'You are not authorized to perform the action.'
+                    ],
+                ]
+            ], 405);
+        }
+        // else {
+        //     return redirect('/');
+        // }
 
         if ($exception instanceof ModelNotFoundException && $request->ajax()) {
             return response()->json([

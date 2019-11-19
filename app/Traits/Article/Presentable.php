@@ -26,11 +26,6 @@ trait Presentable
         return is_null($this->publish_at);
     }
 
-    public function getIsUnpublishedAttribute()
-    {
-        return ! $this->is_approved;
-    }
-
     public function getIsExpiredAttribute()
     {
         return ! $this->is_approved && $this->publish_at <= Carbon::yesterday();

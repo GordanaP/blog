@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-blue-700 shadow-sm">
+<div class="navbar navbar-expand-md navbar-light bg-blue-700 shadow-sm">
     <div class="container">
         <a class="navbar-brand text-white no-underline" href="{{ route('welcome') }}">
             {{ config('app.name', 'Laravel') }}
@@ -16,7 +16,7 @@
                         All articles
                     </a>
                 </li>
-                @can('create', App\Article::class)
+                @author
                     <li class="nav-item uppercase text-xs tracking-wide">
                         <a class="nav-link text-white"
                         href="{{ route('users.articles.index', Auth::user()) }}">
@@ -29,7 +29,7 @@
                             New article
                         </a>
                     </li>
-                @endcan
+                @endauthor
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -82,4 +82,4 @@
             </ul>
         </div>
     </div>
-</nav>
+</div>

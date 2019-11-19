@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\User;
 use App\Facades\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Validation\UserRequest;
 
 class UserController extends Controller
@@ -72,7 +73,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view(\Auth::user()->is_admin ? 'users.edit' : 'auth.edit', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -98,14 +99,16 @@ class UserController extends Controller
      */
     public function destroy(UserRequest $request, User $user = null)
     {
-        $user ? $this->authorize('delete', $user)
-            : $this->authorize('viewAny', User::class);
+        // $user ? $this->authorize('delete', $user)
+        //     : $this->authorize('viewAny', User::class);
 
         UserService::delete();
 
-        return response([
-            'success' => 'The record has been deleted.'
-        ]);
+        if (request()->ajax()) {
+            return response(['message' => 'The record has been deleted']);
+        } else {
+            return redirect()->route('users.articles.index', Auth::user());
+        }
     }
 
     /**
