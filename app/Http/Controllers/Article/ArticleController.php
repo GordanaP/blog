@@ -47,7 +47,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        return view('articles.create');
+        return view('articles.create')->with([
+            'category' => null
+        ]);
     }
 
     /**
@@ -96,7 +98,8 @@ class ArticleController extends Controller
     {
         ArticleService::update($request->validated());
 
-        return redirect()->route('articles.show', $article);
+        // return redirect()->route('articles.show', $article);
+        return redirect()->route('admin.articles.index');
     }
 
     /**
@@ -107,7 +110,7 @@ class ArticleController extends Controller
      */
     public function destroy(ArticleRequest $request, Article $article = null)
     {
-        ArticleService::remove();
+        ArticleService::delete();
 
         if (request()->ajax()) {
             return response(['message' => 'The record has been deleted']);
@@ -128,7 +131,7 @@ class ArticleController extends Controller
             'store' => 'create',
             'edit' => 'update',
             'update' => 'update',
-            'destroy' => 'delete',
+            // 'destroy' => 'delete',
         ];
     }
 }

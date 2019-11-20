@@ -21,7 +21,7 @@
         @endrowInfo
 
         @rowInfo(['name' => 'Category'])
-            <a href="#">
+            <a href="{{ route('admin.categories.show', $article->category) }}">
                 {{ $article->category->name }}
             </a>
         @endrowInfo

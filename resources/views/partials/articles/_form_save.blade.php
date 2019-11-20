@@ -58,14 +58,20 @@
     <div class="form-group">
         <label for="category_id">Category @asterisks @endasterisks</label>
         <select name="category_id" id="category_id" class="form-control">
-            <option value="">Select a category</option>
-            @foreach ($categories as $category)
-                <option value="{{ $category->id }}"
-                    {{ getSelected($category->id, old('category_id', $article->category_id ?? null)) }}
-                >
+            @if ($category = request()->route('category'))
+                <option value="{{ $category->id }}" selected>
                     {{ ucfirst($category->name) }}
                 </option>
-            @endforeach
+            @else
+                <option value="">Select a category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}"
+                        {{ getSelected($category->id, request()->route('category')->id ?? old('category_id', $article->category_id ?? null)) }}
+                    >
+                        {{ ucfirst($category->name) }}
+                    </option>
+                @endforeach
+            @endif
         </select>
 
         @formError(['field' => 'category_id'])@endformError

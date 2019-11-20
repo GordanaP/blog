@@ -12,12 +12,9 @@
             @navitem(['icon' => 'fa-database']) Articles
             @endnavitem
 
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-share-alt mr-2 text-gray-600" aria-hidden="true"></i>
-                    Categories
-                </a>
-            </li>
+            @navitem(['icon' => 'fa-share-alt']) Categories
+            @endnavitem
+
             <li class="nav-item">
                 <a class="nav-link flex items-center" href="#">
                     <i class="fa fa-tags mr-2 text-gray-600" aria-hidden="true"></i>

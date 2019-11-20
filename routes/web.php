@@ -46,13 +46,13 @@ Route::resource('articles', 'Article\ArticleController')
 /**
  * Admin Article
  */
-Route::middleware('admin')->prefix('admin/articles')->name('admin.articles.')->namespace('Article')
+Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Article')
     ->group(function () {
-        Route::get('list', 'ArticleAjaxController@index')
-            ->name('list');
-        Route::delete('{article?}', 'ArticleController@destroy')
-            ->name('destroy');
-        Route::resource('/', 'ArticleController', [
+        Route::get('articles/list', 'ArticleAjaxController@index')
+            ->name('articles.list');
+        Route::delete('articles/{article?}', 'ArticleController@destroy')
+            ->name('articles.destroy');
+        Route::resource('articles', 'ArticleController', [
             'parameters' => ['' => 'article']
         ])->except('destroy');
     });
@@ -115,17 +115,35 @@ Route::resource('users.articles.likes', 'User\UserArticleLikeController')
 /**
  * Admin User
  */
-Route::middleware('admin')->prefix('admin/users')->name('admin.users.')->namespace('User')
+Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('User')
     ->group(function () {
-        Route::get('list', 'UserAjaxController@index')
-            ->name('list');
-        Route::delete('{user?}', 'UserController@destroy')
-            ->name('destroy');
-        Route::resource('/', 'UserController', [
+        Route::get('users/list', 'UserAjaxController@index')
+            ->name('users.list');
+        Route::delete('users/{user?}', 'UserController@destroy')
+            ->name('users.destroy');
+        Route::resource('users', 'UserController', [
             'parameters' => ['' => 'user']
         ])->except('destroy');
-        Route::get('{user}/articles', 'UserArticleController@index')
-            ->name('articles.index');
-        Route::get('{user}/articles/list', 'UserArticleAjaxController@index')
-            ->name('articles.list');
+        Route::get('users/{user}/articles', 'UserArticleController@index')
+            ->name('users.articles.index');
+        Route::get('users/{user}/articles/list', 'UserArticleAjaxController@index')
+            ->name('users.articles.list');
+    });
+
+/**
+ * Admin Category
+ */
+Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Category')
+    ->group(function () {
+        Route::get('categories/list', 'CategoryAjaxController@index')
+            ->name('categories.list');
+        Route::delete('categories/{category?}', 'CategoryController@destroy')
+            ->name('categories.destroy');
+        Route::resource('categories', 'CategoryController', [
+            'parameters' => ['' => 'category']
+        ])->except('destroy');
+        Route::get('categories/{category}/articles/create', 'CategoryArticleController@create')
+            ->name('categories.articles.create');
+        Route::get('categories/{category}/articles/list', 'categoryArticleAjaxController@index')
+            ->name('categories.articles.list');
     });

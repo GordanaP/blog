@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin | All Articles')
+@section('title', 'Admin | Articles')
 
 @section('page_title')
     @pageTitle(['title' => (optional(optional($user)->profile)->full_name ?? 'All') .' articles'])

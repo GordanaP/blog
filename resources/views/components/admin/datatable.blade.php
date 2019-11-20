@@ -1,4 +1,4 @@
-<div id={{'card'.$records }}>
+<div id="{{'card'.$records }}" class="mb-4">
     <div class="card card-body border-gray-300 card-shadow px-0">
         <table class="table hover mt-2 admin-table text-sm" cellspacing="0" width="100%"
             id="{{ 'table'.$records }}">

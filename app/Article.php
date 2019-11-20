@@ -10,6 +10,7 @@ use App\Traits\Article\Scopeable;
 use App\Scopes\CommentsCountScope;
 use App\Scopes\DislikesCountScope;
 use App\Traits\Article\Presentable;
+use App\Facades\ArticleImageService;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -119,5 +120,14 @@ class Article extends Model
        $this->user()->associate($user)->save();
 
        return $this;
+    }
+
+    public function remove()
+    {
+        ArticleImageService::removeFromStorage($this->image);
+
+        optional($this->image)->delete();
+
+        $this->delete();
     }
 }

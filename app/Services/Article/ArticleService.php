@@ -6,11 +6,13 @@ use App\User;
 use App\Article;
 use App\Comment;
 use App\Mail\CommentWasPosted;
+use App\Utilities\DeleteModel;
 use App\Facades\ArticleImageService;
 use Illuminate\Support\Facades\Mail;
 
-class ArticleService
+class ArticleService extends DeleteModel
 {
+    private $model;
     private $article;
     private $user;
     private $tags = [];
@@ -18,6 +20,7 @@ class ArticleService
 
     public function __construct()
     {
+        $this->model = 'App\Article';
         $this->article  = request()->route('article') ?? request('ids');
         $this->user  = request()->route('user') ?? User::find(request('user_id'));
         $this->tags = request('tag_id');
@@ -43,10 +46,11 @@ class ArticleService
         ArticleImageService::manage($this->article, $this->image);
     }
 
-    public function remove()
+    public function delete()
     {
-        is_array($this->article) ? $this->deleteMany($this->article)
-            : $this->deleteSingle($this->article);
+        $this->setModel($this->model)
+            ->setInstance($this->article)
+            ->destroy();
     }
 
     public function addComment($data)
@@ -77,29 +81,5 @@ class ArticleService
     private function new($data)
     {
         return $this->user->addArticle(new Article($data));
-    }
-
-    private function deleteSingle($article)
-    {
-        if($article->image) {
-
-            ArticleImageService::removeFromStorage($article->image);
-
-            $article->image->delete();
-        }
-
-        $this->article->delete();
-    }
-
-    private function deleteMany($articles)
-    {
-        Article::with('image')->findMany($articles)->map(function($article) {
-            if($article->image) {
-                ArticleImageService::removeFromStorage($article->image);
-                $article->image->delete();
-            }
-        });
-
-        Article::destroy($articles);
     }
 }
