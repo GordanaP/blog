@@ -21,12 +21,10 @@
 
 @section('scripts')
     <script>
-
         var records = 'Categories';
 
         @include('partials.categories._datatable')
 
         @include('partials.datatables._delete_records')
-
     </script>
 @endsection

@@ -31,7 +31,9 @@
         </div>
     </div>
 
-    @pageTitle(['title' => $category->name . "'s articles"])
+    @pageTitle(['title' => $category->name . "'s articles",
+                'recordsCount' => '('.$category->articles->count().')'
+        ])
         @addNew (['route' => route('admin.categories.articles.create', $category)])
         @endaddNew
     @endpageTitle

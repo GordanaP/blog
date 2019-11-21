@@ -8,7 +8,7 @@ function deleteSingleRecord(records, datatable)
             type: 'DELETE',
             url: deleteUrl(records, record),
             success: function(response) {
-                countDataTableRows(datatable) == 1
+                countDataTableRows(datatable) == 0
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
 
@@ -36,7 +36,7 @@ function deleteManyRecords(records, datatable)
             },
             success: function(response) {
                 console.log(response)
-                countDataTableRows(datatable) == 1 || noneChecked(records.toLowerCase())
+                countDataTableRows(datatable) == 0 || noneChecked(records.toLowerCase())
                     ? reloadLocation(getLocation(records))
                     : reloadDataTable(datatable);
 

@@ -18,12 +18,12 @@ trait HasRole
 
     public function getIsAdminAttribute()
     {
-        return $this->roles->pluck('name')->contains('admin');
+        return $this->hasRole('admin');
     }
 
     public function getIsAuthorAttribute()
     {
-        return $this->roles->pluck('name')->contains('author');
+        return $this->hasRole('author');
     }
 
     public function getIsMemberAttribute()
@@ -34,6 +34,15 @@ trait HasRole
     public function addRoles($roles)
     {
         $this->roles()->sync($roles);
+    }
+
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->roles->contains('name', $role);
+        }
+
+        return (bool) $role->intersect($this->roles)->count();
     }
 
     public static function getAuthors()

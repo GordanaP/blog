@@ -37,10 +37,9 @@ class ArticleFiltersMap
             'tag' =>  Tag::orderBy('name', 'asc')
                 ->get()
                 ->pluck('name', 'id'),
-            'user' =>  User::orderBy('name')
-                ->whereIn('id', [1, 2])
+            'user' =>  User::with('roles')->orderBy('name')
+                ->whereIn('id', [2,3])
                 ->get()
-                // ->pluck('name', 'id')
                 ->pluck('name', 'name')
         ];
     }
