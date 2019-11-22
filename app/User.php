@@ -98,4 +98,11 @@ class User extends Authenticatable
     {
         return ! $this->owns($article) || $this->is_member;
     }
+
+    public function remove()
+    {
+        optional ($this->profile)->delete();
+
+        $this->delete();
+    }
 }

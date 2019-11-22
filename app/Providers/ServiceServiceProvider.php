@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Article\ArticleService;
@@ -19,6 +20,10 @@ class ServiceServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('RoleService', function($app){
+            return new RoleService;
+        });
+
         $this->app->bind('CategoryService', function($app){
             return new CategoryService;
         });

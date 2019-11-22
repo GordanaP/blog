@@ -147,3 +147,21 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Category
         Route::get('categories/{category}/articles/list', 'categoryArticleAjaxController@index')
             ->name('categories.articles.list');
     });
+
+    /**
+     * Admin Category
+     */
+    Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Role')
+        ->group(function () {
+            Route::get('roles/list', 'RoleAjaxController@index')
+                ->name('roles.list');
+            Route::delete('roles/{role?}', 'RoleController@destroy')
+                ->name('roles.destroy');
+            Route::resource('roles', 'RoleController', [
+                'parameters' => ['' => 'Role']
+            ])->except('destroy');
+            Route::get('roles/{role}/articles/create', 'RoleUserController@create')
+                ->name('roles.users.create');
+            Route::get('roles/{role}/users/list', 'RoleUserAjaxController@index')
+                ->name('roles.users.list');
+        });

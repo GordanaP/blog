@@ -3,7 +3,7 @@
 @section('title', 'Admin | Articles')
 
 @section('page_title')
-    @pageTitle(['title' => (optional(optional($user)->profile)->full_name ?? 'All') .' articles'])
+    @pageTitle(['title' => (optional(optional($user ?? '')->profile)->full_name ?? 'All') .' articles'])
         @addNew (['route' => route('admin.articles.create')])
         @endaddNew
     @endpageTitle
@@ -25,8 +25,8 @@
     <script>
 
         var records = 'Articles';
-        var parentId = "{{ optional($user)->id }}"
-        var parentRecords = parentId ? 'users' : '';
+        var parentId = "{{ optional($user ?? null)->id }}";
+        var parentRecords = parentId ? 'users' : null;
 
         @include('partials.articles._datatable')
 

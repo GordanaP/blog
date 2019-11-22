@@ -240,6 +240,7 @@ return [
         'ArticleService' => App\Facades\ArticleService::class,
         'UserService' => App\Facades\UserService::class,
         'CategoryService' => App\Facades\CategoryService::class,
+        'RoleService' => App\Facades\RoleService::class,
     ],
 
 ];

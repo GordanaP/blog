@@ -25,6 +25,8 @@
     <script>
 
         var records = 'Users';
+        var parentId = "{{ optional($role ?? null)->id }}"
+        var parentRecords = parentId ? 'roles' : null;
 
         @include('partials.users._datatable')
 

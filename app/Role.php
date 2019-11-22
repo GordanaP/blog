@@ -8,6 +8,11 @@ class Role extends Model
 {
     protected $fillable = ['name'];
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);
@@ -16,5 +21,12 @@ class Role extends Model
     public static function findByName($name)
     {
         return static::whereName($name)->first();
+    }
+
+    public function remove()
+    {
+        optional($this->users)->map->remove();
+
+        $this->delete();
     }
 }

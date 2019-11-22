@@ -31,12 +31,9 @@
                     Profiles
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-suitcase mr-2 text-gray-600" aria-hidden="true"></i>
-                    Roles
-                </a>
-            </li>
+
+            @navitem(['icon' => 'fa-suitcase']) Roles
+            @endnavitem
         </ul>
     </div>
 </div>
