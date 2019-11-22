@@ -3,8 +3,11 @@
 @section('title', 'Admin | Users')
 
 @section('page_title')
-    @pageTitle(['title' => 'All users'])
-        @addNew (['route' => route('admin.users.create')])
+    @pageTitle(['title' => (isset($role) ? $role->name : 'All ') .' accounts',
+        'records_count' => $role_users_count ?? $users_count
+    ])
+        @addNew (['route' => isset($role) ? route('admin.roles.users.create', $role)
+        : route('admin.users.create')])
         @endaddNew
     @endpageTitle
 @endsection
@@ -25,7 +28,7 @@
     <script>
 
         var records = 'Users';
-        var parentId = "{{ optional($role ?? null)->id }}"
+        var parentId = "{{ optional($role ?? null)->slug }}"
         var parentRecords = parentId ? 'roles' : null;
 
         @include('partials.users._datatable')

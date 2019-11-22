@@ -160,7 +160,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Category
             Route::resource('roles', 'RoleController', [
                 'parameters' => ['' => 'Role']
             ])->except('destroy');
-            Route::get('roles/{role}/articles/create', 'RoleUserController@create')
+            Route::get('roles/{role}/users', 'RoleUserController@index')
+                ->name('roles.users.index');
+            Route::get('roles/{role}/users/create', 'RoleUserController@create')
                 ->name('roles.users.create');
             Route::get('roles/{role}/users/list', 'RoleUserAjaxController@index')
                 ->name('roles.users.list');

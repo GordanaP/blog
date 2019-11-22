@@ -31,8 +31,10 @@
         </div>
     </div>
 
-    @pageTitle(['title' => $role->name . "'s users"])
-        @addNew (['route' => route('admin.roles.users.create', $role)])
+    @pageTitle(['title' => $role->name . " accounts",
+        'records_count' => $role_users_count
+    ])
+        @addNew (['record' => 'account', 'route' => route('admin.roles.users.create', $role)])
         @endaddNew
     @endpageTitle
 

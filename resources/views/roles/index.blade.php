@@ -3,8 +3,8 @@
 @section('title', 'Admin | Roles')
 
 @section('page_title')
-    @pageTitle(['title' => 'All roles'])
-        @addNew (['route' => route('admin.roles.create')])
+    @pageTitle(['title' => 'All roles', 'records_count' => $roles_count ])
+        @addNew (['route' => route('admin.roles.create') ])
         @endaddNew
     @endpageTitle
 @endsection
@@ -15,6 +15,7 @@
     @dataTable(['records' => 'Roles'])
         <th>Id</th>
         <th>Name</th>
+        <th>Users</th>
         <th class="w-1/5"></th>
     @enddataTable
 @endsection

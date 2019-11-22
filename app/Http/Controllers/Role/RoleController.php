@@ -17,7 +17,9 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('roles.index');
+        $roles_count = Role::count();
+
+        return view('roles.index', compact('roles_count'));
     }
 
     /**
@@ -51,7 +53,9 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('roles.show', compact('role'));
+        $role_users_count = $role->users->count();
+
+        return view('roles.show', compact('role', 'role_users_count'));
     }
 
     /**

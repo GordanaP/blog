@@ -15,11 +15,5 @@
         @rowInfo(['name' => 'Last update'])
             {{ $role->updated_at }}
         @endrowInfo
-
-        @rowInfo(['name' => 'Users'])
-            <a href="#">
-                View
-            </a>
-        @endrowInfo
     </tbody>
 </table>
