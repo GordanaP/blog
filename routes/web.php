@@ -166,3 +166,22 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Role')
         Route::get('roles/{role}/users/list', 'RoleUserAjaxController@index')
             ->name('roles.users.list');
     });
+
+/**
+ * Admin Tag
+ */
+Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Tag')
+    ->group(function () {
+        Route::get('tags/list', 'TagAjaxController@index')
+            ->name('tags.list');
+        Route::delete('tags/{tag?}', 'TagController@destroy')
+            ->name('tags.destroy');
+        Route::resource('tags', 'TagController', [
+            'parameters' => ['' => 'tag']
+        ])->except('destroy');
+        Route::resource('tags.articles', 'TagArticleController', [
+            'parameters' => ['' => 'tag']
+        ])->only('create');
+        Route::get('tags/{tag}/articles/list', 'TagArticleAjaxController@index')
+            ->name('tags.articles.list');
+    });

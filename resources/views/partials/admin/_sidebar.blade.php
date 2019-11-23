@@ -15,12 +15,8 @@
             @navitem(['icon' => 'fa-share-alt']) Categories
             @endnavitem
 
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-tags mr-2 text-gray-600" aria-hidden="true"></i>
-                    Tags
-                </a>
-            </li>
+            @navitem(['icon' => 'fa-tags']) Tags
+            @endnavitem
 
             @navitem(['icon' => 'fa-users']) Users
             @endnavitem

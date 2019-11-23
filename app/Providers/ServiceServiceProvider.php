@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Tag\TagService;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use Illuminate\Support\ServiceProvider;
@@ -20,6 +21,10 @@ class ServiceServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('TagService', function($app){
+            return new TagService;
+        });
+
         $this->app->bind('RoleService', function($app){
             return new RoleService;
         });
