@@ -8,11 +8,7 @@ function deleteSingleRecord(records, datatable)
             type: 'DELETE',
             url: deleteUrl(records, record),
             success: function(response) {
-                countDataTableRows(datatable) == 0
-                    ? reloadLocation(getLocation(records))
-                    : reloadDataTable(datatable);
-
-                handleSuccessResponse(records);
+                handleSuccessResponse(records, datatable);
             },
             error: function(response) {
                 displayErrors(response.responseJSON.errors, 'div.');
@@ -35,16 +31,11 @@ function deleteManyRecords(records, datatable)
                 ids: getCheckedValues(checkbox)
             },
             success: function(response) {
-                console.log(response)
-                countDataTableRows(datatable) == 0 || noneChecked(records.toLowerCase())
-                    ? reloadLocation(getLocation(records))
-                    : reloadDataTable(datatable);
-
-                handleSuccessResponse(records);
+                handleSuccessResponse(records, datatable);
             },
             error: function(response) {
                 displayErrors(response.responseJSON.errors, 'div.');
-                handleErrorResponse(records, datatable);
+                handleResponse(records, datatable);
             }
         });
     });
@@ -133,16 +124,11 @@ function getLocation(records, id='#card')
     return id+records;
 }
 
-function handleSuccessResponse(records)
+function handleSuccessResponse(records, datatable)
 {
+    reloadLocation(getLocation(records));
+    handleResponse(records, datatable);
     removeErrorField();
-    handleResponse(records);
-}
-
-function handleErrorResponse(records, datatable)
-{
-    handleResponse(records);
-    reloadDataTable(datatable);
 }
 
 function removeErrorField()
@@ -150,8 +136,9 @@ function removeErrorField()
     $('div.invalid-feedback').empty().hide();
 }
 
-function handleResponse(records)
+function handleResponse(records, datatable)
 {
+    reloadDataTable(datatable);
     deleteButton(records).hide();
     uncheck($(checkAll(records)));
 }

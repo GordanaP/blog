@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->profile;
     }
 
+    public function hasArticles()
+    {
+        return $this->articles->count();
+    }
+
     public function addArticle($article)
     {
         return $this->articles()->save($article);

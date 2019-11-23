@@ -14,7 +14,7 @@ class RoleAjaxController extends Controller
     public function index()
     {
         return response([
-            'data' => RoleResource::collection(Role::all())
+            'data' => RoleResource::collection(Role::withCount('users')->get())
         ]);
     }
 }

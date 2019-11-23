@@ -2,16 +2,13 @@
 
 @section('title', 'Admin | Show Role')
 
-@section('page_title')
-    @pageTitle(['title' => $role->name])
+@section('content')
+    @include('alerts._error_ajax')
+
+    @header(['title' => $role->name])
         @viewAll(['records' => 'roles', 'route' => route('admin.roles.index')])
         @endviewAll
-    @endpageTitle
-@endsection
-
-@section('content')
-
-    @include('alerts._error_ajax')
+    @endheader
 
     <div>
         <div class="float-right">
@@ -31,12 +28,12 @@
         </div>
     </div>
 
-    @pageTitle(['title' => $role->name . " accounts",
-        'records_count' => $role_users_count
-    ])
-        @addNew (['record' => 'account', 'route' => route('admin.roles.users.create', $role)])
-        @endaddNew
-    @endpageTitle
+    <div id="cardUsers">
+        @header(['title' => $role->name . " accounts", 'records_count' => $role->users_count])
+            @addNew (['record' => 'account', 'route' => route('admin.roles.users.create', $role)])
+            @endaddNew
+        @endheader
+    </div>
 
     @dataTable(['records' => 'Users'])
         <th>Id</th>
@@ -51,8 +48,8 @@
     <script>
 
         var records = 'Users';
-        var parentId = "{{ optional($role)->slug }}";
-        var parentRecords = parentId ? 'roles' : '';
+        var parentId = "{{ $role->slug }}";
+        var parentRecords = 'roles';
 
         @include('partials.users._datatable')
 

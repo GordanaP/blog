@@ -53,9 +53,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $role_users_count = $role->users->count();
-
-        return view('roles.show', compact('role', 'role_users_count'));
+        return view('roles.show', compact('role'));
     }
 
     /**
@@ -76,7 +74,7 @@ class RoleController extends Controller
      * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleResourceRequest $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
         $role->update($request->validated());
 

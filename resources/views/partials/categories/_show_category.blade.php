@@ -15,11 +15,5 @@
         @rowInfo(['name' => 'Last update'])
             {{ $category->updated_at }}
         @endrowInfo
-
-        @rowInfo(['name' => 'Articles'])
-            <a href="#">
-                View
-            </a>
-        @endrowInfo
     </tbody>
 </table>

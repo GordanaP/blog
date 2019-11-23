@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\DatePresenter;
+use App\Scopes\AccountsCountScope;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
@@ -10,6 +11,13 @@ class Role extends Model
     use DatePresenter;
 
     protected $fillable = ['name'];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope(new AccountsCountScope);
+    }
 
     public function getRouteKeyName()
     {

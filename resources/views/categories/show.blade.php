@@ -2,16 +2,13 @@
 
 @section('title', 'Admin | Show Category')
 
-@section('page_title')
-    @pageTitle(['title' => $category->name])
+@section('content')
+    @include('alerts._error_ajax')
+
+    @header(['title' => $category->name])
         @viewAll(['records' => 'categories', 'route' => route('admin.categories.index')])
         @endviewAll
-    @endpageTitle
-@endsection
-
-@section('content')
-
-    @include('alerts._error_ajax')
+    @endheader
 
     <div>
         <div class="float-right">
@@ -31,12 +28,12 @@
         </div>
     </div>
 
-    @pageTitle(['title' => $category->name . "'s articles",
-                'recordsCount' => '('.$category->articles->count().')'
-        ])
-        @addNew (['route' => route('admin.categories.articles.create', $category)])
-        @endaddNew
-    @endpageTitle
+    <div id="cardArticles">
+        @header(['title' => $category->name." articles", 'records_count' => $category->articles->count()])
+            @addNew (['record' => 'article', 'route' => route('admin.categories.articles.create', $category)])
+            @endaddNew
+        @endheader
+    <div>
 
     @dataTable(['records' => 'Articles'])
         <th>Id</th>
@@ -51,8 +48,8 @@
     <script>
 
         var records = 'Articles';
-        var parentId = "{{ optional($category)->slug }}"
-        var parentRecords = parentId ? 'categories' : '';
+        var parentId = "{{ $category->slug }}";
+        var parentRecords = 'categories';
 
         @include('partials.articles._datatable')
 

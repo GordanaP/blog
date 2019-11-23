@@ -13,14 +13,20 @@
         <div class="form-group">
             <label for="user_id">Author: @asterisks @endasterisks</label>
             <select name="user_id" id="user_id" class="form-control">
-                <option value="">Select the author</option>
-                @foreach ($authors as $author)
-                    <option value="{{ $author->id }}"
-                        {{ getSelected($author->id, old('user_id', $article->user_id ?? null)) }}
-                    >
-                        {{ $author->profile->full_name }}
+                @if (request()->route('user'))
+                    <option value="{{ $user->id }}" selected>
+                        {{ $user->profile->full_name }}
                     </option>
-                @endforeach
+                @else
+                    <option value="">Select the author</option>
+                    @foreach ($authors as $author)
+                        <option value="{{ $author->id }}"
+                            {{ getSelected($author->id, old('user_id', $article->user_id ?? null)) }}
+                        >
+                            {{ $author->profile->full_name }}
+                        </option>
+                    @endforeach
+                @endif
             </select>
 
             @formError(['field' => 'user_id'])@endformError

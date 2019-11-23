@@ -14,7 +14,9 @@
 
         @rowInfo(['name' => 'Roles'])
             @forelse ($user->roles as $role)
-                {{ $role->name }}
+                <a href="{{ route('admin.roles.show', $role) }}">
+                    {{ $role->name }}
+                </a>
             @empty
                 member
             @endforelse
@@ -31,12 +33,6 @@
         @if ($user->is_author)
             @rowInfo(['name' => 'Profile'])
                 <a href="#">
-                    View
-                </a>
-            @endrowInfo
-
-            @rowInfo(['name' => 'Articles'])
-                <a href="{{ route('admin.users.articles.index', $user) }}">
                     View
                 </a>
             @endrowInfo

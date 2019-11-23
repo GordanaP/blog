@@ -2,15 +2,15 @@
 
 @section('title', 'Admin | Roles')
 
-@section('page_title')
-    @pageTitle(['title' => 'All roles', 'records_count' => $roles_count ])
-        @addNew (['route' => route('admin.roles.create') ])
-        @endaddNew
-    @endpageTitle
-@endsection
-
 @section('content')
     @include('alerts._error_ajax')
+
+    <div id="cardRoles">
+        @header(['title' => 'All roles', 'records_count' => $roles_count ])
+            @addNew (['record' => 'role', 'route' => route('admin.roles.create') ])
+            @endaddNew
+        @endheader
+    </div>
 
     @dataTable(['records' => 'Roles'])
         <th>Id</th>
@@ -22,10 +22,12 @@
 
 @section('scripts')
     <script>
+
         var records = 'Roles';
 
         @include('partials.roles._datatable')
 
         @include('partials.datatables._delete_records')
+
     </script>
 @endsection

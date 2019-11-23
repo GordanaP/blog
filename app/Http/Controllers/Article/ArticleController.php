@@ -34,8 +34,10 @@ class ArticleController extends Controller
             ->newest()
             ->paginate(5);
 
+
         return view('articles.index')->with([
             'articles' => $published,
+            'articles_count' => Article::count(),
         ]);
     }
 

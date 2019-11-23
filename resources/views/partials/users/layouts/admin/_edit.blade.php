@@ -2,14 +2,12 @@
 
 @section('title', 'Admin | Edit User')
 
-@section('page_title')
-    @pageTitle(['title' => '@'.$user->name])
-        @viewAll(['records' => 'users','route' => route('admin.users.index')])
-        @endviewAll
-    @endpageTitle
-@endsection
-
 @section('content')
+    @header(['title' => 'Edit user'])
+        @viewAll(['records' => 'users', 'route' => route('admin.users.index')])
+        @endviewAll
+    @endheader
+
     <div class="w-3/5 mx-auto">
         <div class="float-right mb-2">
             @delete(['route' => route('admin.users.destroy', $user)])

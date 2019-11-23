@@ -2,18 +2,15 @@
 
 @section('title', 'Admin | Users')
 
-@section('page_title')
-    @pageTitle(['title' => (isset($role) ? $role->name : 'All ') .' accounts',
-        'records_count' => $role_users_count ?? $users_count
-    ])
-        @addNew (['route' => isset($role) ? route('admin.roles.users.create', $role)
-        : route('admin.users.create')])
-        @endaddNew
-    @endpageTitle
-@endsection
-
 @section('content')
     @include('alerts._error_ajax')
+
+    <div id="cardUsers">
+        @header(['title' => 'All accounts', 'records_count' => $users_count])
+            @addNew (['record' => 'account', 'route' => route('admin.users.create')])
+            @endaddNew
+        @endheader
+    <div>
 
     @dataTable(['records' => 'Users'])
         <th>Id</th>
@@ -28,8 +25,8 @@
     <script>
 
         var records = 'Users';
-        var parentId = "{{ optional($role ?? null)->slug }}"
-        var parentRecords = parentId ? 'roles' : null;
+        var parentId = null;
+        var parentRecords = null;
 
         @include('partials.users._datatable')
 

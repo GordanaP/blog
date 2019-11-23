@@ -2,14 +2,12 @@
 
 @section('title', 'Admin | Edit Article')
 
-@section('page_title')
-    @pageTitle(['title' => $article->title])
-        @viewAll(['records' => 'articles','route' => route('admin.articles.index')])
-        @endviewAll
-    @endpageTitle
-@endsection
-
 @section('content')
+    @header(['title' => 'Edit article'])
+        @viewAll(['records' => 'articles', 'route' => route('admin.articles.index')])
+        @endviewAll
+    @endheader
+
     <div class="w-3/5 mx-auto">
         <div class="float-right mb-2">
             @delete(['route' => route('admin.articles.destroy', $article)])

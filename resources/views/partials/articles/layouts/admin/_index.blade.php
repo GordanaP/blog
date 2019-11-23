@@ -2,31 +2,31 @@
 
 @section('title', 'Admin | Articles')
 
-@section('page_title')
-    @pageTitle(['title' => (optional(optional($user ?? '')->profile)->full_name ?? 'All') .' articles'])
-        @addNew (['route' => route('admin.articles.create')])
-        @endaddNew
-    @endpageTitle
-@endsection
-
 @section('content')
-        @include('alerts._error_ajax')
+    @include('alerts._error_ajax')
 
-        @dataTable(['records' => 'Articles'])
-            <th>Id</th>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Status</th>
-            <th class="w-1/5"></th>
-        @enddataTable
+    <div id="cardArticles">
+        @header(['title' => ' All articles', 'records_count' => $articles_count])
+            @addNew (['record' => 'article', 'route' => route('admin.articles.create')])
+            @endaddNew
+        @endheader
+    </div>
+
+    @dataTable(['records' => 'Articles'])
+        <th>Id</th>
+        <th width="40%">Title</th>
+        <th>Author</th>
+        <th>Status</th>
+        <th class="w-1/5"></th>
+    @enddataTable
 @endsection
 
 @section('scripts')
     <script>
 
         var records = 'Articles';
-        var parentId = "{{ optional($user ?? null)->id }}";
-        var parentRecords = parentId ? 'users' : null;
+        var parentId = null;
+        var parentRecords = null;
 
         @include('partials.articles._datatable')
 

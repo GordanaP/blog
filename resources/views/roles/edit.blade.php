@@ -2,14 +2,12 @@
 
 @section('title', 'Admin | Edit Role')
 
-@section('page_title')
-    @pageTitle(['title' => 'Edit role'])
-        @viewAll(['records' => 'roles','route' => route('admin.roles.index')])
-        @endviewAll
-    @endpageTitle
-@endsection
-
 @section('content')
+    @header(['title' => 'Edit role'])
+        @viewAll(['records' => 'roles', 'route' => route('admin.roles.index')])
+        @endviewAll
+    @endheader
+
     <div class="w-3/5 mx-auto">
         <div class="float-right mb-2">
             @delete(['route' => route('admin.roles.destroy', $role)])
