@@ -28,7 +28,7 @@
 
     @if ($user->hasArticles())
         <div id="cardArticles">
-            @header(['title' => $user->profile->full_name .' articles',
+            @header(['title' => $user->profile->full_name ?? $user->name .' articles',
             'records_count' => $user->articles->count()])
                 @addNew (['record' => 'article', 'route' => route('admin.users.articles.create', $user)])
                 @endaddNew

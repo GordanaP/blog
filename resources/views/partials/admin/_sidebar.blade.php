@@ -21,12 +21,8 @@
             @navitem(['icon' => 'fa-users']) Users
             @endnavitem
 
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-user-circle mr-2 text-gray-600" aria-hidden="true"></i>
-                    Profiles
-                </a>
-            </li>
+            @navitem(['icon' => 'fa-user-circle'])Profiles
+            @endnavitem
 
             @navitem(['icon' => 'fa-suitcase']) Roles
             @endnavitem

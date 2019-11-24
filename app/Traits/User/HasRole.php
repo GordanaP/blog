@@ -45,11 +45,16 @@ trait HasRole
         return (bool) $role->intersect($this->roles)->count();
     }
 
-    public static function getAuthors()
+    public function scopeAuthors()
     {
-        return static::with('profile')->whereHas('roles', function($query) {
-            return $query->where('name', 'author');
-        })->get();
-
+        return static::with('roles', 'profile')->whereHas('roles', function($query){
+            return $query->whereName('author');
+        });
     }
+
+    public function scopeAuthorsWithoutProfile()
+    {
+        return static::authors()->whereDoesntHave('profile')->get();
+    }
+
 }

@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Validation;
 
+use App\Rules\IsAuthor;
+use App\Rules\HasNoProfile;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ProfileRequest extends FormRequest
@@ -24,8 +26,14 @@ class ProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:50',
-            'last_name' => 'required|max:50',
+            'ids' => 'sometimes|exists:profiles,id',
+            'user_id' => [
+                'sometimes','required','exists:users,id', 'min:1',
+                new IsAuthor,
+                new HasNoProfile
+            ],
+            'first_name' => 'sometimes|required|max:50',
+            'last_name' => 'sometimes|required|max:50',
             'biography' => 'nullable|max:500',
             'image' => 'sometimes|image',
         ];

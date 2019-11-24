@@ -5,9 +5,10 @@ namespace App\Services\User;
 use App\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use App\Utilities\DeleteModel;
 use Illuminate\Support\Facades\Hash;
 
-class UserService
+class UserService extends DeleteModel
 {
     protected $user;
     protected $roles;
@@ -16,6 +17,7 @@ class UserService
 
     public function __construct()
     {
+        $this->model = 'App\User';
         $this->user = request()->route('user') ?? request('ids');
         $this->roles = request('role_id');
         $this->generate_password = request('generate_password');
@@ -34,9 +36,16 @@ class UserService
             ->addRoles($this->roles);
     }
 
+    // public function delete()
+    // {
+    //     is_array($this->user) ? User::destroy($this->user) : $this->user->delete();
+    // }
+
     public function delete()
     {
-        is_array($this->user) ? User::destroy($this->user) : $this->user->delete();
+        $this->setModel($this->model)
+            ->setInstance($this->user)
+            ->destroy();
     }
 
     private function credentials(array $data)

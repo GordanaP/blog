@@ -33,6 +33,10 @@ class DirectiveServiceProvider extends ServiceProvider
             return Auth::check() && Auth::user()->is_author;
         });
 
+        Blade::if('hasProfile', function ($user) {
+            return $user->hasProfile();
+        });
+
         Blade::if('admin', function () {
             return Auth::check() && Auth::user()->is_admin;
         });

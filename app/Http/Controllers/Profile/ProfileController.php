@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Profile;
+use App\Facades\ProfileService;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\ProfileRequest;
 
@@ -14,7 +15,25 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except('show');
-        $this->authorizeResource(Profile::class);
+    }
+
+    public function index()
+    {
+        $profiles_count = Profile::count();
+
+        return view('profiles.index', compact('profiles_count'));
+    }
+
+    public function create()
+    {
+        return view('profiles.create');
+    }
+
+    public function store(ProfileRequest $request)
+    {
+        ProfileService::create($request->validated());
+
+        return redirect()->route('admin.profiles.index');
     }
 
     /**
@@ -48,9 +67,9 @@ class ProfileController extends Controller
      */
     public function update(ProfileRequest $request, Profile $profile)
     {
-        $profile->saveChanges($request->validated());
+        ProfileService::update($request->validated());
 
-        return view('profiles.show', compact('profile'));
+        return redirect()->route('admin.profiles.show', $profile);
     }
 
     /**
@@ -61,22 +80,12 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        $profile->remove();
+        ProfileService::delete();
 
-        return view('home');
-    }
-
-    /**
-     * Authorize the controller methods.
-     *
-     * @return array
-     */
-    protected function resourceAbilityMap()
-    {
-         return [
-            'edit' => 'update',
-            'update' => 'update',
-            'destroy' => 'delete',
-        ];
+        if (request()->ajax()) {
+            return response(['message' => 'The record has been deleted']);
+        } else {
+            return redirect()->route('admin.profiles.index');
+        }
     }
 }

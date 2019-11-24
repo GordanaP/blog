@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Traits\DatePresenter;
 use App\Facades\ProfileImageService;
 use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
+    use DatePresenter;
+
     protected $fillable = ['first_name', 'last_name', 'biography'];
 
     public function getFullNameAttribute()
@@ -27,13 +30,6 @@ class Profile extends Model
     public function hasAvatar()
     {
         return $this->avatar;
-    }
-
-    public function saveChanges(array $data)
-    {
-        $this->update($data);
-
-        ProfileImageService::manage($this, request('avatar'));
     }
 
     public function remove()

@@ -99,7 +99,6 @@ class ArticleController extends Controller
     {
         ArticleService::update($request->validated());
 
-        // return redirect()->route('articles.show', $article);
         return redirect()->route('admin.articles.index');
     }
 

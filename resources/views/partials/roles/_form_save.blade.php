@@ -12,7 +12,7 @@
     <div class="form-group">
         <label for="name">Name: @asterisks @endasterisks</label>
         <input type="text" name="name" id="name" class="form-control"
-        placeholder="Enter name" value="{{ $role->name ?? old('name') }}">
+        placeholder="Enter name" value="{{  old('name') ?? $role->name }}">
 
         @formError(['field' => 'name'])@endformError
     </div>

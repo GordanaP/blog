@@ -10,30 +10,29 @@
         @endviewAll
     @endheader
 
-    <div>
-        <div class="float-right">
-            @delete(['route' => route('admin.categories.destroy', $category)])
-            @enddelete
+    <div class="float-right mb-2">
+        @delete(['route' => route('admin.categories.destroy', $category)])
+        @enddelete
 
-            @edit(['route' => route('admin.categories.edit', $category)])
-            @endedit
-        </div>
+        @edit(['route' => route('admin.categories.edit', $category)])
+        @endedit
+    </div>
 
-        <div class="clearfix"></div>
+    <div class="clearfix"></div>
 
-        <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
-            @include('partials.categories._show_category', [
-                'category' => $category
-            ])
-        </div>
+    <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
+        @include('partials.categories._show_category', [
+            'category' => $category
+        ])
     </div>
 
     <div id="cardArticles">
-        @header(['title' => $category->name." articles", 'records_count' => $category->articles->count()])
+        @header(['title' => $category->name .' articles',
+        'records_count' => $category->articles->count()])
             @addNew (['record' => 'article', 'route' => route('admin.categories.articles.create', $category)])
             @endaddNew
         @endheader
-    <div>
+    </div>
 
     @dataTable(['records' => 'Articles'])
         <th>Id</th>

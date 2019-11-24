@@ -15,7 +15,7 @@
             <select name="user_id" id="user_id" class="form-control">
                 @if (request()->route('user'))
                     <option value="{{ $user->id }}" selected>
-                        {{ $user->profile->full_name }}
+                        {{ optional($user->profile)->full_name ?? $user->email }}
                     </option>
                 @else
                     <option value="">Select the author</option>
@@ -23,7 +23,7 @@
                         <option value="{{ $author->id }}"
                             {{ getSelected($author->id, old('user_id', $article->user_id ?? null)) }}
                         >
-                            {{ $author->profile->full_name }}
+                            {{ optional($author->profile)->full_name ??  $author->email}}
                         </option>
                     @endforeach
                 @endif

@@ -56,15 +56,20 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function addProfile(array $data)
+    // public function addProfile(array $data)
+    // {
+    //     $profile = (new Profile)->fill($data);
+
+    //     $this->profile()->save($profile);
+
+    //     ProfileImageService::manage($profile, request('avatar'));
+
+    //     return $profile;
+    // }
+
+    public function addProfile($profile)
     {
-        $profile = (new Profile)->fill($data);
-
-        $this->profile()->save($profile);
-
-        ProfileImageService::manage($profile, request('avatar'));
-
-        return $profile;
+        return $this->profile()->save($profile);
     }
 
     public function owns($model)

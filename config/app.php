@@ -239,6 +239,7 @@ return [
         'ArticleFiltersUrlManager' => App\Facades\ArticleFiltersUrlManager::class,
         'ArticleService' => App\Facades\ArticleService::class,
         'UserService' => App\Facades\UserService::class,
+        'ProfileService' => App\Facades\ProfileService::class,
         'CategoryService' => App\Facades\CategoryService::class,
         'RoleService' => App\Facades\RoleService::class,
         'TagService' => App\Facades\TagService::class,

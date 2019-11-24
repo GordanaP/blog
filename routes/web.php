@@ -130,6 +130,25 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('User')
     });
 
 /**
+ * Admin Profile
+ */
+Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Profile')
+    ->group(function () {
+        Route::get('profiles/list', 'ProfileAjaxController@index')
+            ->name('profiles.list');
+        Route::delete('profiles/{profile?}', 'ProfileController@destroy')
+            ->name('profiles.destroy');
+        Route::resource('profiles', 'ProfileController', [
+            'parameters' => ['' => 'profile']
+        ])->except('destroy');
+        Route::resource('profiles.articles', 'ProfileArticleController', [
+            'parameters' => ['' => 'profile']
+        ])->only('create');
+        Route::get('profiles/{profile}/articles/list', 'ProfileArticleAjaxController@index')
+            ->name('profiles.articles.list');
+    });
+
+/**
  * Admin Category
  */
 Route::middleware('admin')->prefix('admin')->name('admin.')->namespace('Category')

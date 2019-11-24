@@ -122,6 +122,18 @@ class Article extends Model
        return $this;
     }
 
+    public function getAuthor()
+    {
+        return optional($this->user->profile)->full_name ?? $this->user->email;
+    }
+
+    public function getAuthorRoute()
+    {
+        return $this->user->profile
+            ? route('admin.profiles.show', $this->user->profile)
+            : route('admin.users.show', $this->user);
+    }
+
     public function remove()
     {
         ArticleImageService::removeFromStorage($this->image);

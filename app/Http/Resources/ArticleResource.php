@@ -18,13 +18,13 @@ class ArticleResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'slug' => $this->slug,
-            'author' => $this->user->profile->full_name,
+            'author' => $this->getAuthor(),
             'status' => $this->status,
             'color' => $this->status_color,
             'link' => [
                 'show' => route('admin.articles.show', $this),
                 'edit' => route('admin.articles.edit', $this),
-                'show_author' => route('profiles.show', $this->user->profile),
+                'show_author' => $this->getAuthorRoute(),
             ]
         ];
     }

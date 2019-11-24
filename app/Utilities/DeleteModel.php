@@ -35,4 +35,3 @@ abstract class DeleteModel
         $this->model::findMany($instance)->map->remove();
     }
 }
-

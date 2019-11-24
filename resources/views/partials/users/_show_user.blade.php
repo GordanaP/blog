@@ -22,6 +22,14 @@
             @endforelse
         @endrowInfo
 
+        @hasProfile($user)
+            @rowInfo(['name' => 'Profile'])
+                <a href="{{ route('admin.profiles.show', $user->profile) }}">
+                    View
+                </a>
+            @endrowInfo
+        @endhasProfile
+
         @rowInfo(['name' => 'Joined'])
             {{ $user->created_at }}
         @endrowInfo
@@ -30,12 +38,5 @@
             {{ $user->updated_at }}
         @endrowInfo
 
-        @if ($user->is_author)
-            @rowInfo(['name' => 'Profile'])
-                <a href="#">
-                    View
-                </a>
-            @endrowInfo
-        @endif
     </tbody>
 </table>
