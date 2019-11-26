@@ -1,4 +1,4 @@
-@author
+@author(Auth::user())
     @include('partials.profiles.user._show')
 @endauthor
 

@@ -12,7 +12,9 @@
 
         </h4>
 
-        {{ $slot }}
+        <div>
+            {{ $slot }}
+        </div>
 
     </div>
 </div>

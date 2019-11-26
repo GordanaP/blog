@@ -24,7 +24,6 @@
                 @include('partials.roles._form_save', [
                     'role' => $role,
                     'route' => route('admin.roles.update', $role),
-                    'button_title' =>'Save changes',
                 ])
             </div>
         </div>

@@ -6,11 +6,14 @@
     @include('alerts._error_ajax')
 
     @header(['title' => $category->name])
+        @addNewLink(['record' => 'category', 'route' => route('admin.categories.create')])
+        @endaddNewLink
+
         @viewAll(['records' => 'categories', 'route' => route('admin.categories.index')])
         @endviewAll
     @endheader
 
-    <div class="float-right mb-2">
+    <div class="float-left mb-2">
         @delete(['route' => route('admin.categories.destroy', $category)])
         @enddelete
 
@@ -29,7 +32,8 @@
     <div id="cardArticles">
         @header(['title' => $category->name .' articles',
         'records_count' => $category->articles->count()])
-            @addNew (['record' => 'article', 'route' => route('admin.categories.articles.create', $category)])
+            @addNew (['record' => 'article',
+                'route' => route('admin.categories.articles.create', $category)])
             @endaddNew
         @endheader
     </div>

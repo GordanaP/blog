@@ -4,11 +4,14 @@
 
 @section('content')
     @header(['title' => $article->title])
+        @addNewLink(['record' => 'article', 'route' => route('admin.articles.create')])
+        @endaddNewLink
+
         @viewAll(['records' => 'articles', 'route' => route('admin.articles.index')])
         @endviewAll
     @endheader
 
-    <div class="float-right mb-2">
+    <div class="float-left mb-2">
         @delete(['route' => route('admin.articles.destroy', $article)])
         @enddelete
 
@@ -18,7 +21,7 @@
 
     <div class="clearfix"></div>
 
-    <div class="card card-body bg-gray-100 p-1 text-sm">
+    <div class="card card-body bg-gray-100 p-1 text-sm mb-10">
         @include('partials.articles._show_article', [
             'article' => $article
         ])

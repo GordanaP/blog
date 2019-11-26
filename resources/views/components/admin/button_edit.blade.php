@@ -1,4 +1,4 @@
 <a href="{{ $route }}"
-class="btn btn-outline-warning text-white" style="background: #f2db0d">
-    <i class="fa fa-pencil" aria-hidden="true"></i>
+class="btn btn-outline-warning bg-yellow-400 hover:bg-yellow-500 text-white">
+    <i class="fa fa-edit" aria-hidden="true"></i>
 </a>

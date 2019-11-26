@@ -28,7 +28,7 @@ class ProfileRequest extends FormRequest
         return [
             'ids' => 'sometimes|exists:profiles,id',
             'user_id' => [
-                'sometimes','required','exists:users,id', 'min:1',
+                'sometimes','required','exists:users,id',
                 new IsAuthor,
                 new HasNoProfile
             ],

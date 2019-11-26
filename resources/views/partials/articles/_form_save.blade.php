@@ -2,7 +2,7 @@
 
     @csrf
 
-    @if (request()->route('article'))
+    @if (Request::route('article'))
         @method('PUT')
     @endif
 
@@ -37,7 +37,7 @@
     <div class="form-group">
         <label for="title">Title @asterisks @endasterisks</label>
         <input type="text" name="title" id="title" class="form-control"
-        placeholder="Article Title" value="{{  old('title', $article->title ?? null) }}">
+        placeholder="Article Title" value="{{ old('title', $article->title ?? null) }}">
 
         @formError(['field' => 'title'])@endformError
     </div>

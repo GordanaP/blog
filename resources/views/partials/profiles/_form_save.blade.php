@@ -64,7 +64,7 @@
             @formError(['field' => 'avatar'])@endformError
         </div>
 
-        @if (isset($profile) && $profile->hasAvatar())
+        @if (optional($profile ?? null)->hasAvatar())
             <div class="w-1/4">
                 <img src="{{ ProfileImageService::getUrl($profile->avatar) }}"
                 alt="Profile Avatar">
@@ -73,9 +73,8 @@
     </div>
 
     <!-- Button -->
-    <div class="form-group">
-        <button type="submit" class="btn btn-outline-success bg-teal-400 hover:bg-teal-500 text-white">
-            {{ $button_title }}
-        </button>
-    </div>
+    <button type="submit" class="btn btn-outline-success bg-teal-400
+        hover:bg-teal-500 uppercase text-white text-xs font-semibold tracking-wider">
+        {{ $button_title }}
+    </button>
 </form>

@@ -1,16 +1,16 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin | Users')
+@section('title', 'Admin | Accounts')
 
 @section('content')
     @include('alerts._error_ajax')
 
     <div id="cardUsers">
-        @header(['title' => 'All accounts', 'records_count' => $users_count])
-            @addNew (['record' => 'account', 'route' => route('admin.users.create')])
+        @header(['title' => ' All users', 'records_count' => $users_count])
+            @addNew (['record' => 'user', 'route' => route('admin.users.create')])
             @endaddNew
         @endheader
-    <div>
+    </div>
 
     @dataTable(['records' => 'Users'])
         <th>Id</th>
@@ -28,7 +28,7 @@
         var parentId = null;
         var parentRecords = null;
 
-        @include('partials.users._datatable')
+        @include('partials.users.admin._datatable')
 
         @include('partials.datatables._delete_records')
 

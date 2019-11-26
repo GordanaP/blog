@@ -121,7 +121,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-outline-success bg-teal-400
-            hover:bg-teal-500 text-white">
+            hover:bg-teal-500 uppercase text-white text-xs font-semibold tracking-wider">
             {{ $button_title }}
         </button>
     </div>

@@ -9,6 +9,12 @@
                 </a>
             </li>
 
+            @navitem(['icon' => 'fa-users']) Users
+            @endnavitem
+
+            @navitem(['icon' => 'fa-user-circle'])Profiles
+            @endnavitem
+
             @navitem(['icon' => 'fa-database']) Articles
             @endnavitem
 
@@ -16,12 +22,6 @@
             @endnavitem
 
             @navitem(['icon' => 'fa-tags']) Tags
-            @endnavitem
-
-            @navitem(['icon' => 'fa-users']) Users
-            @endnavitem
-
-            @navitem(['icon' => 'fa-user-circle'])Profiles
             @endnavitem
 
             @navitem(['icon' => 'fa-suitcase']) Roles

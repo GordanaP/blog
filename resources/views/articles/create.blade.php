@@ -1,4 +1,4 @@
-@author
+@author(Auth::user())
     @include('partials.articles.layouts.user._create')
 @endauthor
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Role;
 
 use App\Role;
 use App\Facades\RoleService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Validation\RoleRequest;
 

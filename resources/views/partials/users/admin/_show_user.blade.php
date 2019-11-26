@@ -15,20 +15,24 @@
         @rowInfo(['name' => 'Roles'])
             @forelse ($user->roles as $role)
                 <a href="{{ route('admin.roles.show', $role) }}">
-                    {{ $role->name }}
+                    {{ ucfirst($role->name) }}
                 </a>
             @empty
-                member
+                Member
             @endforelse
         @endrowInfo
 
-        @hasProfile($user)
+        @author($user)
             @rowInfo(['name' => 'Profile'])
-                <a href="{{ route('admin.profiles.show', $user->profile) }}">
-                    View
-                </a>
+                @hasProfile($user)
+                    <a href="{{ route('admin.profiles.show', $user->profile) }}">
+                        {{ $user->profile->full_name }}
+                    </a>
+                @else
+                    n/a
+                @endhasProfile
             @endrowInfo
-        @endhasProfile
+        @endauthor
 
         @rowInfo(['name' => 'Joined'])
             {{ $user->created_at }}

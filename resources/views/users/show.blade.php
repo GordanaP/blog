@@ -6,11 +6,14 @@
     @include('alerts._error_ajax')
 
     @header(['title' => $user->name])
+        @addNewLink(['record' => 'user', 'route' => route('admin.users.create')])
+        @endaddNewLink
+
         @viewAll(['records' => 'users', 'route' => route('admin.users.index')])
         @endviewAll
     @endheader
 
-    <div class="float-right mb-2">
+    <div class="float-left mb-2">
         @delete(['route' => route('admin.users.destroy', $user)])
         @enddelete
 
@@ -21,12 +24,12 @@
     <div class="clearfix"></div>
 
     <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
-        @include('partials.users._show_user', [
+        @include('partials.users.admin._show_user', [
             'user' => $user
         ])
     </div>
 
-    @if ($user->hasArticles())
+    @author($user)
         <div id="cardArticles">
             @header(['title' => $user->profile->full_name ?? $user->name .' articles',
             'records_count' => $user->articles->count()])
@@ -42,7 +45,7 @@
             <th>Status</th>
             <th class="w-1/5"></th>
         @enddataTable
-    @endif
+    @endauthor
 @endsection
 
 @section('scripts')

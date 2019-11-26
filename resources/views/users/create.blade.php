@@ -13,7 +13,7 @@
             <div class="card card-body">
                 @include('partials.users._form_save', [
                     'route' => route('admin.users.store'),
-                    'button_title' =>'Create user',
+                    'button_title' =>'Add user',
                 ])
             </div>
         </div>

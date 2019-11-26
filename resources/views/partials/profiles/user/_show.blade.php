@@ -26,7 +26,7 @@
         <main>
             <div class="row">
                 <div class="col-md-6">
-                    @include('partials.profiles.layouts.user._show_profile', [
+                    @include('partials.profiles.user._show_profile', [
                         'profile' => $profile
                     ])
                 </div>

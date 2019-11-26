@@ -6,11 +6,14 @@
     @include('alerts._error_ajax')
 
     @header(['title' => $tag->name])
+        @addNewLink(['record' => 'tag', 'route' => route('admin.tags.create')])
+        @endaddNewLink
+
         @viewAll(['records' => 'tags', 'route' => route('admin.tags.index')])
         @endviewAll
     @endheader
 
-    <div class="float-right mb-2">
+    <div class="float-left mb-2">
         @delete(['route' => route('admin.tags.destroy', $tag)])
         @enddelete
 

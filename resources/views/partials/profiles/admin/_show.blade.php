@@ -4,11 +4,14 @@
 
 @section('content')
     @header(['title' => $profile->full_name])
+        @addNewLink(['record' => 'profile', 'route' => route('admin.profiles.create')])
+        @endaddNewLink
+
         @viewAll(['records' => 'profiles', 'route' => route('admin.profiles.index')])
         @endviewAll
     @endheader
 
-    <div class="float-right mb-2">
+    <div class="float-left mb-2">
         @delete(['route' => route('admin.profiles.destroy', $profile)])
         @enddelete
 

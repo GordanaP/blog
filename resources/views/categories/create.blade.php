@@ -13,7 +13,7 @@
             <div class="card card-body">
                 @include('partials.categories._form_save', [
                     'route' => route('admin.categories.store'),
-                    'button_title' =>'Create category',
+                    'button_title' =>'Add category',
                 ])
             </div>
         </div>

@@ -13,7 +13,6 @@
             <div class="card card-body">
                 @include('partials.roles._form_save', [
                     'route' => route('admin.roles.store'),
-                    'button_title' =>'Create role',
                 ])
             </div>
         </div>
