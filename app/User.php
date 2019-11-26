@@ -56,15 +56,20 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
-    public function addProfile(array $data)
+    // public function addProfile(array $data)
+    // {
+    //     $profile = (new Profile)->fill($data);
+
+    //     $this->profile()->save($profile);
+
+    //     ProfileImageService::manage($profile, request('avatar'));
+
+    //     return $profile;
+    // }
+
+    public function addProfile($profile)
     {
-        $profile = (new Profile)->fill($data);
-
-        $this->profile()->save($profile);
-
-        ProfileImageService::manage($profile, request('avatar'));
-
-        return $profile;
+        return $this->profile()->save($profile);
     }
 
     public function owns($model)
@@ -75,6 +80,11 @@ class User extends Authenticatable
     public function hasProfile()
     {
         return $this->profile;
+    }
+
+    public function hasArticles()
+    {
+        return $this->articles->count();
     }
 
     public function addArticle($article)
@@ -97,5 +107,12 @@ class User extends Authenticatable
     public function cannotAccessUnpublished($article)
     {
         return ! $this->owns($article) || $this->is_member;
+    }
+
+    public function remove()
+    {
+        optional ($this->profile)->delete();
+
+        $this->delete();
     }
 }

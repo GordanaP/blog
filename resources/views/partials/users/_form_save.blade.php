@@ -12,22 +12,33 @@
     @admin
         <div class="form-group">
             <label for="role" class="mr-3"> Role:</label>
-            @foreach ($roles as $role)
+            @if ($role = request()->route('role'))
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="checkbox"
                         name="role_id[]" id="role_{{ $role->id }}"
-                        value="{{ $role->id }}"
-                        @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null))
-                            @foreach ($ids as $role_id)
-                                {{ getChecked($role->id, $role_id) }}
-                            @endforeach
-                        @endif
-                    >
+                        value="{{ $role->id }}" checked >
                     <label class="form-check-label">
                         {{ $role->name }}
                     </label>
                 </div>
-            @endforeach
+            @else
+                @foreach ($roles as $role)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox"
+                            name="role_id[]" id="role_{{ $role->id }}"
+                            value="{{ $role->id }}"
+                            @if ($ids = old('role_id', isset($user) ? $user->roles->pluck('id') : null))
+                                @foreach ($ids as $role_id)
+                                    {{ getChecked($role->id, $role_id) }}
+                                @endforeach
+                            @endif
+                        >
+                        <label class="form-check-label">
+                            {{ $role->name }}
+                        </label>
+                    </div>
+                @endforeach
+            @endif
 
             @formError(['field' => 'role_id'])@endformError
         </div>
@@ -110,7 +121,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-outline-success bg-teal-400
-            hover:bg-teal-500 text-white">
+            hover:bg-teal-500 uppercase text-white text-xs font-semibold tracking-wider">
             {{ $button_title }}
         </button>
     </div>

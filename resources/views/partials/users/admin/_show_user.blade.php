@@ -14,11 +14,25 @@
 
         @rowInfo(['name' => 'Roles'])
             @forelse ($user->roles as $role)
-                {{ $role->name }}
+                <a href="{{ route('admin.roles.show', $role) }}">
+                    {{ ucfirst($role->name) }}
+                </a>
             @empty
-                member
+                Member
             @endforelse
         @endrowInfo
+
+        @author($user)
+            @rowInfo(['name' => 'Profile'])
+                @hasProfile($user)
+                    <a href="{{ route('admin.profiles.show', $user->profile) }}">
+                        {{ $user->profile->full_name }}
+                    </a>
+                @else
+                    n/a
+                @endhasProfile
+            @endrowInfo
+        @endauthor
 
         @rowInfo(['name' => 'Joined'])
             {{ $user->created_at }}
@@ -28,18 +42,5 @@
             {{ $user->updated_at }}
         @endrowInfo
 
-        @if ($user->is_author)
-            @rowInfo(['name' => 'Profile'])
-                <a href="#">
-                    View
-                </a>
-            @endrowInfo
-
-            @rowInfo(['name' => 'Articles'])
-                <a href="{{ route('admin.users.articles.index', $user) }}">
-                    View
-                </a>
-            @endrowInfo
-        @endif
     </tbody>
 </table>

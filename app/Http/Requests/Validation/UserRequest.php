@@ -40,7 +40,7 @@ class UserRequest extends FormRequest
                 'sometimes', 'required',
                 Rule::in(['auto_generate', 'manually_generate', 'do_not_change'])
             ];
-            $rules['password'] = ['nullable', 'required_if:generate_password,manually_generate', 'min:8'];
+            $rules['password'] = ['nullable', 'required_if:generate_password, manually_generate', 'min:8'];
         }
 
         if(! Auth::user()->is_admin) {

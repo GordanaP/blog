@@ -2,41 +2,41 @@
 
 @section('title', 'Admin | Show Category')
 
-@section('page_title')
-    @pageTitle(['title' => $category->name])
-        @viewAll(['records' => 'categories', 'route' => route('admin.categories.index')])
-        @endviewAll
-    @endpageTitle
-@endsection
-
 @section('content')
-
     @include('alerts._error_ajax')
 
-    <div>
-        <div class="float-right">
-            @delete(['route' => route('admin.categories.destroy', $category)])
-            @enddelete
+    @header(['title' => $category->name])
+        @addNewLink(['record' => 'category', 'route' => route('admin.categories.create')])
+        @endaddNewLink
 
-            @edit(['route' => route('admin.categories.edit', $category)])
-            @endedit
-        </div>
+        @viewAll(['records' => 'categories', 'route' => route('admin.categories.index')])
+        @endviewAll
+    @endheader
 
-        <div class="clearfix"></div>
+    <div class="float-left mb-2">
+        @delete(['route' => route('admin.categories.destroy', $category)])
+        @enddelete
 
-        <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
-            @include('partials.categories._show_category', [
-                'category' => $category
-            ])
-        </div>
+        @edit(['route' => route('admin.categories.edit', $category)])
+        @endedit
     </div>
 
-    @pageTitle(['title' => $category->name . "'s articles",
-                'recordsCount' => '('.$category->articles->count().')'
+    <div class="clearfix"></div>
+
+    <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
+        @include('partials.categories._show_category', [
+            'category' => $category
         ])
-        @addNew (['route' => route('admin.categories.articles.create', $category)])
-        @endaddNew
-    @endpageTitle
+    </div>
+
+    <div id="cardArticles">
+        @header(['title' => $category->name .' articles',
+        'records_count' => $category->articles->count()])
+            @addNew (['record' => 'article',
+                'route' => route('admin.categories.articles.create', $category)])
+            @endaddNew
+        @endheader
+    </div>
 
     @dataTable(['records' => 'Articles'])
         <th>Id</th>
@@ -51,8 +51,8 @@
     <script>
 
         var records = 'Articles';
-        var parentId = "{{ optional($category)->slug }}"
-        var parentRecords = parentId ? 'categories' : '';
+        var parentId = "{{ $category->slug }}";
+        var parentRecords = 'categories';
 
         @include('partials.articles._datatable')
 

@@ -10,8 +10,7 @@ class AuthorsComposer
     public function compose(View $view)
     {
         $view->with([
-            'authors' => User::getAuthors()
+            'authors' => User::authors()->get()
         ]);
-
     }
 }

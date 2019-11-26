@@ -2,14 +2,12 @@
 
 @section('title', 'Admin | Edit Category')
 
-@section('page_title')
-    @pageTitle(['title' => 'Edit category'])
-        @viewAll(['records' => 'categories','route' => route('admin.categories.index')])
-        @endviewAll
-    @endpageTitle
-@endsection
-
 @section('content')
+    @header(['title' => 'Edit category'])
+        @viewAll(['records' => 'categories', 'route' => route('admin.categories.index')])
+        @endviewAll
+    @endheader
+
     <div class="w-3/5 mx-auto">
         <div class="float-right mb-2">
             @delete(['route' => route('admin.categories.destroy', $category)])

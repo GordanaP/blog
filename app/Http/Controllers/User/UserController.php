@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\User;
 use App\Facades\UserService;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\Validation\UserRequest;
@@ -16,7 +17,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->authorizeResource(User::class);
+        // $this->authorizeResource(User::class);
     }
 
     /**
@@ -26,9 +27,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users_count = User::count();
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users_count'));
     }
 
     /**
@@ -49,9 +50,9 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        UserService::create($request->validated());
+        $user = UserService::create($request->filter());
 
-        return back();
+        return redirect()->route('admin.users.show', $user);
     }
 
     /**
@@ -85,7 +86,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        UserService::update($request->validated());
+        UserService::update($request->filter());
 
         return back();
     }
@@ -116,14 +117,14 @@ class UserController extends Controller
      *
      * @return array
      */
-    protected function resourceAbilityMap()
-    {
-         return [
-            'index' => 'viewAny',
-            'create' => 'create',
-            'store' => 'create',
-            'edit' => 'update',
-            'update' => 'update',
-        ];
-    }
+    // protected function resourceAbilityMap()
+    // {
+    //      return [
+    //         'index' => 'viewAny',
+    //         'create' => 'create',
+    //         'store' => 'create',
+    //         'edit' => 'update',
+    //         'update' => 'update',
+    //     ];
+    // }
 }

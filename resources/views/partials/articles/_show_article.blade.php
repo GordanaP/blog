@@ -15,8 +15,8 @@
         @endrowInfo
 
         @rowInfo(['name' => 'Author'])
-            <a href="{{ route('admin.users.articles.index', $article->user) }}">
-                {{ $article->user->profile->full_name }}
+            <a href="{{ $article->getAuthorRoute() }}">
+                {{ $article->getAuthor() }}
             </a>
         @endrowInfo
 
@@ -27,7 +27,7 @@
         @endrowInfo
 
         @rowInfo(['name' => 'Excerpt'])
-            {{ $article->excerpt }}
+            <span class="w-4/5">{{ $article->excerpt }}</span>
         @endrowInfo
 
         @rowInfo(['name' => 'Body'])
@@ -36,7 +36,7 @@
                 View
             </a>
 
-            <div class="collapse" id="articleBody">
+            <div class="collapse w-4/5" id="articleBody">
                 {{ $article->body }}
             </div>
         @endrowInfo

@@ -2,29 +2,62 @@
 
 @section('title', 'Admin | Show User')
 
-@section('page_title')
-    @pageTitle(['title' => '@'.$user->name])
-        @viewAll(['records' => 'users','route' => route('admin.users.index')])
+@section('content')
+    @include('alerts._error_ajax')
+
+    @header(['title' => $user->name])
+        @addNewLink(['record' => 'user', 'route' => route('admin.users.create')])
+        @endaddNewLink
+
+        @viewAll(['records' => 'users', 'route' => route('admin.users.index')])
         @endviewAll
-    @endpageTitle
+    @endheader
+
+    <div class="float-left mb-2">
+        @delete(['route' => route('admin.users.destroy', $user)])
+        @enddelete
+
+        @edit(['route' => route('admin.users.edit', $user)])
+        @endedit
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="card card-body bg-gray-100 p-1 text-sm mt-2 mb-10">
+        @include('partials.users.admin._show_user', [
+            'user' => $user
+        ])
+    </div>
+
+    @author($user)
+        <div id="cardArticles">
+            @header(['title' => $user->profile->full_name ?? $user->name .' articles',
+            'records_count' => $user->articles->count()])
+                @addNew (['record' => 'article', 'route' => route('admin.users.articles.create', $user)])
+                @endaddNew
+            @endheader
+        </div>
+
+        @dataTable(['records' => 'Articles'])
+            <th>Id</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th class="w-1/5"></th>
+        @enddataTable
+    @endauthor
 @endsection
 
-@section('content')
-    <div class="w-3/5 mx-auto">
-        <div class="float-right mb-2">
-            @delete(['route' => route('admin.users.destroy', $user)])
-            @enddelete
+@section('scripts')
+    <script>
 
-            @edit(['route' => route('admin.users.edit', $user)])
-            @endedit
-        </div>
+        var records = 'Articles';
+        var parentId = "{{ $user->id }}";
+        var parentRecords = 'users';
 
-        <div class="clearfix"></div>
+        @include('partials.articles._datatable')
 
-        <div class="card card-body bg-gray-100 p-1 text-sm">
-            @include('partials.users._show_user', [
-                'user' => $user
-            ])
-        </div>
-    </div>
+        @include('partials.datatables._delete_records')
+
+    </script>
 @endsection

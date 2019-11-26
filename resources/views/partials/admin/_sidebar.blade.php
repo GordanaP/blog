@@ -9,34 +9,23 @@
                 </a>
             </li>
 
+            @navitem(['icon' => 'fa-users']) Users
+            @endnavitem
+
+            @navitem(['icon' => 'fa-user-circle'])Profiles
+            @endnavitem
+
             @navitem(['icon' => 'fa-database']) Articles
             @endnavitem
 
             @navitem(['icon' => 'fa-share-alt']) Categories
             @endnavitem
 
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-tags mr-2 text-gray-600" aria-hidden="true"></i>
-                    Tags
-                </a>
-            </li>
-
-            @navitem(['icon' => 'fa-users']) Users
+            @navitem(['icon' => 'fa-tags']) Tags
             @endnavitem
 
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-user-circle mr-2 text-gray-600" aria-hidden="true"></i>
-                    Profiles
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link flex items-center" href="#">
-                    <i class="fa fa-suitcase mr-2 text-gray-600" aria-hidden="true"></i>
-                    Roles
-                </a>
-            </li>
+            @navitem(['icon' => 'fa-suitcase']) Roles
+            @endnavitem
         </ul>
     </div>
 </div>

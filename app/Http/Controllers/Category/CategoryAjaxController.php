@@ -14,7 +14,7 @@ class CategoryAjaxController extends Controller
     public function index()
     {
         return response([
-            'data' => CategoryResource::collection(Category::all())
+            'data' => CategoryResource::collection(Category::withCount('articles')->get())
         ]);
     }
 }

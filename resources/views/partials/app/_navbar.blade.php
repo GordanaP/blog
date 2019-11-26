@@ -16,7 +16,7 @@
                         All articles
                     </a>
                 </li>
-                @author
+                @author(Auth::user())
                     <li class="nav-item uppercase text-xs tracking-wide">
                         <a class="nav-link text-white"
                         href="{{ route('users.articles.index', Auth::user()) }}">

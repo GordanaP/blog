@@ -76,6 +76,19 @@ class Handler extends ExceptionHandler
             ], 404);
         }
 
+        if ($exception instanceof QueryException && $request->ajax()) {
+            return response()->json([
+                'errors' => [
+                    'ids' => [
+                        0 => 'The selected value is invalid.'
+                    ],
+                ]
+            ], 404);
+        }
+        // else {
+        //     return redirect('/');
+        // }
+
         return parent::render($request, $exception);
     }
 }

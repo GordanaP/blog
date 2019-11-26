@@ -34,9 +34,10 @@ class ArticleController extends Controller
             ->newest()
             ->paginate(5);
 
+
         return view('articles.index')->with([
             'articles' => $published,
-            'user' => null
+            'articles_count' => Article::count(),
         ]);
     }
 
@@ -98,7 +99,6 @@ class ArticleController extends Controller
     {
         ArticleService::update($request->validated());
 
-        // return redirect()->route('articles.show', $article);
         return redirect()->route('admin.articles.index');
     }
 

@@ -16,7 +16,7 @@ class ArticleService extends DeleteModel
     private $article;
     private $user;
     private $tags = [];
-    private $image = '';
+    private $image;
 
     public function __construct()
     {

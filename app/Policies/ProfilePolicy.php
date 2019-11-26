@@ -41,7 +41,7 @@ class ProfilePolicy
      */
     public function create(User $user)
     {
-        return $user->is_author && ! $user->hasProfile();
+        // return $user->is_author && ! $user->hasProfile();
     }
 
     /**
@@ -53,7 +53,7 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile)
     {
-        return $user->owns($profile);
+        // return $user->owns($profile);
     }
 
     /**
@@ -65,7 +65,7 @@ class ProfilePolicy
      */
     public function delete(User $user, Profile $profile)
     {
-        return $user->owns($profile);
+        // return $user->owns($profile);
     }
 
     /**

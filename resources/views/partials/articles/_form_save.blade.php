@@ -2,7 +2,7 @@
 
     @csrf
 
-    @if (request()->route('article'))
+    @if (Request::route('article'))
         @method('PUT')
     @endif
 
@@ -13,14 +13,20 @@
         <div class="form-group">
             <label for="user_id">Author: @asterisks @endasterisks</label>
             <select name="user_id" id="user_id" class="form-control">
-                <option value="">Select the author</option>
-                @foreach ($authors as $author)
-                    <option value="{{ $author->id }}"
-                        {{ getSelected($author->id, old('user_id', $article->user_id ?? null)) }}
-                    >
-                        {{ $author->profile->full_name }}
+                @if (request()->route('user'))
+                    <option value="{{ $user->id }}" selected>
+                        {{ optional($user->profile)->full_name ?? $user->email }}
                     </option>
-                @endforeach
+                @else
+                    <option value="">Select the author</option>
+                    @foreach ($authors as $author)
+                        <option value="{{ $author->id }}"
+                            {{ getSelected($author->id, old('user_id', $article->user_id ?? null)) }}
+                        >
+                            {{ optional($author->profile)->full_name ??  $author->email}}
+                        </option>
+                    @endforeach
+                @endif
             </select>
 
             @formError(['field' => 'user_id'])@endformError
@@ -31,7 +37,7 @@
     <div class="form-group">
         <label for="title">Title @asterisks @endasterisks</label>
         <input type="text" name="title" id="title" class="form-control"
-        placeholder="Article Title" value="{{  old('title', $article->title ?? null) }}">
+        placeholder="Article Title" value="{{ old('title', $article->title ?? null) }}">
 
         @formError(['field' => 'title'])@endformError
     </div>

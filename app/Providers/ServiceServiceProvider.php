@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Tag\TagService;
+use App\Services\Role\RoleService;
 use App\Services\User\UserService;
+use App\Services\Profile\ProfileService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Article\ArticleService;
 use App\Services\Category\CategoryService;
@@ -19,8 +22,20 @@ class ServiceServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind('TagService', function($app){
+            return new TagService;
+        });
+
+        $this->app->bind('RoleService', function($app){
+            return new RoleService;
+        });
+
         $this->app->bind('CategoryService', function($app){
             return new CategoryService;
+        });
+
+        $this->app->bind('ProfileService', function($app){
+            return new ProfileService;
         });
 
         $this->app->bind('UserService', function($app){
